@@ -1,0 +1,527 @@
+/* Project Aurora V3.1*/
+/* https://mikukonai.com/ */
+/* Markdown 样式CSS */
+
+/* 以下是PC端和移动端共用的样式 */
+
+.md-table-container {
+    overflow-x: auto;
+    margin: 20px auto 20px auto;
+    border-radius: 8px;
+    box-shadow: 0 1px 1px 0 rgba(64,64,64,0.08), 0 1px 3px 1px rgba(64,64,64,0.16);
+}
+strong { font-weight: bold; }
+s, strike, del { text-decoration: line-through; }
+i, cite, em, var, address, dfn { font-style: italic;}
+
+.code-number { color:#44aadd; }
+.code-comment { color:#999999; /*font-weight:bold;*/ }
+.code-keyword { color:#1111ff; /*font-weight:bold;*/ }
+.code-string { color:green; }
+.code-boolean { color:#66ccff; }
+.code-type { color: #af00db; }
+.code-macro { color:#2E8B57; font-weight:bold; }
+.code-operator { color:#111111; }
+.code-function { color:#795e26; }
+.code-quote { color:#228B22; }
+.code-precompile { color:#800080; }
+.code-identifier { color:#000000; }
+.code-member { color:#ff0000; }
+
+/* 用于页面定位时将位置偏移一个顶栏高度的距离的锚 */
+.target-fix { position: relative; margin: 0; display: block; height: 0; overflow: hidden;
+    top: -53px;
+}
+
+
+/* 文章内部的控件的样式 */
+.md-button {
+    line-height:0px;
+    height:30px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    color: #00aaff;
+    border: 1px solid #e1f5ff;
+    background-color: #e1f5ff;
+    padding: 3px 10px 3px 10px;
+}
+.md-button:hover {
+    color: #33bbff;
+    background-color: #c5ecff;
+    border: 1px solid #c5ecff;
+}
+.md-button:active {
+    color: #ffffff;
+    background-color: #40bfff;
+    border: 1px solid #40bfff;
+}
+.md-button:disabled {
+    color: #888888;
+    background-color: #eeeeee;
+    border: 1px solid #eeeeee;
+}
+
+.md-button-red {
+    line-height:0px;
+    height:30px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    color: #ff5888;
+    border: 1px solid #ffefef;
+    background-color: #ffefef;
+    padding: 3px 10px 3px 10px;
+}
+.md-button-red:hover {
+    color: #ff5888;
+    background-color: #ffdce7;
+    border: 1px solid #ffdce7;
+}
+.md-button-red:active {
+    color: #ffffff;
+    background-color: #ff5888;
+    border: 1px solid #ff5888;
+}
+.md-button-red:disabled {
+    color: #888888;
+    background-color: #eeeeee;
+    border: 1px solid #eeeeee;
+}
+
+.md-button-green {
+    line-height:0px;
+    height:30px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    color: #60c700;
+    border: 1px solid #e7ffd0;
+    background-color: #e7ffd0;
+    padding: 3px 10px 3px 10px;
+}
+.md-button-green:hover {
+    color: #60c700;
+    background-color: #d8fcb7;
+    border: 1px solid #d8fcb7;
+}
+.md-button-green:active {
+    color: #ffffff;
+    background-color: #60c700;
+    border: 1px solid #60c700;
+}
+.md-button-green:disabled {
+    color: #888888;
+    background-color: #eeeeee;
+    border: 1px solid #eeeeee;
+}
+
+.md-button-yellow {
+    line-height:0px;
+    height:30px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    color: #d6b600;
+    border: 1px solid #fff7c7;
+    background-color: #fff7c7;
+    padding: 3px 10px 3px 10px;
+}
+.md-button-yellow:hover {
+    color: #d6b600;
+    background-color: #fff2ac;
+    border: 1px solid #fff2ac;
+}
+.md-button-yellow:active {
+    color: #ffffff;
+    background-color: #ffd900;
+    border: 1px solid #ffd900;
+}
+.md-button-yellow:disabled {
+    color: #888888;
+    background-color: #eeeeee;
+    border: 1px solid #eeeeee;
+}
+
+/* 以下类仅用于按钮 */
+.btn-fullwidth { width: 100%; }
+.btn-green {background: #00bb00;}
+.btn-green:hover {background: #00aa00;}
+.btn-red {background: #ff4555;}
+.btn-red:hover {background: #cc4555;}
+.btn-orange {background: #ffa722;}
+.btn-orange:hover {background: #f19100;}
+
+
+/* PC端：宽度大于651px的设备 */
+@media(min-width:651px){
+
+    /******** PC端 Markdown 样式变量 ********/
+    :root {
+        --p_font_size: 14px;       /* 正文段落 字体大小，此值是全部正文字体的基准大小 */
+        --p_line_height: 24px;     /* 正文段落 行高 */
+        --p_margin_bottom: 20px;   /* 正文段落 底部段间距 */
+        --p_color: #505050;      /* 正文段落 字体颜色 */
+
+        --quote_p_margin: 10px;    /* 引用段落 上下段间距 */
+
+        --hx_margin_bottom: 15px;  /* 标题 底部间距*/
+
+        --table_border_color: #f5f5f5; /* 表格 边框颜色（同单元格边框颜色）*/
+        --cell_line_height: 21px;        /* 单元格 行高*/
+        --cell_padding_hori: 14px;       /* 单元格 左右边距*/
+        --cell_padding_vert: 7px;        /* 单元格 上下边距*/
+
+        --code_line_height: 20px;          /* 代码 行高 */
+        --code_background_color:#f7f7f7; /* 代码 背景色 */
+
+        --img_max_width: 500px;      /* 图片 最大宽度 */
+        --img_max_height: 800px;     /* 图片 最大高度 */
+    }
+
+    /******** PC端 Markdown 样式开始 ********/
+
+    /* 段落基础样式（只可改动参数） */
+    p {
+        margin: var(--p_margin_bottom) 0;
+        color: var(--p_color);
+        font-size: var(--p_font_size);
+        line-height: var(--p_line_height);
+        word-wrap: break-word;
+        overflow-x: auto;
+    }
+
+    /* 表格和单元格基础样式（只可改动参数） */
+    .md-table {
+        color: var(--p_color);
+        font-size: calc(var(--p_font_size) - 1px);
+        /* border: 2px solid var(--table_border_color); */
+        border-collapse: collapse;
+        width: 100%;
+        background-color: transparent;
+        border-spacing: 0;
+    }
+    .md-table tr {
+        border-bottom: 1px solid var(--table_border_color);
+    }
+    .md-table td,.md-table th {
+        min-width: 4em;
+        line-height: var(--cell_line_height);
+        vertical-align: middle;
+        text-align: center;
+        padding: var(--cell_padding_vert) var(--cell_padding_hori);
+    }
+    /* 去掉表头和最后一行的横线 */
+    .md-table tr:last-child, .md-table tr:first-child {
+        border: none;
+    }
+    /* 表头样式（可直接改动） */
+    .md-table th {
+        font-weight: bold;
+        background-color: #f5f5f5;
+    }
+    
+    /* 各级标题基础样式（只可改动参数） */
+    h1, h2, h3, h4, h5, h6 {
+        margin: calc(var(--hx_margin_bottom) / 2) 0 var(--hx_margin_bottom) 0;
+        font-family: inherit;
+        font-weight: normal;
+        letter-spacing: 1px;
+        text-rendering: optimizelegibility;
+    }
+    
+    /* 标题样式（可直接改动） */
+    h1{font-size:22px;line-height:40px;font-weight:bold;color:var(--p_color);}
+    h2{font-size:19px;line-height:36px;font-weight:bold;color:var(--p_color);}
+    h3{font-size:17px;line-height:30px;font-weight:bold;color:var(--p_color);}
+    h4{font-size:15px;line-height:23px;font-weight:bold;color:var(--p_color);}
+    h5{font-size:14px;line-height:23px;font-weight:bold;color:var(--p_color);}
+    h6{font-size:14px;line-height:23px;font-weight:bold;color:var(--p_color);}
+    
+    /* 引用框样式（部分可直接改动） */
+    blockquote {
+        background-color: inherit;
+        font-size: calc(var(--p_font_size) - 1px);
+        line-height: calc(var(--p_line_height) - 2px);
+        padding: 5px 10px 5px 14px;
+        margin: var(--p_margin_bottom) 0;
+        border-left: 3px solid #99ddff;
+        border-radius: 5px;
+        box-shadow: 0 1px 1px 0 rgba(64,64,64,0.08), 0 1px 3px 1px rgba(64,64,64,0.16);
+    }
+    blockquote p {
+        margin: var(--quote_p_margin) 0;
+        font-size: inherit;
+        line-height: inherit;
+        overflow-x: auto;
+    }
+    blockquote ul, blockquote ol {
+        font-size: inherit;
+        line-height: inherit;
+    }
+
+    /* 超链接样式（部分可直接改动） */
+    a {
+        color: inherit;
+        text-decoration: none;
+        border-bottom: 1px dotted var(--p_color);
+    }
+    a:hover{
+        color: #0066dd;
+        text-decoration:none;
+        border-bottom: 1px dotted #0066dd;
+    }
+
+    /* 列表和表项样式（部分可直接改动） */
+    ul, ol {
+        color: var(--p_color);
+        padding-left: 2em;
+        text-indent: 0;
+        font-size: var(--p_font_size);
+        margin: calc(var(--p_margin_bottom) / 2) 0;
+        display: block;
+        line-height: var(--p_line_height);
+        font-weight: inherit;
+        word-wrap:break-word;
+    }
+    li {
+        max-width: 100%;
+        line-height: var(--p_line_height);
+        word-wrap:break-word;
+    }
+    
+    /* 代码区样式（部分可直接改动） */
+    code {
+        padding: 2px 4px;
+        background-color: var(--code_background_color);
+        font-size: calc(var(--p_font_size) - 1px);
+        line-height: var(--code_line_height);
+        border-radius: 3px;
+        font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+        -webkit-font-smoothing: antialiased;
+    }
+    pre {
+        tab-size: 4;
+        display: block;
+        padding: 10px;
+        margin: var(--p_margin_bottom) 0;
+        overflow-x: auto;
+        background-color: var(--code_background_color);
+        border-radius: 5px;
+    }
+    pre code { padding: 0; }
+
+    /* 图片样式（部分可直接改动） */
+    img {
+        max-width: var(--img_max_width);
+        max-height: var(--img_max_height);
+        vertical-align: middle;
+        border: none;
+    }
+    div.imgbox {
+        padding: 10px 0;
+        margin: var(--p_margin_bottom) auto;
+        text-align: center;
+    }
+    div.imgtitle {
+        font-size: calc(var(--p_font_size) - 1px);
+        line-height: calc(var(--p_line_height) - 1px);
+        margin-top: 8px;
+        color: #999999;
+    }
+
+    /* 水平线（可直接改动） */
+    hr {
+        margin: var(--p_margin_bottom) 0px;
+        height: 0px;
+        border: 0;
+        border-top: 2px solid #eeeeee;
+        border-bottom: 1px solid #ffffff;
+    }
+    /******** PC端 Markdown 样式结束 ********/
+}
+
+
+
+
+
+/* 移动端：屏幕宽度小于650px */
+@media(max-width:650px){
+
+    /******** 移动端 Markdown 样式变量 ********/
+    :root {
+        --p_font_size: 14px;       /* 正文段落 字体大小，此值是全部正文字体的基准大小 */
+        --p_line_height: 24px;     /* 正文段落 行高 */
+        --p_margin_bottom: 11px;   /* 正文段落 底部段间距 */
+        --p_color: #505050;      /* 正文段落 字体颜色 */
+
+        --quote_p_margin: 10px;    /* 引用段落 上下段间距 */
+
+        --hx_margin_bottom: 11px;  /* 标题 底部间距*/
+
+        --table_border_color: #f5f5f5; /* 表格 边框颜色（同单元格边框颜色）*/
+        --cell_line_height: 21px;        /* 单元格 行高*/
+        --cell_padding_hori: 5px;       /* 单元格 左右边距*/
+        --cell_padding_vert: 5px;        /* 单元格 上下边距*/
+
+        --code_line_height: 20px;          /* 代码 行高 */
+        --code_background_color:#f7f7f7; /* 代码 背景色 */
+
+        --img_max_width: 320px;      /* 图片 最大宽度 */
+        --img_max_height: 800px;     /* 图片 最大高度 */
+    }
+
+    /******** 移动端 Markdown 样式开始 ********/
+
+    /* 段落基础样式（只可改动参数） */
+    p {
+        margin: var(--p_margin_bottom) 0;
+        color: var(--p_color);
+        font-size: var(--p_font_size);
+        line-height: var(--p_line_height);
+        word-wrap: break-word;
+        overflow-x: auto;
+    }
+
+    /* 表格和单元格基础样式（只可改动参数） */
+    .md-table {
+        color: var(--p_color);
+        font-size: calc(var(--p_font_size) - 1px);
+        /* border: 2px solid var(--table_border_color); */
+        border-collapse: collapse;
+        width: 100%;
+        background-color: transparent;
+        border-spacing: 0;
+    }
+    .md-table tr {
+        border-bottom: 1px solid var(--table_border_color);
+    }
+    .md-table td,.md-table th {
+        min-width: 4em;
+        line-height: var(--cell_line_height);
+        vertical-align: middle;
+        text-align: center;
+        /* border: 1px solid var(--table_border_color); */
+        padding: var(--cell_padding_vert) var(--cell_padding_hori);
+    }
+    /* 去掉表头和最后一行的横线 */
+    .md-table tr:last-child, .md-table tr:first-child {
+        border: none;
+    }
+    /* 表头样式（可直接改动） */
+    .md-table th {
+        font-weight: bold;
+        background-color: #f9f9f9;
+    }
+    
+    /* 各级标题基础样式（只可改动参数） */
+    h1, h2, h3, h4, h5, h6 {
+        margin: calc(var(--hx_margin_bottom) / 2) 0 var(--hx_margin_bottom) 0;
+        font-family: inherit;
+        font-weight: normal;
+        letter-spacing: 1px;
+        text-rendering: optimizelegibility;
+    }
+    
+    /* 标题样式（可直接改动） */
+    h1{font-size:21px;line-height:40px;font-weight:bold;color:var(--p_color);}
+    h2{font-size:18px;line-height:36px;font-weight:bold;color:var(--p_color);}
+    h3{font-size:16px;line-height:30px;font-weight:bold;color:var(--p_color);}
+    h4{font-size:14px;line-height:23px;font-weight:bold;color:var(--p_color);}
+    h5{font-size:14px;line-height:23px;font-weight:bold;color:var(--p_color);}
+    h6{font-size:14px;line-height:23px;font-weight:bold;color:var(--p_color);}
+    
+    /* 引用框样式（部分可直接改动） */
+    blockquote {
+        background-color: inherit;
+        font-size: calc(var(--p_font_size) - 1px);
+        line-height: calc(var(--p_line_height) - 2px);
+        padding: 5px 10px 5px 14px;
+        margin: var(--p_margin_bottom) 0;
+        border-left: 3px solid #99ddff;
+        border-radius: 5px;
+        box-shadow: 0 1px 1px 0 rgba(64,64,64,0.08), 0 1px 3px 1px rgba(64,64,64,0.16);
+    }
+    blockquote p {
+        margin: var(--quote_p_margin) 0;
+        font-size: inherit;
+        line-height: inherit;
+        overflow-x: auto;
+    }
+    blockquote ul, blockquote ol {
+        font-size: inherit;
+        line-height: inherit;
+    }
+
+    /* 超链接样式（部分可直接改动） */
+    a{color: #558bc4;text-decoration: none;}
+    a:hover{color:#0066dd;text-decoration:underline;}
+
+    /* 列表和表项样式（部分可直接改动） */
+    ul, ol {
+        color: var(--p_color);
+        padding-left: 2em;
+        text-indent: 0;
+        font-size: var(--p_font_size);
+        margin: calc(var(--p_margin_bottom) / 2) 0;
+        display: block;
+        line-height: var(--p_line_height);
+        font-weight: inherit;
+        word-wrap:break-word;
+    }
+    li {
+        max-width: 100%;
+        line-height: var(--p_line_height);
+        word-wrap:break-word;
+    }
+    
+    /* 代码区样式（部分可直接改动） */
+    code {
+        padding: 2px 4px;
+        background-color: var(--code_background_color);
+        font-size: calc(var(--p_font_size) - 1px);
+        line-height: var(--code_line_height);
+        border-radius: 3px;
+        font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+        -webkit-font-smoothing: antialiased;
+    }
+    pre {
+        tab-size: 4;
+        display: block;
+        padding: 10px;
+        margin: var(--p_margin_bottom) 0;
+        overflow-x: auto;
+        background-color: var(--code_background_color);
+        border-radius: 5px;
+    }
+    pre code { padding: 0; }
+
+    /* 图片样式（部分可直接改动） */
+    img {
+        max-width: var(--img_max_width);
+        max-height: var(--img_max_height);
+        vertical-align: middle;
+        border: none;
+    }
+    div.imgbox {
+        padding: 10px 0;
+        margin: var(--p_margin_bottom) auto;
+        text-align: center;
+    }
+    div.imgtitle {
+        font-size: calc(var(--p_font_size) - 1px);
+        line-height: calc(var(--p_line_height) - 1px);
+        margin-top: 8px;
+        color: #999999;
+    }
+
+    /* 水平线（可直接改动） */
+    hr {
+        margin: var(--p_margin_bottom) 0px;
+        height: 0px;
+        border: 0;
+        border-top: 2px solid #eeeeee;
+        border-bottom: 1px solid #ffffff;
+    }
+    /******** 移动端 Markdown 样式结束 ********/
+}

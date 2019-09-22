@@ -1,0 +1,897 @@
+<!-- Project Aurora - Blog Framework V3.3 (SPA-style)-->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+<link rel="stylesheet" type="text/css" href="./css/framework.css" charset="utf-8"/>
+<title>Project Aurora</title>
+</head>
+<body>
+
+<!--进度条-->
+<div class="progressbar" id="progressbar"></div>
+<!--页面框架-->
+<div class="main-box">
+    <!--上部标题-->
+    <header class="top_title"></header>
+    <!--栏目切换按钮-->
+    <div class="top_sticky">
+        <button class="item_top top_active spa-switch" data-target="index">首 页</button><button class="item_top spa-switch" data-target="inspiration">灵 感</button><button class="item_top spa-switch" data-target="articles">文 章</button><button class="item_top spa-switch" data-target="links">书 签</button><button class="item_top spa-switch" data-target="about">关 于</button>
+    </div>
+    <!--SPA页面内容-->
+    <div class="spa-content"></div>
+    <!--底部版权栏-->
+    <footer class="fw-bottom-copyright">
+        <p class="fw-bottom-copyright-content gradient">☆ Project Aurora V3.3 ☆</p>
+        <p class="fw-bottom-copyright-content">版权所有 © 2016-<span class="copyright_year"></span> Mikukonai</p>
+    </footer>
+</div>
+<!--页面框架结束-->
+
+<!--页面内容模板-->
+
+<!--index模板-->
+<template class="index" id="index">
+    <div class="index_item">
+        <div class="index_article_intro">
+            <table class="index_item_table"><tr>
+                <td class="index_item_table_left">
+                    <div class="index_item_title"><span class="index_item_title_prefix">壹</span><a class="index_item_a" href="https://github.com/mikukonai/AuroraScheme">AuroraScheme</a><span class="index_item_developing">填坑中</span></div>
+                    <div class="index_item_content">
+                        <code>(<span style="color:#6ecfff;">lambda</span> (creates) the <span style="color:#ffafcb;">world</span>)</code>
+                    </div>
+                </td>
+                <td class="index_item_table_right">
+                    <div style="float:right;margin: auto 7px auto auto;width:50px; height:50px;">
+                        <img style="width:100%; height:100%" src="./image/logos/AuroraScheme-Logo-icon.png"/>
+                    </div>
+                </td>
+            </tr></table>
+        </div>
+    </div>
+
+    <div class="index_item">
+        <div class="index_article_intro">
+            <table class="index_item_table"><tr>
+                <td class="index_item_table_left">
+                    <div class="index_item_title"><span class="index_item_title_prefix">贰</span><a class="index_item_a" href="./article.html?id=%E7%87%83%E7%83%A7%E4%BD%A0%E7%9A%84%E5%8D%A1%E8%B7%AF%E9%87%8C">燃烧你的卡路里！</a><span class="index_item_developing">填坑中</span></div>
+                    <div class="index_item_content">
+                        二十一世纪是生命科学的世纪~
+                    </div>
+                </td>
+                <td class="index_item_table_right">
+                    <span style="font-size: 30px;">🍋</span>
+                </td>
+            </tr></table>
+        </div>
+    </div>
+
+    <div class="index_item">
+        <div class="index_article_intro">
+            <table class="index_item_table"><tr>
+                <td class="index_item_table_left">
+                    <div class="index_item_title"><span class="index_item_title_prefix">叁</span><a class="index_item_a" href="./article.html?id=我想给你整个世界">我想给你整个世界</a><span class="index_item_developing">填坑中</span></div>
+                    <div class="index_item_content">
+                        好啊，那你整吧。
+                    </div>
+                </td>
+                <td class="index_item_table_right">
+                    <span style="font-size: 30px;">🌌</span>
+                </td>
+                <!-- <td class="index_item_table_right">
+                    <div style="float:right;margin: auto 0 auto auto;width:60px; height:60px;">
+                        <img style="width:100%; height:100%" src="./image/cover/nikki.jpg"/>
+                    </div>
+                </td> -->
+            </tr></table>
+        </div>
+    </div>
+
+    <div class="index_all_article">
+        <a class="index_all_article_link spa-switch" href="#/articles" data-target="articles">全部文章 »</a>
+    </div>
+
+    <!-- <div style="color:#bbbbbb;margin: 10px 0;font-size: 14px;line-height: 22px;text-align: center;">
+        <a class="index_bottom_link" style="color:orange;" href="https://mikukonai.com/feed.xml">RSS</a><span class="bar">/</span><a class="index_bottom_link" href="https://github.com/mikukonai/mikukonai.github.io/blob/master/README.md" target="_blank">关于博客</a>
+    </div> -->
+    <style>.foot_link { color: inherit; text-decoration: none; border-bottom: 1px dotted #cccccc;} .foot_link:hover {color: #ff88a9; border-bottom: 1px dotted #ff88a9;}</style>
+    <!-- <div class="articles_content_ending" style="margin: 0;">题图作者：<a class="foot_link" href="https://www.pixiv.net/member_illust.php?mode=medium&illust_id=66037995">ALPCMAS</a></div> -->
+
+    <script>
+    (function() {
+        // 进场动画
+        let showTime = 0;
+        $(".index_item").each(function(i,e) {
+            $(e).css({'opacity':0,'margin-top':'-5px'});
+            setTimeout(function() {
+                $(e).animate({'opacity':1.0,'margin-top':'5px'}, 800);
+            }, showTime);
+            showTime += 300;
+        });
+    })();
+    </script>
+</template>
+
+
+
+
+<!--inspiration模板-->
+<template id="inspiration">
+    <div class="goTop" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');">TOP</div>
+    <div class="timeline-container">
+        <div id="poster_anchor"></div>
+        <div class="content-ending" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"></div>
+    </div>
+    <script src="./js/inspiration-parser.js"></script>
+    <script>
+    (function() {
+        const MAX_ARTICLE_LENGTH = 60000; // 最大字节数，用于近似计算加载进度
+        $('.content-ending').html('正在读取，请稍等…');
+        $.ajax({
+            type: "GET",
+            url: `./markdown/-inspiration.md`,
+            success: (data)=> {
+                $("#progressbar").animate({width: `100%`});
+                $("#progressbar").fadeOut();
+                // 这里解析MD为HTML
+                let iparser = InspirationParser(data);
+                iparser.Render();
+            },
+            error: ()=> {
+                $("#progressbar").animate({width: `100%`});
+                $("#progressbar").fadeOut();
+                $('.content-ending').html('灵感不见了 >_<');
+            },
+            // 2018.01.20 加载进度条
+            xhr: function() {
+                var xhr = $.ajaxSettings.xhr();
+                xhr.onprogress = function(event) {
+                    let percentage = parseInt((event.loaded / MAX_ARTICLE_LENGTH) * 100);
+                    $("#progressbar").animate({width: `${((percentage > 100) ? 100 : percentage)}%`});
+                };
+                return xhr;
+            }
+        });
+    })();
+    </script>
+</template>
+
+
+
+
+
+<!--articles模板-->
+<template id="articles">
+    <div class="articles_sort_option">
+        <span id="date-dec" class="articles_sort_option_button_left">日期降序</span><span id="category" class="articles_sort_option_button_right">分类归类</span>
+    </div>
+    <div id="list_container"></div>
+    <div class="articles_content_ending">题图作者：silverwing (PixivID:24281303)</div>
+    <script>
+    function parseArticleList(articleList) {
+        let CATEGORIES = new Array();
+        let ARTICLES = new Array();
+        let lines = articleList.split(/\n+/gi);
+        let currentCategory = -1;
+        for(let line of lines) {
+            // 跳过空行或者注释行
+            if(line.length <= 0 || line[0] === ';') {
+                continue;
+            }
+            // 表示文章分类的行
+            else if(/^\#\#\s/.test(line)) {
+                CATEGORIES.push(line.substring(3));
+                currentCategory = CATEGORIES.length-1;
+            }
+            // 文章信息行
+            else {
+                let fields = line.split('|');
+                let title     = fields[0] ? fields[0].trim() : "";
+                let articleID = fields[1] ? fields[1].trim() : "";
+                let date      = fields[2] ? fields[2].trim() : "";
+                let type      = fields[3] ? fields[3].trim() : "";
+                let flag      = fields[4] ? fields[4].trim() : "";
+                ARTICLES.push({
+                    "title": title,
+                    "link": `./article.html?id=${articleID}`,
+                    "date": date,
+                    "type": type,
+                    "category": currentCategory,
+                    "flag": flag
+                });
+            }
+        }
+        let contents = {
+            "CATEGORIES": CATEGORIES,
+            "ARTICLES": ARTICLES
+        };
+        console.log(contents);
+        return contents;
+    }
+
+    function getTypeColor(type) {
+        const TYPE_COLOR = {
+            "原创":"#9dd9ff",
+            "翻译":"#ffcc6c",
+            "转载":"#aadd33",
+            "置顶":"pink",
+        };
+        return (type in TYPE_COLOR) ? TYPE_COLOR[type] : '#cccdcd';
+    }
+    function generateArticleList(CONTENTS, sortOption) {
+        const addPreZero = function(num) {
+            return ('000' + num.toString()).substr(-2);
+        };
+        // 按类别归类
+        if(sortOption === 'category') {
+            // 每一类生成一组html，然后拼接起来
+            let html = new Array(CONTENTS.CATEGORIES.length);
+            for(let i = 0; i < CONTENTS.CATEGORIES.length; i++) { html[i] = ''; }
+            for(let i = 0; i < CONTENTS.ARTICLES.length; i++) {
+                let item = CONTENTS.ARTICLES[i];
+                let flagSpan = (item.flag.length > 0) ? ('<span class="articles_item_flag">' + item.flag + '</span>') : '';
+                // 先组装HTML
+                let itemNumberBgColor = (item.flag === "置顶") ? getTypeColor('置顶') : getTypeColor(item.type);
+                let itemTypeTag = item.type;
+                let htmlstr = `<div class="articles_item_line enter"><span class="articles_item_number" style="color:${itemNumberBgColor};border-color:${itemNumberBgColor};">${addPreZero(i+1)}</span><span style="display:inline-block;max-width:50%;"><a class="article_link" href="${item.link}">${item.title}</a>${flagSpan}</span><span class="articles_item_date"><span style="color:${itemNumberBgColor};">${itemTypeTag}</span> · ${item.date}</span></div>`;
+
+                html[item.category] += htmlstr;
+            }
+            let listHtml = '';
+            for(let i = 0; i < CONTENTS.CATEGORIES.length; i++) {
+                let title = CONTENTS.CATEGORIES[i].split('|')[0];
+                let subtitle = CONTENTS.CATEGORIES[i].split('|')[1];
+                listHtml += `<div class="articles_category_list" id="c${i}"><div class="articles_category_title enter">${title}<span class="articles_category_title_en"> · ${subtitle}</span></div>`;
+                listHtml += html[i];
+                listHtml += '</div>';
+            }
+            document.getElementById('list_container').innerHTML = listHtml;
+        }
+        // 按日期降序
+        else if(sortOption === 'date-dec') {
+            let html = '<div class="articles_category_list" id="date-dec">';
+            let indexArray = sortByDate(CONTENTS, 1);
+            for(let i = 0; i < indexArray.length; i++) {
+                let item = CONTENTS.ARTICLES[indexArray[i]];
+                let flagSpan = (item.flag.length > 0) ? ('<span class="articles_item_flag">' + item.flag + '</span>') : '';
+                let itemNumberBgColor = (item.flag === "置顶") ? getTypeColor('置顶') : getTypeColor(item.type);
+                let itemTypeTag = item.type;
+                html += `<div class="articles_item_line enter"><span class="articles_item_number" style="color:${itemNumberBgColor};border-color:${itemNumberBgColor};">${addPreZero(i+1)}</span><span style="display:inline-block;max-width:50%;"><a class="article_link" href="${item.link}">${item.title}</a>${flagSpan}</span><span class="articles_item_date"><span style="color:${itemNumberBgColor};">${itemTypeTag}</span> · ${item.date}</span></div>`;
+            }
+            html += `</div>`;
+            document.getElementById('list_container').innerHTML = html;
+        }
+        // 默认顺序
+        else {
+            let html = '<div class="articles_category_list" id="date-dec"><table class="category_item_table">';
+            for(let i = 0; i < CONTENTS.ARTICLES.length; i++) {
+                let item = CONTENTS.ARTICLES[i];
+                let flagSpan = (item.flag.length > 0) ? ('<span class="flag">' + item.flag + '</span>') : '';
+                html += `<tr class="articles_item_line enter"><td><span class="articles_item_number" style="background-color:${getTypeColor(item.type)};">${addPreZero(i+1)}</span><a class="article_link" href="${item.link}">${item.title}</a>${flagSpan}<span class="article_date"><span style="color:${getTypeColor(item.type)};">${item.type}</span> | ${item.date}</span></td></tr>`;
+            }
+            html += `</table></div>`;
+            document.getElementById('list_container').innerHTML = html;
+        }
+        // 文章标题进场动画
+        let showTime = 0;
+        $(".enter").each(function(i,e) {
+            $(e).css({'display':'block','opacity':0,'margin-top':'-5px'});
+            setTimeout(function() {
+                $(e).animate({'opacity':1.0,'margin-top':'0px'}, 500);
+            }, showTime);
+            showTime += 30;
+        });
+    }
+    function compareDate(a, b) {
+        if(/20\d{2}-\d{2}-\d{2}/gi.test(a) !== true && /20\d{2}-\d{2}-\d{2}/gi.test(b) !== true) {
+            return 0;
+        }
+        else if(/20\d{2}-\d{2}-\d{2}/gi.test(a) === true && /20\d{2}-\d{2}-\d{2}/gi.test(b) !== true){
+            return -1;
+        }
+        else if(/20\d{2}-\d{2}-\d{2}/gi.test(a) !== true && /20\d{2}-\d{2}-\d{2}/gi.test(b) === true){
+            return 1;
+        }
+        else {
+            let yearA = parseInt(a.substring(0,4));
+            let yearB = parseInt(b.substring(0,4));
+            let monthA = parseInt(a.substring(5,7));
+            let monthB = parseInt(b.substring(5,7));
+            let dayA = parseInt(a.substring(8));
+            let dayB = parseInt(b.substring(8));
+            if(yearA === yearB) {
+                if(monthA === monthB) {
+                    if(dayA === dayB) { return 0; }
+                    else { return (dayA > dayB) ? (-1) : (1); } }
+                else { return (monthA > monthB) ? (-1) : (1); } }
+            else { return (yearA > yearB) ? (-1) : (1); }
+        }
+    }
+    function sortByDate(CONTENTS, order) {
+        // 首先扫描一遍CONTENTS.ARTICLES
+        let dateArray = new Array();
+        for(let i = 0; i < CONTENTS.ARTICLES.length; i++) {
+            dateArray.push({
+                index: i,
+                date: CONTENTS.ARTICLES[i].date,
+                isTop: (CONTENTS.ARTICLES[i].flag === "置顶"),
+            });
+        }
+        // 对日期进行排序
+        dateArray.sort(function(a, b) {
+            if(a.isTop) {
+                return -1;
+            }
+            else if(b.isTop) {
+                return 1;
+            }
+            else {
+                return order * compareDate(a.date, b.date);
+            }
+        });
+        // 取出index
+        let indexArray = new Array();
+        for(let i = 0; i < dateArray.length; i++) {
+            indexArray.push(dateArray[i].index);
+        }
+        return indexArray;
+    }
+    (function() {
+        const MAX_ARTICLE_LENGTH = 20000;
+        $('.articles_content_ending').html('正在读取，请稍等…');
+        $.ajax({
+            type: "GET",
+            url: `./markdown/-articles.md`,
+            success: (data)=> {
+                $("#progressbar").animate({width: `100%`});
+                $("#progressbar").fadeOut();
+                let CONTENTS = parseArticleList(data);
+
+
+                //////////////////////////////////////////////////
+                //
+                // 默认排序规则（ date-dec category ）
+                //
+                let defaultRule = 'category';
+                //
+                //////////////////////////////////////////////////
+
+
+                generateArticleList(CONTENTS, defaultRule);
+                document.getElementById(defaultRule).classList.add('articles_sort_option_button_selected');
+                // 排序按钮动作
+                document.getElementById('date-dec').addEventListener('click', ()=>{
+                    document.getElementById('date-dec').classList.add('articles_sort_option_button_selected');
+                    document.getElementById('category').classList.remove('articles_sort_option_button_selected');
+                    generateArticleList(CONTENTS, 'date-dec');
+                });
+                document.getElementById('category').addEventListener('click', ()=>{
+                    document.getElementById('category').classList.add('articles_sort_option_button_selected');
+                    document.getElementById('date-dec').classList.remove('articles_sort_option_button_selected');
+                    generateArticleList(CONTENTS, 'category');
+                });
+
+                $('.articles_content_ending').html('题图作者：silverwing (PixivID:24281303)');
+            },
+            error: ()=> {
+                $("#progressbar").animate({width: `100%`});
+                $("#progressbar").fadeOut();
+                $('.articles_content_ending').html('文章列表获取失败 >_<');
+            },
+            xhr: function() {
+                var xhr = $.ajaxSettings.xhr();
+                xhr.onprogress = function(event) {
+                    let percentage = parseInt((event.loaded / MAX_ARTICLE_LENGTH) * 100);
+                    $("#progressbar").animate({width: `${((percentage > 100) ? 100 : percentage)}%`});
+                };
+                return xhr;
+            }
+        });
+    })();
+    </script>
+
+
+</template>
+
+
+
+
+
+
+<!--links模板-->
+<template id="links">
+    <!-- <div style="color:#bbbbbb;margin: 20px 20px 25px 20px;font-size: 12px;line-height: 22px;text-align: center;">
+        当阿虚被放逐到正常世界之时<br>
+        长门同学留下的书签<br>
+        便是回到那个躁动不已的世界的唯一钥匙<br>
+        只要「钥匙」在手<br>
+        大千世界，由你心动<br>
+    </div> -->
+    <div class="links_category">
+        <div class="links_subtitle" style="font-weight: bold; color:#ff6893; background: linear-gradient(90deg, #ffffff, #fff3f3, #ffffff);">友 情 链 接<div style="font-size: 10px; font-weight: normal; color: #bbbbbb; padding-top: 5px;">以添加时间为序</div></div>
+        <div style="width: 100%;font-size: 12px;color: #bbbbbb;line-height: 22px;">欢迎添加友情链接<br>请通过 <a class="spa-switch" style="font-weight: bold; color: #888;" href="#/about" data-target="about">微信</a> 联系我</div>
+        <div class="links_table_container">
+            <table class="links_table">
+                <tr>
+                    <td><a target="_blank" href="http://zephray.cnvintage.org/">ZephRay</a></td>
+                    <td><a target="_blank" href="https://mp.weixin.qq.com/s/QOw9mRvGVtocy3Nb315fYA">白痴一只喵</a></td>
+                </tr>
+                <tr>
+                    <td><a target="_blank" href="https://aoaoao.me/">Aaron's Blog</a></td>
+                    <td><a target="_blank" href="https://imjad.cn/">猫与向日葵</a></td>
+                </tr>
+                <tr>
+                    <td><a target="_blank" href="https://256kb.cn/">野生喵喵的Blog</a></td>
+                    <td><a target="_blank" href="https://blog.ddlee.cn/">萧爽楼</a></td>
+                </tr>
+                <tr>
+                    <td><a target="_blank" href="https://ice1000.org/">中间表示(IR)</a></td>
+                    <td><a target="_blank" href="https://tcxx.info/">甜欣屋</a></td>
+                </tr>
+                <tr>
+                    <td><a target="_blank" href="https://meow3.family.blog/">惡魔菌の记事簿</a></td>
+                    <td><a target="_blank" href="https://tql.ink/">Akkariin’s Blog</a></td>
+                </tr>
+                <tr>
+                    <td><a target="_blank" href="http://www.qiutianaimeili.com/">秋天爱美丽</a></td>
+                    <td><a target="_blank" href="https://chanshiyu.com/">蝉時雨</a></td>
+                </tr>
+                <tr>
+                    <td><a target="_blank" href="https://razertory.me/">Razertory</a></td>
+                    <td><a target="_blank" href="https://ssshooter.com/">UsubeniFantasy</a></td>
+                </tr>
+                <tr>
+                    <td><a target="_blank" href="http://www.brethland.com/">Brethland</a></td>
+                    <td><a target="_blank" href="http://pixelart.cn/">像素艺术</a></td>
+                </tr>
+                <tr>
+                    <td><a target="_blank" href="https://www.imalan.cn/">三无计划</a></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="links_category">
+        <div class="links_subtitle">博 客<div style="font-size: 10px; color: #bbbbbb; padding-top: 5px;">以下链接没有顺序</div></div>
+        <div class="links_table_container">
+            <table class="links_table">
+                <tr>
+                    <td>王垠<a target="_blank" href="http://www.yinwang.org/">博客</a> | <a target="_blank" href="https://docs.huihoo.com/homepage/shredderyin/">主页</a></td>
+                    <td><a target="_blank" href="http://mindhacks.cn/">刘未鹏</a></td>
+                    <td><a target="_blank" href="https://fwjmath.wordpress.com/">fwjmath</a></td>
+                </tr>
+                <tr>
+                    <td><a target="_blank" href="http://www.csksoft.net/">陈士凯</a></td>
+                    <td><a target="_blank" href="http://www.changhai.org/">卢昌海</a></td>
+                    <td><a target="_blank" href="https://blog.csdn.net/lipengcn">TangowL</a></td>
+                </tr>
+                <tr>
+                    <td><a target="_blank" href="https://isux.tencent.com/">腾讯ISUX</a></td>
+                    <td><a target="_blank" href="http://madebyevan.com/">Evan Wallace</a></td>
+                    <td><a target="_blank" href="http://blog.openkg.cn/">OpenKG</a></td>
+                </tr>
+                <tr>
+                    <td><a target="_blank" href="http://blog.memect.cn/">文因互联</a></td>
+                    <td><a target="_blank" href="http://norvig.com/">Peter Norvig</a></td>
+                    <td><a target="_blank" href="http://matt.might.net/">Matt Might</a></td>
+                </tr>
+                <tr>
+                    <td><a target="_blank" href="http://www.hankcs.com/">码农场</a></td>
+                    <td><a target="_blank" href="https://hcc.trilines.net/">Hingchung Chu</a></td>
+                    <td><a target="_blank" href="http://www.matrix67.com/">Matrix67</a></td>
+                </tr>
+                <tr>
+                    <td><a target="_blank" href="https://www.codingnow.com/">云风</a></td>
+                    <td><a target="_blank" href="https://techsingular.net/">技术奇异点</a></td>
+                    <td><a target="_blank" href="http://www.staroceans.org/">staroceans.org</a></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><a target="_blank" href="https://www.hyperiats.com/">风舞幻城</a></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="links_category">
+        <div class="links_subtitle">工具和备忘</div>
+        <div class="links_table_container">
+            <table class="links_table">
+                <tr>
+                    <td><a target="_blank" href="http://www.iqdb.org/">图片检索</a></td>
+                    <td><a target="_blank" href="http://waifu2x.udp.jp/">动画图片SRR</a></td>
+                </tr>
+                <tr>
+                    <td><a target="_blank" href="http://www.bottlecaps.de/rr/ui">Railroad Diagram</a></td>
+                    <td><a target="_blank" href="http://nipponcolors.com/">Nippon Iro</a></td>
+                </tr>
+                <tr>
+                    <td><a target="_blank" href="http://playground.tensorflow.org/">Neural Network</a></td>
+                    <td><a target="_blank" href="http://www.cs.usfca.edu/~galles/visualization/Algorithms.html">数据结构可视化</a></td>
+                </tr>
+                <tr>
+                    <td><a target="_blank" href="http://www.json.cn/">JSON格式化</a></td>
+                    <td><a target="_blank" href="https://www.iconfont.cn/">阿里巴巴矢量图标库</a></td>
+                </tr>
+                <tr>
+                    <td><a target="_blank" href="https://www.colorhexa.com/">ColorHexa</a></td>
+                    <td><a target="_blank" href="http://ed6.orangeclk.com/">空之轨迹攻略</a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="links_category">
+        <div class="links_subtitle">硬件 · 电子</div>
+        <div class="links_table_container">
+            <table class="links_table">
+                <tr>
+                    <td><a target="_blank" href="http://www.cncalc.org/">cnCalc计算器论坛</a></td>
+                    <td><a target="_blank" href="https://www.cnvintage.org/">cnVintage</a></td>
+                </tr>
+                <tr>
+                    <td><a target="_blank" href="https://bideyuanli.com/">比的原理</a></td>
+                    <td><a target="_blank" href="http://vgmdb.net/db/main.php">VGMdb</a></td>
+                </tr>
+                <tr>
+                    <td><a target="_blank" href="http://www.alldatasheet.com/">ALLDATASHEET</a></td>
+                    <td><a target="_blank" href="http://hitmen.c02.at/files/yapspd/psp_doc/">PSP文档</a></td>
+                </tr>
+                <tr>
+                    <td><a target="_blank" href="http://www.beis.de/Elektronik/DeltaSigma/DeltaSigma.html">Delta-Sigma介绍</a></td>
+                    <td><a target="_blank" href="http://wiki.jackslab.org/">Jack's Lab</a></td>
+                </tr>
+                <tr>
+                    <td><a target="_blank" href="http://www.datamath.org/Graphing/JPEG_NSpire_CAS.htm">NSpire拆机图赏</a></td>
+                    <td><a target="_blank" href="http://www.nixieclock.org/">辉光钟之家</a></td>
+                </tr>
+                <tr>
+                    <td><a target="_blank" href="https://wikidevi.com/">WikiDevi</a></td>
+                    <td><a target="_blank" href="http://www.soomal.com/">数码多</a></td>
+                </tr>
+                <tr>
+                    <td><a target="_blank" href="http://wiki.friendlyarm.com/wiki/index.php/Main_Page">友善Wiki</a></td>
+                    <td><a target="_blank" href="http://vocakey.info/">VOCAKEY</a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="links_category">
+        <div class="links_subtitle">巴 别 塔</div>
+        <div class="links_table_container">
+            <table class="links_table">
+                <tr>
+                    <td><a target="_blank" href="http://e-dictionary.apc.gov.tw/">台湾原住民族语言词典</a></td>
+                    <td><a target="_blank" href="https://web.klokah.tw/">族語E樂園</a></td>
+                </tr>
+                <tr>
+                    <td><a target="_blank" href="http://htq.minpaku.ac.jp/databases/rGyalrong/">嘉绒语数据库</a></td>
+                    <td><a target="_blank" href="http://ccdc.fudan.edu.cn/bases/index.jsp">复旦东亚语言研究中心</a></td>
+                </tr>
+                <tr>
+                    <td><a target="_blank" href="http://ckipsvr.iis.sinica.edu.tw/">中央研究院中文NLP相关</a></td>
+                    <td><a target="_blank" href="http://nlp.csai.tsinghua.edu.cn/">清华NLP</a> | <a target="_blank" href="https://jiuge.thunlp.cn/">作诗机器人</a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="links_category">
+        <div class="links_subtitle">大 千 世 界</div>
+        <div class="links_table_container">
+            <table class="links_table">
+                <tr>
+                    <td><a target="_blank" href="https://sicp.readthedocs.io/en/latest/">SICP解题集</a></td>
+                    <td><a target="_blank" href="http://okmij.org/ftp/">okmij.org</a></td>
+                </tr>
+                <tr>
+                    <td><a target="_blank" href="http://www.braeunig.us/space/index.htm">火箭和空间技术</a></td>
+                    <td><a target="_blank" href="http://www.linked-brain-data.org/">脑科学数据库</a></td>
+                </tr>
+                <tr>
+                    <td><a target="_blank" href="http://himawari8.nict.go.jp/">向日葵8号实时云图</a></td>
+                    <td><a target="_blank" href="https://earth.nullschool.net/">全球气象可视化</a></td>
+                </tr>
+                <tr>
+                    <td><a target="_blank" href="http://marxists.anu.edu.au/chinese/">中文马克思主义文库</a></td>
+                    <td><a target="_blank" href="http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/">区划代码</a></td>
+                </tr>
+                <tr>
+                    <td><a target="_blank" href="https://www.wikidata.org/wiki/Q13">WikiData</a></td>
+                    <td><a target="_blank" href="https://www.langchao.org/">浪潮</a></td>
+                </tr>
+                <tr>
+                    <td><a target="_blank" href="http://ddrk.me/">番组</a></td>
+                    <td><a target="_blank" href="http://www.mcescher.com/">艾舍尔官方网站</a></td>
+                </tr>
+                <tr>
+                    <td><a target="_blank" href="https://www.kegg.jp/">KEGG</a></td>
+                    <td><a target="_blank" href="http://biochemical-pathways.com/">罗氏代谢路径图</a></td>
+                </tr>
+                <tr>
+                    <td><a target="_blank" href="https://www.wikipathways.org/">WikiPathways</a></td>
+                    <td><a target="_blank" href="http://rosettacode.org/">Rosetta Code</a></td>
+                </tr>
+                <tr>
+                    <td><a target="_blank" href="https://thwiki.cc/">THBwiki</a></td>
+                    <td><a target="_blank" href="https://zh.moegirl.org/">萌娘百科</a></td>
+                </tr>
+                <tr>
+                    <td><a target="_blank" href="http://www.ucdrs.superlib.net/">全国图书馆参考咨询联盟</a></td>
+                    <td><a target="_blank" href="https://vcb-s.com/">VCB-Studio</a></td>
+                </tr>
+                <tr>
+                    <td><a target="_blank" href="https://beautifulracket.com/">Beau­tiful Racket</a></td>
+                    <td><a target="_blank" href="http://sheet.stdioa.com/">StdioA的乐谱分享站</a></td>
+                </tr>
+                <tr>
+                    <td><a target="_blank" href="https://aidn.jp/mikutap/">MikuTap</a></td>
+                    <td><a target="_blank" href="https://explainshell.com">explainshell</a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <script>
+    (function() {
+        // 进场动画
+        let showTime = 0;
+        $(".links_category").each(function(i,e) {
+            $(e).css({'opacity':0,'margin-top':'-10px'});
+            setTimeout(function() {
+                $(e).animate({'opacity':1.0,'margin-top':'0px'}, 800);
+            }, showTime);
+            showTime += 50;
+        });
+    })();
+    </script>
+</template>
+
+
+
+
+<!--about模板-->
+<template id="about">
+    <table style="width:100%; font-size:14px; text-align: left; margin: 30px auto 30px auto; color: #233333;" align="center">
+        <tr>
+            <td class="about_tdl">性别</td>
+            <td class="about_tdr">男♂</td>
+        </tr>
+        <tr>
+            <td class="about_tdl">现居</td>
+            <td class="about_tdr">南京</td>
+        </tr>
+    </table>
+
+    <div class="about_subtitle" id="motto">格 言</div>
+    <div class="about_content">怕什么真理无穷，进一步有进一步的欢喜</div>
+
+    <div class="about_subtitle" id="contacts">联 系 方 式</div>
+        <div class="about_content">
+            <a class="about_a" target="_blank" href="https://github.com/mikukonai/">GitHub</a><span class="bar">/</span><a class="about_a" target="_blank" href="https://www.douban.com/people/mikukonai/">豆瓣</a><span class="bar">/</span><a class="about_a" target="_blank" href="https://www.zhihu.com/people/mikukonai/">知乎</a>
+        </div>
+        <div class="about_content">
+            <div style="margin:0 auto 20px auto">
+            <p style="font-size: 13px;color:#888888;line-height: 25px;">- 个人微信 -</p>
+            <img src="./image/qrcode.png" style="display:block;margin:0px auto 0 auto;width:35%;">
+        </div>
+    </div>
+
+    <div class="about_subtitle" id="anime">动 画</div>
+    <div class="about_content" style="line-height: 30px;" lang="ja">
+        <a class="about_a" href="https://movie.douban.com/subject/21348026/">涼宮ハルヒの憂鬱</a><span class="bar">/</span><a class="about_a" href="https://movie.douban.com/subject/3060542/">夏目友人帳</a><br>
+        <a class="about_a" href="https://movie.douban.com/subject/4935090/">花咲くいろは</a><span class="bar">/</span><a class="about_a" href="https://movie.douban.com/subject/10001418/">氷菓</a><span class="bar">/</span><a class="about_a" href="https://movie.douban.com/subject/27081136/">少女終末旅行</a><br>
+    </div>
+
+    <div class="about_subtitle" id="copyright">权 利 声 明</div>
+    <div class="about_content">版权所有 &copy; 2016-<span class="copyright_year">2019</span> Mikukonai</div>
+    <div class="about_content">除另有声明外，所有原创内容均可在①署原作者名和②非盈利用途的前提下使用和传播。</div>
+    <!-- <div class="about_content">文章默认题图「<a class="about_a" href="https://www.pixiv.net/member_illust.php?mode=medium&illust_id=70145976">紫音</a>」：画师 <a class="about_a" href="https://www.pixiv.net/member.php?id=9412">月神るな</a></div> -->
+    <div class="about_content">文章默认题图「<a class="about_a" href="https://www.pixiv.net/member_illust.php?mode=medium&illust_id=71410837">天体観測</a>」：画师 <a class="about_a" href="https://www.pixiv.net/member.php?id=648285">mocha</a></div>
+
+
+    <div class="about_subtitle" id="changelog">版 本 记 录</div>
+
+    <div class="about_content"><img src="./image/pa-icon.jpg" style="width:45px; height: 45px;"><br><span style="color:#888888">Project Aurora V3.3</span></div>
+
+    <div class="about_content">
+        【<a class="about_a" href="https://github.com/mikukonai/mikukonai.github.io" target="_blank">Git仓库</a>】
+    </div>
+    <div class="about_edition">
+        <p class="about_vernum">V0.1<span style="color:#888888;padding-left: 15px;">2016.11.24</span></p>
+        <!-- <ul><li>试验性的简单页面。</li></ul> -->
+        <p class="about_changelog">试验性的简单个人主页</p>
+    </div>
+    <div class="about_edition">
+        <p class="about_vernum">V1.0<span style="color:#888888;padding-left: 15px;">2017.09.19</span></p>
+        <p class="about_changelog">两栏式布局，较完善的样式<br>使用第三方Markdown解析器</p>
+    </div>
+    <div class="about_edition">
+        <p class="about_vernum">V2.0<span style="color:#888888;padding-left: 15px;">2018.02.04</span></p>
+        <p class="about_changelog">响应式布局<br>使用自主实现的MD解析器</p>
+    </div>
+    <div class="about_edition">
+        <p class="about_vernum">V3.0<span style="color:#888888;padding-left: 15px;">2018.07.26</span></p>
+        <p class="about_changelog">博客更名“Project Aurora”<br>精简内容和结构，重新设计样式</p>
+    </div>
+    <div class="about_edition">
+        <p class="about_vernum">V3.1<span style="color:#888888;padding-left: 15px;">2019.01.11</span></p>
+        <p class="about_changelog">MD解析器与文章模板重构<br>Markdown与模板分离</p>
+    </div>
+    <div class="about_edition">
+        <p class="about_vernum">V3.2<span style="color:#888888;padding-left: 15px;">2019.02.20</span></p>
+        <p class="about_changelog">目录和灵感页重构<br>使用TravisCI自动生成RSS</p>
+    </div>
+    <div class="about_edition">
+        <p class="about_vernum">V3.3<span style="color:#888888;padding-left: 15px;">2019.03.15</span></p>
+        <p class="about_changelog">【当前版本】<br>重构为SPA单页应用<br>样式设计参考 Material Design</p>
+    </div>
+
+    <div class="about_subtitle" id="hoshinoarika">星 之 所 在</div>
+    <div class="about_content">
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="https://music.163.com/outchain/player?type=2&id=559262&auto=0&height=66"></iframe>
+    </div>
+    <div class="about_content" style="font-size: 12px;">星の在り処，RPG《英雄传说VI·空之轨迹》主题歌</div>
+
+    <div class="about_content" style="color:#ff88aa; font-size: 18px; letter-spacing: 2px; margin-bottom:20px;">感谢来访</div>
+</template>
+
+<!--题图参数-->
+<!--首页-->
+<template id="index-titlebg">url('http://wx4.sinaimg.cn/large/450be1f5gy1g5zjkjcen2j20p00e3wff.jpg')</template>
+<!-- <template id="index-titlebg">url('./image/66037995_p0.jpg')</template> -->
+<!-- <template id="index-titlebg">url('./image/chitanda.jpg')</template> -->
+<!--灵感-->
+<!-- <template id="inspiration-titlebg">url(./image/haruhi_hoshizora.jpg)</template> -->
+<template id="inspiration-titlebg">url('http://wx1.sinaimg.cn/large/450be1f5gy1g5zjkk1w7hj20p00dyt9q.jpg')</template>
+<!--文章列表-->
+<!-- <template id="articles-titlebg">url('./image/miku-dove.jpg')</template> -->
+<template id="articles-titlebg">url('http://wx4.sinaimg.cn/large/450be1f5gy1g5zjkkxbjej20p00dz40b.jpg')</template>
+<!--书签-->
+<!-- <template id="links-titlebg">url('./image/yuki-reading.jpg')</template> -->
+<template id="links-titlebg">url('http://wx2.sinaimg.cn/large/450be1f5gy1g5zjklyqq1j20p00e23zc.jpg')</template>
+<!--关于-->
+<!-- <template id="about-titlebg">url('./image/seu-tree.jpg')</template> -->
+<template id="about-titlebg">url('http://wx4.sinaimg.cn/large/450be1f5gy1g5zjklikpij20rs0fi762.jpg')</template>
+
+<!--上部标题模板-->
+<template id="index-title">
+    <div class="top_title_content">
+        Project <strong>Aurora</strong>
+        <div class="top_title_subtitle">- 仁者心动 -</div>
+    </div>
+</template>
+
+<template id="inspiration-title">
+    <div class="top_title_content_left">
+        <span style="font-weight: bold;">灵感</span><span class="top_title_vertline">Project Aurora</span>
+    </div>
+</template>
+
+<template id="articles-title">
+    <div class="top_title_content_left">
+        <span style="font-weight: bold;">文章</span><span class="top_title_vertline">Project Aurora</span>
+    </div>
+</template>
+
+<template id="links-title">
+    <div class="top_title_content_left">
+        <span style="font-weight: bold;">书签</span><span class="top_title_vertline">Project Aurora</span>
+    </div>
+</template>
+
+<template id="about-title">
+    <div class="top_title_content">
+        <span style="color:rgba(255,255,255,1.0);font-weight: bold;">Project Aurora</span>
+        <div class="top_title_subtitle">Mikukonai / 初音没有来</div>
+    </div>
+</template>
+
+<!--SPA交互和渲染控制-->
+<script src="./js/jquery.min.js"></script>
+<script>
+// 图片预加载
+/*
+let preloadList = [
+    "./image/chitanda.jpg",
+    "./image/miku-dove.jpg",
+    "./image/haruhi_hoshizora.jpg",
+    "./image/yuki-reading.jpg",
+    "./image/seu-tree.jpg"
+];
+let blurRadius = 5;
+let completeCount = 0;
+let blurTimer = 0;
+preloadList.forEach((src)=>{
+    let img = new Image();
+    img.src = src;
+    img.onload = ()=>{
+        completeCount++;
+        if(completeCount = preloadList.length) {
+            blurTimer = setInterval(()=>{
+                $(".main-box").css("filter", `blur(${blurRadius}px)`);
+                blurRadius -= 0.5;
+                if(blurRadius < 0) {
+                    clearInterval(blurTimer);
+                }
+            }, 40);
+        }
+    };
+});
+*/
+
+function render(pageid) {
+    // 进场动画初始化
+    $('.spa-content').css({'opacity': '0.1'/*, 'margin-top': '-28px'*/}, 1000);
+    // 重置进度条（进度条动作由template里面的内容控制）
+    $("#progressbar").show();
+    $("#progressbar").css('width', '0%');
+    // 页面内容
+    $('.spa-content').html($(`template#${pageid}`).html());
+    // 标题
+    $('.top_title').html($(`template#${pageid}-title`).html());
+    // 题图
+    $('.top_title').css({'opacity': '0.5'});
+    $('.top_title').css('background-image', $(`template#${pageid}-titlebg`).html());
+    $('.top_title').animate({'opacity': '1'});
+    // 按钮光标
+    $(`[data-target!="${pageid}"]`).removeClass('top_active');
+    $(`[data-target="${pageid}"]`).addClass('top_active');
+    // 进场动画
+    $('.spa-content').animate({'opacity': '1'/*, 'margin-top': '0'*/}, 1000);
+    // 处理模板页中的SPA行为
+    registerSpaSwitch();
+}
+
+function registerSpaSwitch() {
+    $('.spa-switch').off('click'); // 避免重复绑定
+    $('.spa-switch').each(function(i,e) {
+        $(e).click(()=>{
+            let targetid = $(e).attr('data-target');
+            history.pushState({pageid: targetid}, '', `#/${targetid}`);
+            render(targetid);
+        });
+    });
+}
+
+registerSpaSwitch();
+
+window.onload = function() {
+    let pageid = null;
+    var reqArg = (function getRequestArg() {
+        let reqArgStr = window.document.location.href.match(/\#\/.*$/gi);
+        return reqArgStr;
+    })();
+
+    if(reqArg !== null) {
+        pageid = reqArg[0].replace(/^\#\//g, '');
+    }
+    else {
+        pageid = 'index';
+    }
+    render(pageid);
+    if(!history.state) {
+        history.pushState({pageid: pageid}, '', window.location.href);
+    }
+    setCopyrightYear();
+};
+
+window.onpopstate = function(e) {
+    if(!e.state) {
+        console.log(`目标state为空`);
+    }
+    else {
+        let newTargetId = e.state.pageid;
+        render(newTargetId);
+    }
+}
+
+function setCopyrightYear() {
+    let copyrightYearNodes = document.getElementsByClassName('copyright_year');
+    for(let i = 0; i < copyrightYearNodes.length; i++) {
+        copyrightYearNodes[i].innerHTML = new Date().getFullYear();
+    }
+}
+
+</script>
+</body>
+</html>
