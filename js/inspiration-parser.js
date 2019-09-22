@@ -97,28 +97,31 @@ function InspirationParser(inspirations) {
 
             let html = '';
 
+            // 头像
+            html += '<img src="';
+            html += defaultAvatarURI;//field;
+            html +='" class="poster-avatar">';
+
             fields.forEach(function(field, index) {
                 posterObject[fieldName[index]] = field;
-                // 头像
-                if(index == 0) {
-                    html += '<img src="';
-                    html += defaultAvatarURI;//field;
-                    html +='" class="poster-avatar">';
-                }
-                else if(index == 1) {
+                // 标题
+                if(index === 0) {
                     html += '<div class="poster-header">';
                     html += field;
                     html += '</div>';
                 }
-                else if(index == 2) {
+                // 日期（或者副标题）
+                else if(index === 1) {
                     html += '<div class="poster-meta">';
                     html += field;
                     html += '</div>';
                 }
-                else if(index == 3) {
+                // 图像URL
+                else if(index === 2) {
                     image_url = field;
                 }
-                else if(index == 4) {
+                // 正文
+                else if(index === 3) {
                     let content_parsed = ContentParser(field);
                     // 2018.4.22 正文超过400字符即折叠，避免时间线过长
                     if(field.length > 400) {
