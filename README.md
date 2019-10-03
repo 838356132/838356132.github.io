@@ -1,10 +1,8 @@
 # mikukonai.com
 
-[![Build Status](https://travis-ci.org/mikukonai/mikukonai.github.io.svg?branch=master)](https://travis-ci.org/mikukonai/mikukonai.github.io)
-
 Project Aurora - mikukonai的个人博客。
 
-[mikukonai.com](https://mikukonai.com/)
+[https://mikukonai.com](https://mikukonai.com/)
 
 ## 内容
 
@@ -26,6 +24,7 @@ Project Aurora - mikukonai的个人博客。
 
 - 暂时不提供留言功能。
 - 暂时不提供全文检索功能。
+- 不再支持RSS订阅，因博客中有不少可视化的动态内容，也欢迎参观我精心设计的Web页面。
 
 ## 关于博客的名字
 
@@ -37,9 +36,9 @@ Aurora 的意思是(北)极光、曙光、曙光女神奥罗拉。张韶涵有�
 
 - [微信等联系方式](https://mikukonai.com/#/about)。
 - 在GitHub上提问题单（issue）。
-- [RSS](https://mikukonai.com/feed.xml)
 
 ## 权利声明
 
-参见 [关于-权利声明](https://mikukonai.com/#/about)。
+请查看 [权利声明](https://mikukonai.com/#/about)。
 
+本博客**不使用**任何诸如CC协议的授权协议。一切以“权利声明”中的文字为准。
