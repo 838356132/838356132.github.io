@@ -125,13 +125,29 @@
 
 <!--inspiration模板-->
 <template id="inspiration">
-    <div class="goTop" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');">TOP</div>
+    <div class="goTop" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="right: 200px;">
+        <img src="./image/icons/gotop.png" style="height:19px;width:17px; vertical-align: middle;">
+    </div>
     <div class="timeline-container">
         <div id="poster_anchor"></div>
         <div class="content-ending" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"></div>
     </div>
     <script src="./js/inspiration-parser.js"></script>
     <script>
+    function InitLayout() {
+        if($(window).width() >= 650) {
+            let rightMargin = $(".main-box").css("margin-right").match(/^\d+/gi);
+            let leftMargin = $(".main-box").css("margin-left").match(/^\d+/gi);
+            let buttonWidth = $(".goTop").css("width").match(/^\d+/gi);
+            $(".goTop").css("right", (rightMargin - buttonWidth - 30).toString() + 'px');
+        }
+        else {
+            $(".goTop").css("right", '20px');
+        }
+    }
+
+    window.onresize = InitLayout;
+
     (function() {
         const MAX_ARTICLE_LENGTH = 60000; // 最大字节数，用于近似计算加载进度
         $('.content-ending').html('正在读取，请稍等…');
@@ -144,6 +160,7 @@
                 // 这里解析MD为HTML
                 let iparser = InspirationParser(data);
                 iparser.Render();
+                InitLayout();
             },
             error: ()=> {
                 $("#progressbar").animate({width: `100%`});
