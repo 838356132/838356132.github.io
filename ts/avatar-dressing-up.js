@@ -1,13 +1,13 @@
 var config = {
     background: "background/background-1-3.png",
+    eyes: "eyes/eyes-1-2.png",
+    mouth: "mouth/mouth-1-1.png",
     hair: "hair/hair-7-6.png",
     skin: "skin/skin-1-1.png",
     clothes: "clothes/clothes-1-14.png",
     backhair: "",
     fronthair: "fronthair/fronthair-7-1.png",
-    eyes: "eyes/eyes-1-2.png",
     eyebrows: "eyebrows/eyebrows-1-1.png",
-    mouth: "mouth/mouth-1-1.png",
     face: "",
     headwear: "headwear/headwear-1-2.png",
     pet: "pet/pet-1-7.png",
@@ -36,12 +36,12 @@ function Render(cv, config) {
     loadAssetImage(cv, config.background, function () {
         loadAssetImage(cv, config.hair, function () {
             loadAssetImage(cv, config.skin, function () {
-                loadAssetImage(cv, config.clothes, function () {
-                    loadAssetImage(cv, config.backhair, function () {
-                        loadAssetImage(cv, config.fronthair, function () {
-                            loadAssetImage(cv, config.eyes, function () {
-                                loadAssetImage(cv, config.eyebrows, function () {
-                                    loadAssetImage(cv, config.mouth, function () {
+                loadAssetImage(cv, config.eyes, function () {
+                    loadAssetImage(cv, config.mouth, function () {
+                        loadAssetImage(cv, config.clothes, function () {
+                            loadAssetImage(cv, config.backhair, function () {
+                                loadAssetImage(cv, config.fronthair, function () {
+                                    loadAssetImage(cv, config.eyebrows, function () {
                                         loadAssetImage(cv, config.face, function () {
                                             loadAssetImage(cv, config.headwear, function () {
                                                 loadAssetImage(cv, config.pet, function () {
