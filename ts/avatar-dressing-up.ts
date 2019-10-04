@@ -1,6 +1,6 @@
 
 let config = {
-    background: "background/background-1-3.png",                // (bg)
+    background: "background/background-1-9.png",                // (bg)
     eyes: "eyes/eyes-1-2.png",                // eyes
     mouth: "mouth/mouth-1-1.png",               // mouth
     hair: "hair/hair-7-6.png",                // hair
@@ -30,14 +30,18 @@ function loadAssetImage(cv, src, callback) {
 }
 
 function Change(item, code, config, cv) {
-    console.log(item);
-    console.log(code);
-    config[item] = `${item}/${code}.png`;
+    if(code === "") {
+        config[item] = "";
+    }
+    else {
+        config[item] = `${item}/${code}.png`;
+    }
     console.log(config);
     Render(cv, config);
 }
 
 function Render(cv, config) {
+    cv.Clear();
     loadAssetImage(cv, config.background, ()=>{
     loadAssetImage(cv, config.hair, ()=>{
     loadAssetImage(cv, config.skin, ()=>{

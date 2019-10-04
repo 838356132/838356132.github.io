@@ -1,5 +1,5 @@
 var config = {
-    background: "background/background-1-3.png",
+    background: "background/background-1-9.png",
     eyes: "eyes/eyes-1-2.png",
     mouth: "mouth/mouth-1-1.png",
     hair: "hair/hair-7-6.png",
@@ -26,13 +26,17 @@ function loadAssetImage(cv, src, callback) {
     });
 }
 function Change(item, code, config, cv) {
-    console.log(item);
-    console.log(code);
-    config[item] = item + "/" + code + ".png";
+    if (code === "") {
+        config[item] = "";
+    }
+    else {
+        config[item] = item + "/" + code + ".png";
+    }
     console.log(config);
     Render(cv, config);
 }
 function Render(cv, config) {
+    cv.Clear();
     loadAssetImage(cv, config.background, function () {
         loadAssetImage(cv, config.hair, function () {
             loadAssetImage(cv, config.skin, function () {
