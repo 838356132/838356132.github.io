@@ -7,7 +7,7 @@ function InspirationParser(inspirations) {
     this.inspirations = inspirations;
     const defaultAvatarURI = "./image/haruhi-avatar.jpg";
 
-    var fieldName = ['avatar_url','title','time','image_url','content'];
+    var fieldName = ['title','time','image_url','content'];
     this.posterBuffer = [];
 
     function ContentParser(content) {
@@ -102,26 +102,22 @@ function InspirationParser(inspirations) {
             html += defaultAvatarURI;//field;
             html +='" class="poster-avatar">';
 
-            fields.forEach(function(field, index) {
-                posterObject[fieldName[index]] = field;
+            fields.forEach(function(field, fieldIndex) {
+                posterObject[fieldName[fieldIndex]] = field;
                 // 标题
-                if(index === 0) {
-                    html += '<div class="poster-header">';
-                    html += field;
-                    html += '</div>';
+                if(fieldIndex === 0) {
+                    html += `<div class="poster-header" id="item_${index}">${field}</div>`;
                 }
                 // 日期（或者副标题）
-                else if(index === 1) {
-                    html += '<div class="poster-meta">';
-                    html += field;
-                    html += '</div>';
+                else if(fieldIndex === 1) {
+                    html += `<div class="poster-meta">${field}</div>`;
                 }
                 // 图像URL
-                else if(index === 2) {
+                else if(fieldIndex === 2) {
                     image_url = field;
                 }
                 // 正文
-                else if(index === 3) {
+                else if(fieldIndex === 3) {
                     let content_parsed = ContentParser(field);
                     // 2018.4.22 正文超过400字符即折叠，避免时间线过长
                     if(field.length > 400) {
@@ -163,12 +159,24 @@ function InspirationParser(inspirations) {
                 // console.log($(e).attr('id'));
                 $(e).animate({'opacity':1.0,'margin-top':'0px'}, 800);
             }, showTime);
-            showTime += 200;
+            showTime += 20;
         });
         setTimeout(function() {
             $('.content-ending').html('不可说者，皆应沉默');
         }, showTime);
         console.table(res.inspirations);
+
+        // 2019.10.06 左侧目录
+        let navHtml = new Array();
+        for(let i = 0; i < res.inspirations.length; i++) {
+            let inspiration = res.inspirations[i];
+            let thisYear = inspiration.time.split("-")[0];
+            if(i >= 1 && thisYear !== res.inspirations[i-1].time.split("-")[0] && !isNaN(parseInt(thisYear))) {
+                navHtml.push(`<div class="left_navbox_horiline"><span style="position: absolute; top: -8px; margin-left: 19px; padding: 0 4px; background-color: #fff;">${thisYear}年</span></div>`);
+            }
+            navHtml.push(`<div class="left_navbox_item" onclick="window.location.href='#item_${inspiration.pid}';">${inspiration.title}</div>`);
+        }
+        $("#left_navbox_item_list").html(navHtml.join(""));
     }
 
     return this;

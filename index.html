@@ -123,6 +123,19 @@
     <div class="goTop" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="right: 200px;">
         <img src="./image/icons/gotop.png" style="height:19px;width:17px; vertical-align: middle;">
     </div>
+    <div class="left_nav_button" id="left_nav_button">menu</div>
+    <div class="left_navbox" id="left_navbox">
+        <div class="left_navbox_top">
+            <span class="left_navbox_top_title">灵感目录</span>
+            <div class="left_navbox_search_container">
+                <input class="left_navbox_search_input" id="left_navbox_search_input" placeholder="输入关键字…">
+                <span class="left_navbox_search_clear">✖</span>
+            </div>
+        </div>
+        <div id="left_navbox_item_list">
+            <div class="left_navbox_horiline"></div>
+        </div>
+    </div>
     <div class="timeline-container">
         <div id="poster_anchor"></div>
         <div class="content-ending" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"></div>
@@ -135,13 +148,15 @@
             let leftMargin = $(".main-box").css("margin-left").match(/^\d+/gi);
             let buttonWidth = $(".goTop").css("width").match(/^\d+/gi);
             $(".goTop").css("right", (rightMargin - buttonWidth - 30).toString() + 'px');
+            $(".left_nav_button").show();
+            $(".left_navbox").show();
         }
         else {
             $(".goTop").css("right", '20px');
+            $(".left_nav_button").hide();
+            $(".left_navbox").hide();
         }
     }
-
-    window.onresize = InitLayout;
 
     (function() {
         const MAX_ARTICLE_LENGTH = 60000; // 最大字节数，用于近似计算加载进度
@@ -172,6 +187,22 @@
                 return xhr;
             }
         });
+
+        window.onresize = InitLayout;
+
+        let left_nav_state = 1;
+
+        $("#left_nav_button").click(()=>{
+            if(left_nav_state === 1) {
+                $("#left_navbox").animate({"margin-left": "-360px", opacity: "0"}, 500, "easeOutExpo");
+                left_nav_state = 0;
+            }
+            else {
+                $("#left_navbox").animate({"margin-left": "0px", opacity: "1"}, 500, "easeOutExpo");
+                left_nav_state = 1;
+            }
+        });
+
     })();
     </script>
 </template>
@@ -806,6 +837,7 @@
 
 <!--SPA交互和渲染控制-->
 <script src="./js/jquery.min.js"></script>
+<script src="./js/jquery.easing.js"></script>
 <script>
 // 图片预加载
 /*
