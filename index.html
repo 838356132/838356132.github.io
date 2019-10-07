@@ -149,12 +149,33 @@
     function TurnTo(elementId) {
         let targetTop = window.pageYOffset + $(`#${elementId}`)[0].getBoundingClientRect().top;
         let currentTop = window.pageYOffset;
-        $('html, body').animate({ scrollTop: targetTop }, 200, 'easeOutExpo');
+        $('html, body').animate({ scrollTop: targetTop+2 }, 200, 'easeOutExpo'); // 加2px的目的是为了滚动跟踪有效
     }
 
     (function() {
 
         let posters, html;
+
+        // 遍历所有Poster，根据当前滚动位置，计算当前显示的Poster是哪个
+        function GetVisiblePoster() {
+            let posterDOMs = $(".poster");
+            let currentTop = window.pageYOffset;
+            for(let i = 0; i < posterDOMs.length - 1; i++) {
+                let currentPosterTop = window.pageYOffset + posterDOMs[i].getBoundingClientRect().top;
+                let nextPosterTop = window.pageYOffset + posterDOMs[i+1].getBoundingClientRect().top;
+                if(currentTop > currentPosterTop && currentTop < nextPosterTop) {
+                    return posterDOMs[i].id;
+                }
+            }
+            return undefined;
+        }
+
+        // 指示滚动位置
+        window.onscroll = () => {
+            let visiblePosterId = GetVisiblePoster();
+            $(`.left_navbox_item`).removeClass("left_navbox_item_active");
+            $(`#TurnTo_${visiblePosterId}`).addClass("left_navbox_item_active");
+        };
 
         function Indexer(posters) {
             let InverseIndex = new Object();
@@ -201,7 +222,7 @@
                         navHtml.push(`<div class="left_navbox_horiline"><span style="position: absolute; top: -8px; margin-left: 30px; padding: 0 4px; background-color: #fff;">${thisYear}年</span></div>`);
                     }
                 }
-                navHtml.push(`<div class="left_navbox_item" onclick="TurnTo('Poster_${inspiration.id}');">${inspiration.title}</div>`);
+                navHtml.push(`<div class="left_navbox_item" id="TurnTo_Poster_${inspiration.id}" onclick="TurnTo('Poster_${inspiration.id}');">${inspiration.title}</div>`);
             }
             $("#left_navbox_item_list").html(navHtml.join(""));
 
