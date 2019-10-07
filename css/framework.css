@@ -395,6 +395,7 @@ a:hover{
 
 #left_navbox_item_list {
     margin-top: 0;
+    margin-bottom: 30px;
 }
 
 .left_navbox_item {
@@ -416,7 +417,7 @@ a:hover{
 
 .left_navbox_horiline {
     position: relative;
-    margin: 18px 0 18px 29px;
+    margin: 18px 0 18px 0;
     border-bottom: 1px solid #dadce0;
     font-size: 13px;
     color: #1a73e8;
