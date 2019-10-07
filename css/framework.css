@@ -328,7 +328,7 @@ a:hover{
 .left_navbox_top {
     position: sticky;
     top: 0px;
-    padding-bottom: 5px;
+    /* padding-bottom: 5px; */
     color: #696a6b;
     background-color: #fff;
     box-shadow: 0 0 5px #ccc;
@@ -370,8 +370,31 @@ a:hover{
     color: #1a73e8;
 }
 
+#left_navbox_tags {
+    margin: 15px 0 15px 0;
+    padding-left: 30px;
+}
+
+.left_navbox_tags_item {
+    display: inline-block;
+    background-color: #e1f5ff;
+    color: #009be9;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    padding: 2px 6px 2px 6px;
+    margin: 3px;
+    word-break: break-all;
+    word-wrap: break-word;
+    cursor: pointer;
+}
+.left_navbox_tags_item:hover {
+    background-color: #c1eaff;
+    color: #009be9;
+}
+
 #left_navbox_item_list {
-    margin-top: 10px;
+    margin-top: 0;
 }
 
 .left_navbox_item {
@@ -777,7 +800,7 @@ p.poster-p {
     text-indent:0;
 }
 /* Poster标题 */
-.poster-header {
+.poster-title {
     width: fit-content;
     width: -webkit-fit-content;
     width: -moz-fit-content;
@@ -791,8 +814,8 @@ p.poster-p {
     font-weight: bold;
     display: block;
 }
-/* Poster元数据：时间地点等 */
-.poster-meta {
+/* Poster副标题：时间地点等 */
+.poster-subtitle {
     text-align: left;
     margin:0px 20px 8px 50px;
     padding:0;
@@ -829,7 +852,7 @@ img.poster-badge {
     height:8px;
 }
 /* 话题标签 */
-.topic-tag {
+.poster-tag {
     color:#33aadd;
     font-weight: 600;
 }
