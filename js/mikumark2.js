@@ -984,8 +984,8 @@ function Mikumark(mikumarkDocString) {
                 let rightMargin = $(".main-container").css("margin-right").match(/^\d+/gi);
                 let leftMargin = $(".main-container").css("margin-left").match(/^\d+/gi);
     
-                let buttonWidth = $(".goTop").css("width").match(/^\d+/gi);
-                $(".goTop").css("right", (rightMargin - buttonWidth - 30).toString() + 'px');
+                let buttonWidth = $("#ButtonGoTop").css("width").match(/^\d+/gi);
+                $("#ButtonGoTop").css("right", (rightMargin - buttonWidth - 30).toString() + 'px');
                 let menuButtonWidth = $("#contents_container").css("width").match(/^\d+/gi);
                 $("#contents_container").css("right", (rightMargin - menuButtonWidth - 30).toString() + 'px');
     
@@ -993,7 +993,7 @@ function Mikumark(mikumarkDocString) {
                 $(".title_button_left").css("left", (leftMargin - backbuttonWidth - 50).toString() + 'px');
             }
             else {
-                $(".goTop").css("right", '20px');
+                $("#ButtonGoTop").css("right", '20px');
                 $(".title_button_left").css("left", '0px');
             }
         },
@@ -1095,16 +1095,16 @@ function Mikumark(mikumarkDocString) {
                 let top = getTop();
                 if($(window).width() >= 650) {
                     $('.top_title').hide();
-                    $('.goTop').fadeIn(300);
+                    $('#ButtonGoTop').fadeIn(300);
                 }
                 else {
                     if(top > 280) {
                         $('.top_title').fadeIn(300);
-                        $('.goTop').fadeIn(300);
+                        $('#ButtonGoTop').fadeIn(300);
                     }
                     else {
                         $('.top_title').fadeOut(300);
-                        $('.goTop').fadeOut(300);
+                        $('#ButtonGoTop').fadeOut(300);
                     }
                 }
                 // 控制目录标题高亮

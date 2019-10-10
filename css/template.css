@@ -1,6 +1,6 @@
 /* Project Aurora V3.1*/
 /* https://mikukonai.com/ */
-/* 文章模板CSS */
+/* 文章页CSS */
 
 
 :root {
@@ -361,7 +361,7 @@ a.item_top {
 
 
 
-.goTop {
+.ButtonGoTop {
     width: 40px;
     height: 40px;
     position: fixed;
@@ -382,7 +382,7 @@ a.item_top {
     z-index: 1000;
     cursor: pointer;
 }
-.goTop:focus, .goTop:hover {
+.ButtonGoTop:focus, .ButtonGoTop:hover {
     box-shadow: 0 1px 3px 0 rgba(60,64,67,0.302), 0 4px 8px 3px rgba(60,64,67,0.149);
 }
 

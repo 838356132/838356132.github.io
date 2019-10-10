@@ -120,7 +120,7 @@
 
 <!--inspiration模板-->
 <template id="inspiration">
-    <div class="goTop" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="right: 0px;">
+    <div class="ButtonGoTop" id="ButtonGoTop" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="right: 0px;">
         <img src="./image/icons/gotop.png" style="height:19px;width:17px; vertical-align: middle;">
     </div>
     <!--左侧导航栏切换开关-->
@@ -327,13 +327,13 @@ $(() => {
         if(GetMediaType() === "PC") {
             let rightMargin = $(".main-box").css("margin-right").match(/^\d+/gi);
             let leftMargin = $(".main-box").css("margin-left").match(/^\d+/gi);
-            let buttonWidth = $(".goTop").css("width").match(/^\d+/gi);
-            $(".goTop").css("right", (rightMargin - buttonWidth - 30).toString() + 'px');
+            let buttonWidth = $("#ButtonGoTop").css("width").match(/^\d+/gi);
+            $("#ButtonGoTop").css("right", (rightMargin - buttonWidth - 30).toString() + 'px');
             $(".left_nav_button").show();
             $(".left_navbox").show();
         }
         else if(GetMediaType() === "Mobile"){
-            $(".goTop").css("right", '20px');
+            $("#ButtonGoTop").css("right", '20px');
             $("#left_navbox").css("margin-left", "-360px");
         }
     };
