@@ -371,7 +371,7 @@ a:hover{
 }
 
 #left_navbox_tags {
-    margin: 15px 0 15px 0;
+    margin: 15px 0 25px 0;
     padding-left: 30px;
 }
 
@@ -381,16 +381,20 @@ a:hover{
     color: #009be9;
     border: none;
     border-radius: 5px;
-    font-size: 14px;
+    font-size: 12px;
     padding: 2px 6px 2px 6px;
     margin: 3px;
     word-break: break-all;
     word-wrap: break-word;
     cursor: pointer;
 }
-.left_navbox_tags_item:hover {
-    background-color: #c1eaff;
-    color: #009be9;
+.left_navbox_tags_item:hover, .left_navbox_tags_item_active {
+    color: #ff6893;
+    background-color: #ffdfe8;
+}
+.left_navbox_tags_item_clear {
+    background-color: #eeeeee;
+    color: #a0a0a0;
 }
 
 #left_navbox_item_list {
