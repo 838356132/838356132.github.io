@@ -9,7 +9,7 @@
 // Document:
 /*
 #!title: 标题
-#!author: 作者1, 作者2, ...
+#!authors: 作者1, 作者2, ...
 #!date: 2019-10-11
 #!cover: 封面图片链接
 #!type: 类型
@@ -28,17 +28,20 @@
 
 class Mikumark {
     public title: string;
-    public author: Array<string>;
+    public authors: Array<string>;
     public date: string;
     public cover: string;
     public type: string;
     public tags: Array<string>;
 
-    public markdown: string;
-    public outline: Array<string>;
-    public inlineStyle: string;
-    public inlineScript: string;
+    public content: string;
+    public style: string;
+    public script: string;
+    public linkedStyles: Array<string>;
+    public linkedScripts: Array<string>;
+    public metadata: Object;
 
+    public outline: Array<string>;
     private macros: Map<string, string>;
     private titleCount: number;
 
@@ -91,6 +94,16 @@ class Mikumark {
         .replace(new RegExp(Mikumark.C_MNUS,'g'), '-').replace(new RegExp(Mikumark.C_AMPS,'g'), '&').replace(new RegExp(Mikumark.C_PCNT,'g'), '%');
     }
 
+    // 覆盖HTML元字符
+    static CoverHTMLchar(str: string): string {
+        return str.replace(/>/gi, "&gt;").replace(/</gi, "&lt;").replace(/&/gi, "&amp;");
+    }
+
+    // 换回HTML元字符
+    static RecoverHTMLchar(str: string): string {
+        return str.replace(/&gt;>/gi, ">").replace(/&lt;</gi, "<").replace(/&amp;/gi, "&");
+    }
+
     // 段内样式解析
     public ParseInnerPara(md: string): string {
         let RegexInlineCode = /\`(.+?)\`/g;
@@ -113,7 +126,7 @@ class Mikumark {
         let inlineCodeSegments = RegexInlineCode.exec(HTML);
         while(inlineCodeSegments !== null) {
             HTML = HTML.replace(inlineCodeSegments[0],
-                `<code>${Mikumark.CoverMetachar(inlineCodeSegments[1])}</code>`);
+                `<code>${Mikumark.CoverHTMLchar(Mikumark.CoverMetachar(inlineCodeSegments[1]))}</code>`);
             inlineCodeSegments = RegexInlineCode.exec(HTML);
         }
 
@@ -127,7 +140,7 @@ class Mikumark {
                     .replace(RegexLink, `<a href="$2">$1</a>`)
                     ;
 
-        return Mikumark.RecoverMetachar(HTML);
+        return Mikumark.RecoverHTMLchar(Mikumark.RecoverMetachar(HTML));
     }
 
     // 段落级样式解析
@@ -327,94 +340,125 @@ class Mikumark {
     public ParseInterPara(md: string): string {
         let HtmlBuffer: Array<string> = new Array();
 
-        // 引用块计数
-        let quoteFlag = false;
-        let quoteLevel = 0;
-        // 代码块标识
-        let codeFlag = false;
-        // 代码块语言标识
-        let codeLanguage = '';
-        // 跨自然段的括号层次计数
-        let bracketLevel = 0;
+        // 首先处理代码块
+        let codeBlocks = new Array();
+
+        let mdBuffer = new Array();
+
+        let codeIndex = 0;
+        let codeLanguage = "";
+        let codeBlockBuffer = new Array();
+
+        let lines = md.split("\n");
+        let isInCodeBlock = false;
+        let codeBlockQuoteLevel = 0;
+        for(let i = 0; i < lines.length; i++) {
+            let line = lines[i];
+            if(/^(>*)\s*```/g.test(line) === true) { // 支持在块引用中的代码块
+                // 进入代码块
+                if(isInCodeBlock === false) {
+                    codeBlockQuoteLevel = (line.match(/^>*(?=[^>])/i)[0]).length;
+                    codeLanguage = line.replace(/^(>*)\s*```:?/gi, "").toLowerCase();
+                    isInCodeBlock = true;
+                }
+                // 退出代码块
+                else {
+                    isInCodeBlock = false;
+                    mdBuffer.push(`${">>>>>>>>>>>>>>>>>>>".substring(0, codeBlockQuoteLevel)}\`\`\`${codeIndex}`);
+                    codeBlocks[codeIndex] = {
+                        language: codeLanguage,
+                        code: Mikumark.CoverHTMLchar(codeBlockBuffer.join(""))
+                    };
+                    codeIndex++;
+                    codeLanguage = "";
+                    codeBlockBuffer = new Array();
+                    codeBlockQuoteLevel = 0;
+                }
+            }
+            else {
+                // 处于代码块内部
+                if(isInCodeBlock === true) {
+                    codeBlockBuffer.push(line + "\n");
+                }
+                else {
+                    mdBuffer.push(line);
+                }
+            }
+        }
+
+        md = mdBuffer.join("\n"); // 重新组合起来
 
         // 自然段落分隔
         let paragraphs = md.split(/\n{2,}/g);
 
         // 遍历各个段落，判断段落类型
+        // 引用块计数
+        let quoteFlag = false;
+        let quoteLevel = 0;
         for(let pcount = 0; pcount < paragraphs.length; pcount++) {
             let paragraph = paragraphs[pcount];
 
             // 引用框？
             if(/^>.+/g.test(paragraph) === true) {
                 quoteFlag = true;
-                // 计算>号数量（引用层级）
+                // >号数量（引用层级）
                 let level = (paragraph.match(/^>+(?=[^>])/i)[0]).length;
 
-                // 计算引用文本
-                // let quoteFrom = paragraph.search(/\>(?=[^\>])/i) + 1; // 最后一个>号的下一位
-                // let quote = paragraph.substring(quoteFrom); // 截取>号后面的内容（含空格）
-                // quote = quote.trim(); // 去掉>号和内容之间的空格
+                // 引用文本
                 let quote = paragraph.replace(/^>+/, "").trim();
 
                 // 判断层级是否改变
                 if(level > quoteLevel) { // 嵌套加深
                     for(let c = 0; c < (level - quoteLevel); c++) {
-                        HtmlBuffer.push('<blockquote>');
+                        HtmlBuffer.push(`<blockquote>`);
                     }
-                    HtmlBuffer.push(this.ParsePara(quote));
                 }
                 else if(level < quoteLevel){ // 嵌套退出
                     for(let c = 0; c < (quoteLevel - level); c++) {
-                        HtmlBuffer.push('</blockquote>');
+                        HtmlBuffer.push(`</blockquote>`);
                     }
-                    HtmlBuffer.push(this.ParsePara(quote));
                 }
-                else { // 保持同级，不加标签
+                else {} // 保持同级，不加标签
+
+                // 处理代码块
+                if(/^(>*)\s*```\d+/g.test(quote) === true) {
+                    HtmlBuffer.push(quote);
+                }
+                else {
                     HtmlBuffer.push(this.ParsePara(quote));
                 }
                 quoteLevel = level;
             }
-
-            // 代码分界符所在的段
-            else if(/((```)|(```(\:.*)?))/g.test(paragraph) === true) {
-                let codeLanguages = paragraph.match(/\:.*/g);
-                if(codeLanguages != null) {
-                    codeLanguage = codeLanguages[0].substring(1);
-                }
-                else {
-                    codeLanguage = '.';
-                }
-                if(codeFlag == false) {
-                    codeFlag = true;
-                    bracketLevel = 0;
-                    HtmlBuffer.push(`<pre><code>`);
-                }
-                else {
-                    codeFlag = false;
-                    HtmlBuffer.pop(); // 删除最后一个空行
-                    HtmlBuffer.push(`</code></pre>`);
-                }
-            }
-            // 除引用和代码之外的段落
+            // 无前缀的段落
             else {
-                // 处理代码块
-                if(codeFlag == true) {
-                    // TODO 代码高亮
-                    // let highlighted = this.codeHighlighter(paragraph, codeLanguage, bracketLevel);
-                    // bracketLevel = highlighted[1];
-                    // HtmlBuffer.push(highlighted[0]);
-                    HtmlBuffer.push("\n\n");
-                    continue;
-                }
                 // 闭合引用标签，并退出引用状态
                 if(quoteFlag == true) {
                     for(let c = 0; c < quoteLevel; c++) {
-                        HtmlBuffer.push('</blockquote>');
+                        HtmlBuffer.push(`</blockquote>`);
                     }
                     quoteLevel = 0;
                 }
                 quoteFlag = false;
-                HtmlBuffer.push(this.ParsePara(paragraph));
+
+                if(/^```\d+/g.test(paragraph) === true) {
+                    HtmlBuffer.push(paragraph);
+                }
+                else {
+                    HtmlBuffer.push(this.ParsePara(paragraph));
+                }
+            }
+        }
+
+        // 代码写回并高亮
+        for(let i = 0; i < HtmlBuffer.length; i++) {
+            let para = HtmlBuffer[i];
+            if(/^(>*)\s*```/g.test(para) === true) {
+                let index = parseInt(para.trim().replace(/^(>*)\s*```/g, ""));
+                let codeBlock = codeBlocks[index];
+                let codeLanguage = codeBlock.language;
+                // TODO 此处高亮
+                let code = Mikumark.RecoverHTMLchar(codeBlock.code);
+                HtmlBuffer[i] = `<pre><code>${code}</code></pre>`;
             }
         }
 
@@ -422,34 +466,97 @@ class Mikumark {
     }
 
     // 文档结构解析
-    public ParseDoc(doc: string): string {
-        // TODO
-        return this.ParseInterPara(doc);
+    public Parse(doc: string): void {
+        let contentBuffer = new Array();
+        let styleBuffer = new Array();
+        let scriptBuffer = new Array();
+        let metadataBuffer = new Array();
+
+        let state = "content"; // content | style | script | metadata
+
+        let lines = doc.split("\n");
+        for(let i = 0; i < lines.length; i++) {
+            let line = lines[i];
+            if(/^#!title:/g.test(line) === true) {
+                let title = line.split(":")[1].trim();
+                this.title = title;
+            }
+            else if(/^#!date:/g.test(line) === true) {
+                let date = line.split(":")[1].trim();
+                this.date = date;
+            }
+            else if(/^#!cover:/g.test(line) === true) {
+                let cover = line.split(":")[1].trim();
+                this.cover = cover;
+            }
+            else if(/^#!type:/g.test(line) === true) {
+                let type = line.split(":")[1].trim();
+                this.type = type;
+            }
+            else if(/^#!authors:/g.test(line) === true) {
+                let authors = line.split(":")[1].trim().split(",").map((e)=>{return e.trim();});
+                this.authors = authors;
+            }
+            else if(/^#!tags:/g.test(line) === true) {
+                let tags = line.split(":")[1].trim().split(",").map((e)=>{return e.trim();});
+                this.tags = tags;
+            }
+            // 宏定义
+            else if(/^#!{(.+?)}:/g.test(line) === true) {
+                let macroContent = line.split(":")[1].trim();
+                let macroName = line.split(":")[0].replace(/^#!/g, ""); // 包括大括号
+                this.macros[macroName] = macroContent;
+            }
+            // 外部CSS
+            else if(/^#!style:/g.test(line) === true) {
+                let cssPath = line.split(":")[1].trim();
+                this.linkedStyles.push(cssPath);
+            }
+            // 外部脚本
+            else if(/^#!script:/g.test(line) === true) {
+                let scriptPath = line.split(":")[1].trim();
+                this.linkedScripts.push(scriptPath);
+            }
+            else if(/^#!content$/.test(line) === true) { state = "content"; }
+            else if(/^#!style$/.test(line) === true) { state = "style"; }
+            else if(/^#!script$/.test(line) === true) { state = "script"; }
+            else if(/^#!metadata$/.test(line) === true) { state = "metadata"; }
+            else {
+                if(state === "content") { contentBuffer.push(line); }
+                else if(state === "style") { styleBuffer.push(line); }
+                else if(state === "script") { scriptBuffer.push(line); }
+                else if(state === "metadata") { metadataBuffer.push(line); }
+            }
+        }
+
+        this.content = contentBuffer.join("\n");
+        this.style = styleBuffer.join("\n");
+        this.script = scriptBuffer.join("\n");
+        try {
+            this.metadata = JSON.parse(metadataBuffer.join("\n"));
+        }
+        catch(e){}
+
+        this.HTML = this.ParseInterPara(this.content);
     }
 
     constructor(doc: string) {
-        this.title = "标题";
-        this.author = ["作者1", "作者2"];
-        this.date = "2019-10-12";
-        this.cover = "封面";
-        this.type = "原创";
-        this.tags = ["标签"];
-
-        this.markdown = doc;
+        this.authors = new Array();
+        this.tags = new Array();
         this.outline = new Array();
-        this.inlineStyle = "";
-        this.inlineScript = "";
+        this.linkedScripts = new Array();
+        this.linkedStyles = new Array();
     
         this.macros = new Map();
         this.titleCount = 0;
 
-        this.HTML = this.ParseDoc(this.markdown);
+        this.Parse(doc);
     }
 }
 
 
 // 测试
-
+/*
 const md = `
 
 # 0 基线维护记录
@@ -468,8 +575,26 @@ const md = `
 
 ## 1.1 概述
 
+\`\`\`
+<figure role="img" aria-labelledby="cow-caption">
+  <pre>
+  ___________________________
+< I'm an expert in my field. >
+  ---------------------------
+         \\   ^__^ 
+          \\  (oo)\\_______
+             (__)\\       )\\/\\
+                 ||----w |
+                 ||     ||
+  </pre>
+  <figcaption id="cow-caption">
+    A cow saying, "I'm an expert in my field." The cow is illustrated using preformatted text characters. 
+  </figcaption>
+</figure>
+\`\`\`
+
 > 个人知识管理总方针：
-精简盘活存量，严格控制增量。合理高效备份，保证知识有用、有序、安全。
+精简盘活\`<p>456**123**789</p>\`存量，严格控制增量。合理高效备份，保证知识有用、有序、安全。
 
 这份文档试图就**个人知识管理**这一难题，给出**明确**、**合理**、**可行**的解决方案，以期在信息过载的生活中，尽可能做好知识的记录、利用、内化和传递。
 
@@ -508,6 +633,11 @@ const md = `
 |---------------------------|
 |A|C|D|I|S|V|
 
-`;
-let mikumark = new Mikumark(md);
-console.log(mikumark.HTML);
+`;*/
+// let mikumark = new Mikumark(md);
+
+// const fs = require("fs");
+// console.log(mikumark.HTML);
+
+// fs.writeFileSync("./test.html", mikumark.HTML);
+
