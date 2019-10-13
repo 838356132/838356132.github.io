@@ -47,9 +47,9 @@ i, cite, em, var, address, dfn { font-style: italic;}
     padding: 3px 10px 3px 10px;
 }
 .md-button:hover {
-    color: #33bbff;
-    background-color: #c5ecff;
-    border: 1px solid #c5ecff;
+    color: #00aaff;
+    background-color: #cdeeff;
+    border: 1px solid #cdeeff;
 }
 .md-button:active {
     color: #ffffff;
@@ -75,8 +75,8 @@ i, cite, em, var, address, dfn { font-style: italic;}
 }
 .md-button-red:hover {
     color: #ff5888;
-    background-color: #ffdce7;
-    border: 1px solid #ffdce7;
+    background-color: #ffe3ef;
+    border: 1px solid #ffe3ef;
 }
 .md-button-red:active {
     color: #ffffff;
@@ -269,7 +269,7 @@ i, cite, em, var, address, dfn { font-style: italic;}
     a:hover{
         color: #0066dd;
         text-decoration:none;
-        border-bottom: 1px dotted #0066dd;
+        border-bottom: 1px solid #0066dd;
     }
 
     /* 列表和表项样式（部分可直接改动） */

@@ -39,7 +39,7 @@ body {
 /*****************************************/
 
 /* 进度条 */
-.progressbar {
+.Progressbar {
     position: fixed;
     top: 0;
     left: 0;
@@ -48,44 +48,6 @@ body {
     width: 5%;
     background: linear-gradient(to right, #88f1ff, #66ccff);
 }
-
-.title {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    height: 40px;
-    line-height: 40px;
-    font-size: 16px;
-    border: none;
-    background-color: rgba(255,255,255,0.0);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    color: #233333;
-    font-weight: bold;
-    /* text-shadow: 1px 1px 5px #000000; */
-    text-align: center;
-    word-spacing: 1px;
-    z-index: 200;
-}
-
-.title_bg {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    height: 40px;
-    line-height: 40px;
-    font-size: 16px;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: auto;
-    background: rgba(255, 255, 255, 0.99);
-    border-bottom: 0.5px solid #dddddd;
-    z-index: 199;
-}
-
-
-
-
 
 
 
@@ -118,7 +80,7 @@ body {
 }
 
 
-.top_sticky {
+.StickyNavbar {
     position: sticky;
     position: -webkit-sticky;
     height: 80px;
@@ -133,7 +95,7 @@ body {
     border-bottom: 0.5px solid #dddddd;
     z-index: 1001;
 }
-.item_top {
+.StickyNavbarItem {
     position: relative;
     top: 40px;
     display: inline-flex;
@@ -149,32 +111,56 @@ body {
     color:#666666;
     text-decoration:none;
 }
-.top_active {
-    display: inline-block;
-    color: #50c5ff;/*#4284f3*/
+.StickyNavbarItem:hover {
+    color:#00aaff;
+    text-decoration:none;
 }
-.top_active:after {
+.StickyNavbarItemActive {
+    display: inline-block;
+    color: #00aaff;/*#4284f3*/
+}
+.StickyNavbarItemActive:after {
     position: absolute;
     top:0;
     left:0;
     content: '';
     height: 37px;
     width: 100%;
-    border-bottom: solid 3px #50c5ff;
-    animation: border-grow .3s cubic-bezier(0.4,0,0.4,1) 0s;
+    border-bottom: solid 3px #00aaff;
+    animation: StickyNavbarBottomBorderGrow .3s cubic-bezier(0.4,0,0.4,1) 0s;
 }
-@keyframes border-grow{0%{opacity:0;width:0;}to{opacity:1;width:100%;}}
+@keyframes StickyNavbarBottomBorderGrow{0%{opacity:0;width:0;}to{opacity:1;width:100%;}}
 
 
 
 
-.topBookmark {
+a.StickyNavbarItem {
+    display: inline-block;
+    height: 35px;
+    line-height: 35px;
+    color:#ffffff;
+    letter-spacing: 2px;
+    font-weight: bold;
+    text-decoration:none;
+}
+
+
+
+.bar {
+    color: #888888;
+    margin: 0 10px 0 8px;
+}
+
+
+
+
+/* 目录UL样式 */
+
+.ContentsList {
     margin: 20px 0 20px 20px;
-    color: #707070;
     z-index: 100;
 }
-
-.topBookmarkItem {
+.ContentsListItem {
     padding-left: 20px;
     text-indent: 0;
     font-size: 14px;
@@ -185,187 +171,23 @@ body {
     font-weight: inherit;
     word-wrap: break-word;
     list-style-type: square;
-    color: #888888;
+    color: #333333;
 }
-
-.topBookmarkLink {
-    color: /*#eeeeee*/#333333;
-    text-decoration: none;
-    border: none;
-}
-.selected {
-    color: #64ddff;
-    text-decoration: none;
-    border: none;
-}
-.topBookmarkLink:hover {
-    color: #64ddff;
-    text-decoration: none;
-    border: none;
-}
-
-.horizon {
-    height:2px;
-    width:100%;
-    background:linear-gradient(90deg, rgb(112, 44, 103), rgb(49, 144, 192));
-    margin:0;
-}
-
-a.item_top {
-    display: inline-block;
-    height: 35px;
-    line-height: 35px;
-    color:#ffffff;
-    letter-spacing: 2px;
-    font-weight: bold;
-    text-decoration:none;
-}
-
-.top_active {
-    color:#66ccff;
-}
-.item_top:hover {
-    color:#66ccff;
-    text-decoration:none;
-}
-.bar {
-    color: #888888;
-    margin: 0 10px 0 8px;
-}
-
-
-.ButtonBack {
-    float:left;
-    position: fixed;
-    top:0px;
-    left:0px;
-    width: 60px;
-    height: 40px;
-    padding-left:15px;
-    text-align: left;
-    line-height: 40px;
-    font-size: 14px;
-    color: #ffffff;
-    background: none;
-    border: none;
-    text-shadow: 1px 1px 5px #000000;
+.ContentsItem {
     cursor: pointer;
-    z-index: 100000;
 }
-.title_button_right {
-    float:right;
-    position: fixed;
-    top:0px;
-    right:0;
-    width: 50px;
-    height: 40px;
-    line-height: 40px;
-    font-size: 14px;
-    color: #ffffff;
-    background: none;
-    border: none;
-    border-radius: 5px;
-    text-shadow: 1px 1px 5px #000000;
-    cursor: pointer;
-    z-index: 100000;
+.ContentsItem:hover {
+    text-decoration: underline;
 }
-
-/***********************************************/
-/** 菜单toggle按钮的动态图标 **/
-/***********************************************/
-
-.menu-toggle-bar-1-hor {
-    height: 2px;
-    width: 100%;
-    background-color: #222222;
-    position: relative;
-    top: 0px;
-    transition: all 0.2s ease-in-out;
-    -moz-transition: all 0.2s ease-in-out;
-    -webkit-transition: all 0.2s ease-in-out;
-    -o-transition: all 0.2s ease-in-out;
-}
-
-.menu-toggle-bar-2-hor {
-    height: 2px;
-    width: 100%;
-    background-color: #222222;
-    position: relative;
-    top: 3px;
-    margin: 0 auto 0 auto;
-    transition: all 0.2s ease-in-out;
-    -moz-transition: all 0.2s ease-in-out;
-    -webkit-transition: all 0.2s ease-in-out;
-    -o-transition: all 0.2s ease-in-out;
-}
-
-.menu-toggle-bar-3-hor {
-    height: 2px;
-    width: 100%;
-    background-color: #222222;
-    position: relative;
-    top: 6px;
-    transition: all 0.2s ease-in-out;
-    -moz-transition: all 0.2s ease-in-out;
-    -webkit-transition: all 0.2s ease-in-out;
-    -o-transition: all 0.2s ease-in-out;
-}
-
-.menu-toggle-bar-1-rot {
-    height: 2px;
-    width: 16.9px;
-    background-color: #233333;
-    position: relative;
-    top: 0px;
-    transform-origin: left;
-    transform: translateY(-1px) rotateZ(+45deg);
-    transition: all 0.2s ease-in-out;
-    -moz-transition: all 0.2s ease-in-out;
-    -webkit-transition: all 0.2s ease-in-out;
-    -o-transition: all 0.2s ease-in-out;
-}
-
-.menu-toggle-bar-2-rot {
-    height: 2px;
-    width: 0%;
-    background-color: #233333;
-    position: relative;
-    top: 3px;
-    transform-origin: center;
-    margin: 0 auto 0 auto;
-    transition: all 0.2s ease-in-out;
-    -moz-transition: all 0.2s ease-in-out;
-    -webkit-transition: all 0.2s ease-in-out;
-    -o-transition: all 0.2s ease-in-out;
-}
-
-.menu-toggle-bar-3-rot {
-    height: 2px;
-    width: 16.9px;
-    background-color: #233333;
-    position: relative;
-    top: 6px;
-    transform-origin: left;
-    transform: translateY(+1px) rotateZ(-45deg);
-    transition: all 0.2s ease-in-out;
-    -moz-transition: all 0.2s ease-in-out;
-    -webkit-transition: all 0.2s ease-in-out;
-    -o-transition: all 0.2s ease-in-out;
+.ContentsItemActive {
+    color: #00aaff;
 }
 
 
 
 
 
-
-
-
-
-
-
-
-
-.ButtonGoTop {
+.GoTopButton {
     width: 40px;
     height: 40px;
     position: fixed;
@@ -386,7 +208,7 @@ a.item_top {
     z-index: 1000;
     cursor: pointer;
 }
-.ButtonGoTop:focus, .ButtonGoTop:hover {
+.GoTopButton:focus, .GoTopButton:hover {
     box-shadow: 0 1px 3px 0 rgba(60,64,67,0.302), 0 4px 8px 3px rgba(60,64,67,0.149);
 }
 
@@ -541,7 +363,7 @@ a.item_top {
 
 
 /* 加载动效 */
-.loading-content {
+.SkeletonPlaceholder {
     display: inline-block;
     background-color: #e0e0e0;
     color: rgba(0,0,0,0);
@@ -597,7 +419,7 @@ a.item_top {
         color: #222222;
         background-color: #ffffff;
         box-shadow: 0 1px 2px 0 rgba(60,64,67,0.302), 0 1px 3px 1px rgba(60,64,67,0.149);
-        transition: box-shadow .08s linear,min-width .15s cubic-bezier(0.4,0.0,0.2,1);
+        transition: box-shadow 0.1s linear,min-width .15s cubic-bezier(0.4,0.0,0.2,1);
         border-radius: 50%;
         border: none;
         line-height: 40px;
@@ -610,34 +432,30 @@ a.item_top {
         box-shadow: 0 1px 3px 0 rgba(60,64,67,0.302), 0 4px 8px 3px rgba(60,64,67,0.149);
     }
 
-    .contents_button {
+    .MenuButton {
         position: absolute;
         top: 0;
         right: 0;
-        margin: 0 0 auto auto;
+        font-family: "Material Icons";
+        font-size: 20px;
         width: 40px;
         height: 40px;
-        color: #222222;
-        background-color: #ffffff;
-        transition: background-color 0.5s;
+        color: #666;
+        background-color: #fff;
+        transition: 0.1s linear;
         border-radius: 50%;
         border: none;
         line-height: 40px;
         text-align: center;
-        font-size: 13px;
-        z-index: 1000;
+        z-index: 10000;
         cursor: pointer;
     }
-    .contents_button:hover {
+    .MenuButton:hover {
         background-color: #f0f0f0;
     }
 
-    #contents_list {
-        height: 520px;
-        overflow: auto;
-    }
 
-    .ButtonBack {
+    .BackButton {
         width: 40px;
         height: 40px;
         position: fixed;
@@ -659,9 +477,16 @@ a.item_top {
         z-index: 1000;
         cursor: pointer;
     }
-    .ButtonBack:hover, .ButtonBack:focus {
+    .BackButton:hover, .BackButton:focus {
         box-shadow: 0 1px 3px 0 rgba(60,64,67,0.302), 0 4px 8px 3px rgba(60,64,67,0.149);
     }
+
+    #ContentsContainer {
+        height: 520px;
+        overflow: auto;
+    }
+
+
 
     .contents_menu {
         width: 400px;
@@ -725,7 +550,7 @@ a.item_top {
     }
 
 
-    .loading-content {
+    .SkeletonPlaceholder {
         height: 18px;
         line-height: 18px;
         margin: 7px 0 7px 0;
@@ -765,29 +590,50 @@ a.item_top {
         overflow: hidden;
     }
 
-    .top_sticky {
+    .StickyNavbar {
         background: none;
     }
 
-    .contents_button {
+    .MenuButton {
         position: absolute;
         top: 0;
         right: 0;
         margin: 0 0 auto auto;
         width: 40px;
         height: 40px;
+        font-family: "Material Icons";
+        font-size: 23px;
         color: #222222;
         background: none;
         border: none;
         line-height: 40px;
         text-align: center;
-        font-size: 13px;
         z-index: 1000;
         cursor: pointer;
     }
-    #contents_list {
+
+    #ContentsContainer {
         height: calc(100% - 80px);
         overflow: auto;
+    }
+
+    .BackButton {
+        float:left;
+        position: fixed;
+        top:0px;
+        left:0px;
+        width: 60px;
+        height: 40px;
+        padding-left:15px;
+        text-align: left;
+        line-height: 40px;
+        font-size: 14px;
+        color: #ffffff;
+        background: none;
+        border: none;
+        text-shadow: 1px 1px 5px #000000;
+        cursor: pointer;
+        z-index: 100000;
     }
 
 
@@ -809,6 +655,40 @@ a.item_top {
         display:none;
     }
 
+    .StickyTitle {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+        font-size: 16px;
+        border: none;
+        background-color: rgba(255,255,255,0.0);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        color: #233333;
+        font-weight: bold;
+        /* text-shadow: 1px 1px 5px #000000; */
+        text-align: center;
+        word-spacing: 1px;
+        z-index: 200;
+    }
+
+    .StickyTitleBackground {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+        font-size: 16px;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: auto;
+        background: rgba(255, 255, 255, 0.99);
+        border-bottom: 0.5px solid #dddddd;
+        z-index: 199;
+    }
+
     .md-content {
         padding: 0 var(--md_padding_horizontal) 0 var(--md_padding_horizontal);
     }
@@ -818,7 +698,7 @@ a.item_top {
         padding:20px var(--md_padding_horizontal) 20px var(--md_padding_horizontal);
     }
 
-    .loading-content {
+    .SkeletonPlaceholder {
         height: 14px;
         line-height: 14px;
         margin: 5px 0 5px 0;
