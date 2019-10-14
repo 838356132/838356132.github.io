@@ -1,12 +1,9 @@
-#!metadata
-{
-    "title":"VCD改造记录",
-    "titleImage":"./image/vcd-hacking/yui.jpg",
-    "type":"原创",
-    "date":"2015-05-24",
-    "author":["Mikukonai"],
-    "tags":[]
-}
+#!title:    VCD改造记录
+#!date:     2015-05-24
+#!authors:  Mikukonai
+#!cover:    ./image/vcd-hacking/yui.jpg
+#!type:     原创
+#!tags:     
 
 #!content
 
@@ -61,6 +58,6 @@
 
 
 
-#!css
+#!style
 
-#!js
+#!script

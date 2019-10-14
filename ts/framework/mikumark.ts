@@ -132,6 +132,8 @@ class Mikumark {
 
         // TODO 处理标签
 
+        HTML = Mikumark.EscapeMetachar(HTML);
+
         HTML = HTML .replace(RegexTag, `<span class="tag">$1</span>`)
                     .replace(RegexBold, `<strong>$1</strong>`)
                     .replace(RegexItalic, `<i>$1</i>`)
