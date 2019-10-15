@@ -244,9 +244,7 @@ body { font-family: Microsoft YaHei, "宋体", "Helvetica Neue", Helvetica, Aria
 }
 
 /* 菜单内部的导航栏 */
-@media(min-width:651px){
-    .StickyNavbar { position: sticky; position: -webkit-sticky; height: 80px; top: 0; margin: 0 0 0 0; text-align: center; vertical-align: -webkit-baseline-middle; color: #566666; background-color: #ffffff; font-size: 14px; border-bottom: 0.5px solid #dddddd; z-index: 1001; }
-}
+.StickyNavbar { position: sticky; position: -webkit-sticky; height: 80px; top: 0; margin: 0 0 0 0; text-align: center; vertical-align: -webkit-baseline-middle; color: #566666; background-color: #ffffff; font-size: 14px; border-bottom: 0.5px solid #dddddd; z-index: 1001; }
 @media(max-width:650px){
     .StickyNavbar { background: none; }
 }
