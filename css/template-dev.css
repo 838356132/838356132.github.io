@@ -171,6 +171,7 @@ body { font-family: Microsoft YaHei, "宋体", "Helvetica Neue", Helvetica, Aria
     padding: auto 15px;
     border: none;
     background-color: #ffffff;
+    align-items: center;
 }
 .NavbarItem:hover { color: #00aaff; }
 .NavbarItem[active="true"] { color: #00aaff; }
@@ -179,7 +180,7 @@ body { font-family: Microsoft YaHei, "宋体", "Helvetica Neue", Helvetica, Aria
     display: block;
     position: absolute;
     left: 0;
-    top: var(--NavbarHeight);
+    top: 0;
     width: 100%;
     color: rgba(0,0,0,0);
     box-shadow: inset 0 -3px #00aaff;
@@ -188,7 +189,7 @@ body { font-family: Microsoft YaHei, "宋体", "Helvetica Neue", Helvetica, Aria
 @keyframes NavbarItemActiveAnimation {
     0% { opacity: 0; width: 0; } to { opacity: 1; width: 100%; }
 }
-.InMenu { display: none; padding-top: var(--NavbarHeight); }
+.InMenu { display: none; top: var(--NavbarHeight); }
 
 
 /* 底部版权栏-渐变文字 */
