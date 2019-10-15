@@ -2,11 +2,11 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-<link rel="stylesheet" type="text/css" href="./css/framework.css" charset="utf-8"/>
-<title>Project Aurora</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="./css/framework.css" charset="utf-8"/>
+    <title>Project Aurora</title>
 </head>
 <body>
 
@@ -18,14 +18,14 @@
     <header class="top_title"></header>
     <!--栏目切换按钮-->
     <div class="top_sticky">
-        <button class="item_top top_active spa-switch" data-target="index">首 页</button><button class="item_top spa-switch" data-target="inspiration">灵 感</button><button class="item_top spa-switch" data-target="articles">文 章</button><button class="item_top spa-switch" data-target="links">书 签</button><button class="item_top spa-switch" data-target="about">关 于</button>
+        <button class="item_top top_active SPA_BUTTON" data-target="index">首 页</button><button class="item_top SPA_BUTTON" data-target="inspiration">灵 感</button><button class="item_top SPA_BUTTON" data-target="articles">文 章</button><button class="item_top SPA_BUTTON" data-target="links">书 签</button><button class="item_top SPA_BUTTON" data-target="about">关 于</button>
     </div>
     <!--SPA页面内容-->
     <div class="spa-content"></div>
     <!--底部版权栏-->
     <footer class="fw-bottom-copyright">
         <p class="fw-bottom-copyright-content gradient">☆ Project Aurora V3.3 ☆</p>
-        <p class="fw-bottom-copyright-content">版权所有 © 2016-<span class="copyright_year"></span> Mikukonai</p>
+        <p class="fw-bottom-copyright-content">版权所有 © 2016-<span class="CopyrightYear"></span> Mikukonai</p>
     </footer>
 </div>
 <!--页面框架结束-->
@@ -91,7 +91,7 @@
     </div>
 
     <div class="index_all_article">
-        <a class="index_all_article_link spa-switch" href="#/articles" data-target="articles">全部文章 »</a>
+        <a class="index_all_article_link SPA_BUTTON" href="#/articles" data-target="articles">全部文章 »</a>
     </div>
 
     <!-- <div style="color:#bbbbbb;margin: 10px 0;font-size: 14px;line-height: 22px;text-align: center;">
@@ -100,19 +100,7 @@
     <style>.foot_link { color: inherit; text-decoration: none; border-bottom: 1px dotted #cccccc;} .foot_link:hover {color: #ff88a9; border-bottom: 1px dotted #ff88a9;}</style>
     <!-- <div class="articles_content_ending" style="margin: 0;">题图作者：<a class="foot_link" href="https://www.pixiv.net/member_illust.php?mode=medium&illust_id=66037995">ALPCMAS</a></div> -->
 
-    <script>
-    (function() {
-        // 进场动画
-        let showTime = 0;
-        $(".index_item").each(function(i,e) {
-            $(e).css({'opacity':0,'margin-top':'-5px'});
-            setTimeout(function() {
-                $(e).animate({'opacity':1.0,'margin-top':'5px'}, 800);
-            }, showTime);
-            showTime += 300;
-        });
-    })();
-    </script>
+    <script> SlideInOneByOne("index_item", 5, 800, 300); // 进场动画 </script>
 </template>
 
 
@@ -145,215 +133,7 @@
         <div class="content-ending" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"></div>
     </div>
     <script src="./ts/framework/inspiration.js"></script>
-    <script>
-
-$(() => {
-
-    let posters, html;
-
-    // 终端类型判断："PC" or "Mobile"
-    function GetMediaType() {
-        return ($(window).width() >= 650) ? "PC" : "Mobile";
-    }
-
-    // 跳转到某个Poster
-    function TurnTo(elementId) {
-        let targetTop = window.pageYOffset + $(`#${elementId}`)[0].getBoundingClientRect().top;
-        let currentTop = window.pageYOffset;
-        $('html, body').animate({ scrollTop: targetTop-40 }, 200, 'easeOutExpo'); // 照顾顶部sticky导航栏的40px高度
-    }
-
-    // 遍历所有Poster，根据当前滚动位置，计算当前显示的Poster是哪个
-    function GetVisiblePoster() {
-        let posterDOMs = $(".poster");
-        let currentTop = window.pageYOffset + 42;
-        for(let i = 0; i < posterDOMs.length - 1; i++) {
-            let currentPosterTop = window.pageYOffset + posterDOMs[i].getBoundingClientRect().top;
-            let nextPosterTop = window.pageYOffset + posterDOMs[i+1].getBoundingClientRect().top;
-            if(currentTop > currentPosterTop && currentTop < nextPosterTop) {
-                return posterDOMs[i].id;
-            }
-        }
-        return undefined;
-    }
-
-    // 针对标签作倒排索引
-    function Indexer(posters) {
-        let InverseIndex = new Object();
-        for(let i = 0; i < posters.length; i++) {
-            let tags = posters[i].tags;
-            for(let j = 0; j < tags.length; j++) {
-                if(tags[j] in InverseIndex) {
-                    InverseIndex[tags[j]].push(i);
-                }
-                else {
-                    InverseIndex[tags[j]] = [i];
-                }
-            }
-        }
-        return InverseIndex;
-    }
-
-    // 导航栏状态切换
-    function NavboxToggle(state) {
-        if($("#left_navbox").css("margin-left") !== "0px") {
-            $("#left_navbox").animate({"margin-left": "0px", opacity: "1"}, 500, "easeOutExpo");
-        }
-        else {
-            $("#left_navbox").animate({"margin-left": "-360px", opacity: "0"}, 500, "easeOutExpo");
-        }
-    }
-
-    // 绘制所有Posters
-    function PaintPosters() {
-        $('#poster_anchor').after(html);
-        // 进场动画
-        let showTime = 0;
-        $(".poster").each((i,e) => {
-            setTimeout(() => {
-                $(e).animate({'opacity':1.0,'margin-top':'0px'}, 800);
-            }, showTime);
-            showTime += 20;
-        });
-        setTimeout(() => {
-            $('.content-ending').html('不可说者，皆应沉默');
-        }, showTime);
-        console.table(posters);
-    }
-
-    // 绘制目录
-    function PaintNavbox(posterIndexes, currentTag) {
-        currentTag = currentTag || "";
-        // 绘制左侧目录
-        let navHtml = new Array();
-        for(let i = 0; i < posterIndexes.length; i++) {
-            let posterIndex = posterIndexes[i];
-            let prevPosterIndex = posterIndexes[i-1];
-            let inspiration = posters[posterIndex];
-            let thisYear = inspiration.date.split("-")[0];
-            if(i === 0 || (prevPosterIndex >= 0 && thisYear !== posters[prevPosterIndex].date.split("-")[0])) {
-                if(isNaN(parseInt(thisYear))) {
-                    navHtml.push(`<div class="left_navbox_horiline"><span style="position: absolute; top: -8px; margin-left: 30px; padding: 0 4px; background-color: #fff;">${thisYear}</span></div>`);
-                }
-                else {
-                    navHtml.push(`<div class="left_navbox_horiline"><span style="position: absolute; top: -8px; margin-left: 30px; padding: 0 4px; background-color: #fff;">${thisYear}年</span></div>`);
-                }
-            }
-            navHtml.push(`<div class="left_navbox_item" data-poster-id="Poster_${inspiration.id}" id="TurnTo_Poster_${inspiration.id}">${inspiration.title}</div>`);
-        }
-        $("#left_navbox_item_list").html(navHtml.join(""));
-
-        // 绘制标签
-        let tagHtml = new Array();
-        // 首先添加一个清除选择按钮
-        tagHtml.push(`<span class="left_navbox_tags_item left_navbox_tags_item_clear" data-tag="">全部</span>`);
-        let invIndex = Indexer(posters);
-        for(let tag in invIndex) {
-            let activeCSS = "";
-            if(currentTag === tag) {
-                activeCSS = " left_navbox_tags_item_active";
-            }
-            tagHtml.push(`<span class="left_navbox_tags_item${activeCSS}" data-tag="${tag}">${tag} (${invIndex[tag].length})</span>`);
-        }
-        $("#left_navbox_tags").html(tagHtml.join(""));
-
-        // 注册目录标题的点击跳转事件
-        $(".left_navbox_item").each((i, e) => {
-            $(e).click(() => {
-                let posterId = $(e).attr("data-poster-id");
-                TurnTo(posterId);
-                if(GetMediaType() === "Mobile") {
-                    NavboxToggle();
-                }
-            });
-        });
-
-        // 注册标签的点击事件
-        $(".left_navbox_tags_item").each((i, e) => {
-            $(e).click(() => {
-                let tag = $(e).attr("data-tag");
-                let indexes = Indexer(posters);
-                if(tag !== "") {
-                    PaintNavbox(indexes[tag], tag);
-                }
-                else {
-                    PaintNavbox(Array.from(posters.keys()));
-                }
-            });
-        });
-
-    }
-
-
-    function Paint() {
-        PaintPosters();
-        PaintNavbox(Array.from(posters.keys()));
-    }
-
-
-    const MAX_ARTICLE_LENGTH = 60000; // 最大字节数，用于近似计算加载进度
-    $('.content-ending').html('正在读取，请稍等…');
-    $.ajax({
-        type: "GET",
-        url: `./markdown/-inspirations.md`,
-        success: (data)=> {
-            $("#progressbar").animate({width: `100%`});
-            $("#progressbar").fadeOut();
-
-            // 解析
-            posters = ParsePosters(data);
-            html = RenderPosters(posters);
-
-            Paint();
-        },
-        error: ()=> {
-            $("#progressbar").animate({width: `100%`});
-            $("#progressbar").fadeOut();
-            $('.content-ending').html('灵感不见了 >_<');
-        },
-        // 2018.01.20 加载进度条
-        xhr: function() {
-            var xhr = $.ajaxSettings.xhr();
-            xhr.onprogress = function(event) {
-                let percentage = parseInt((event.loaded / MAX_ARTICLE_LENGTH) * 100);
-                $("#progressbar").animate({width: `${((percentage > 100) ? 100 : percentage)}%`});
-            };
-            return xhr;
-        }
-    });
-
-    window.onresize = () => {
-        // PC
-        if(GetMediaType() === "PC") {
-            let rightMargin = $(".main-box").css("margin-right").match(/^\d+/gi);
-            let leftMargin = $(".main-box").css("margin-left").match(/^\d+/gi);
-            let buttonWidth = $("#ButtonGoTop").css("width").match(/^\d+/gi);
-            $("#ButtonGoTop").css("right", (rightMargin - buttonWidth - 30).toString() + 'px');
-            $(".left_nav_button").show();
-            $(".left_navbox").show();
-        }
-        else if(GetMediaType() === "Mobile"){
-            $("#ButtonGoTop").css("right", '20px');
-            $("#left_navbox").css("margin-left", "-360px");
-        }
-    };
-
-    // 指示滚动位置
-    window.onscroll = () => {
-        let visiblePosterId = GetVisiblePoster();
-        $(`.left_navbox_item`).removeClass("left_navbox_item_active");
-        $(`#TurnTo_${visiblePosterId}`).addClass("left_navbox_item_active");
-    };
-
-    $(window).resize();
-
-    // 导航栏折叠按钮
-    $("#left_nav_button").click(()=>{ NavboxToggle(); });
-
-});
-
-
-    </script>
+    <script src="./ts/framework/inspiration-viewer.js"></script>
 </template>
 
 
@@ -367,230 +147,7 @@ $(() => {
     </div>
     <div id="list_container"></div>
     <div class="articles_content_ending">题图作者：silverwing (PixivID:24281303)</div>
-    <script>
-    function parseArticleList(articleList) {
-        let CATEGORIES = new Array();
-        let ARTICLES = new Array();
-        let lines = articleList.split(/\n+/gi);
-        let currentCategory = -1;
-        for(let line of lines) {
-            // 跳过空行或者注释行
-            if(line.length <= 0 || line[0] === ';') {
-                continue;
-            }
-            // 表示文章分类的行
-            else if(/^\#\#\s/.test(line)) {
-                CATEGORIES.push(line.substring(3));
-                currentCategory = CATEGORIES.length-1;
-            }
-            // 文章信息行
-            else {
-                let fields = line.split('|');
-                let title     = fields[0] ? fields[0].trim() : "";
-                let articleID = fields[1] ? fields[1].trim() : "";
-                let date      = fields[2] ? fields[2].trim() : "";
-                let type      = fields[3] ? fields[3].trim() : "";
-                let flag      = fields[4] ? fields[4].trim() : "";
-                ARTICLES.push({
-                    "title": title,
-                    "link": `./article.html?id=${articleID}`,
-                    "date": date,
-                    "type": type,
-                    "category": currentCategory,
-                    "flag": flag
-                });
-            }
-        }
-        let contents = {
-            "CATEGORIES": CATEGORIES,
-            "ARTICLES": ARTICLES
-        };
-        console.log(contents);
-        return contents;
-    }
-
-    function getTypeColor(type) {
-        const TYPE_COLOR = {
-            "原创":"#9dd9ff",
-            "翻译":"#ffcc6c",
-            "转载":"#aadd33",
-            "置顶":"pink",
-        };
-        return (type in TYPE_COLOR) ? TYPE_COLOR[type] : '#cccdcd';
-    }
-    function generateArticleList(CONTENTS, sortOption) {
-        const addPreZero = function(num) {
-            return ('000' + num.toString()).substr(-2);
-        };
-        // 按类别归类
-        if(sortOption === 'category') {
-            // 每一类生成一组html，然后拼接起来
-            let html = new Array(CONTENTS.CATEGORIES.length);
-            for(let i = 0; i < CONTENTS.CATEGORIES.length; i++) { html[i] = ''; }
-            for(let i = 0; i < CONTENTS.ARTICLES.length; i++) {
-                let item = CONTENTS.ARTICLES[i];
-                let flagSpan = (item.flag.length > 0) ? ('<span class="articles_item_flag">' + item.flag + '</span>') : '';
-                // 先组装HTML
-                let itemNumberBgColor = (item.flag === "置顶") ? getTypeColor('置顶') : getTypeColor(item.type);
-                let itemTypeTag = item.type;
-                let htmlstr = `<div class="articles_item_line enter"><span class="articles_item_number" style="color:${itemNumberBgColor};border-color:${itemNumberBgColor};">${addPreZero(i+1)}</span><span style="display:inline-block;max-width:50%;"><a class="article_link" href="${item.link}">${item.title}</a>${flagSpan}</span><span class="articles_item_date"><span style="color:${itemNumberBgColor};">${itemTypeTag}</span> · ${item.date}</span></div>`;
-
-                html[item.category] += htmlstr;
-            }
-            let listHtml = '';
-            for(let i = 0; i < CONTENTS.CATEGORIES.length; i++) {
-                let title = CONTENTS.CATEGORIES[i].split('|')[0];
-                let subtitle = CONTENTS.CATEGORIES[i].split('|')[1];
-                listHtml += `<div class="articles_category_list" id="c${i}"><div class="articles_category_title enter">${title}<span class="articles_category_title_en"> · ${subtitle}</span></div>`;
-                listHtml += html[i];
-                listHtml += '</div>';
-            }
-            document.getElementById('list_container').innerHTML = listHtml;
-        }
-        // 按日期降序
-        else if(sortOption === 'date-dec') {
-            let html = '<div class="articles_category_list" id="date-dec">';
-            let indexArray = sortByDate(CONTENTS, 1);
-            for(let i = 0; i < indexArray.length; i++) {
-                let item = CONTENTS.ARTICLES[indexArray[i]];
-                let flagSpan = (item.flag.length > 0) ? ('<span class="articles_item_flag">' + item.flag + '</span>') : '';
-                let itemNumberBgColor = (item.flag === "置顶") ? getTypeColor('置顶') : getTypeColor(item.type);
-                let itemTypeTag = item.type;
-                html += `<div class="articles_item_line enter"><span class="articles_item_number" style="color:${itemNumberBgColor};border-color:${itemNumberBgColor};">${addPreZero(i+1)}</span><span style="display:inline-block;max-width:50%;"><a class="article_link" href="${item.link}">${item.title}</a>${flagSpan}</span><span class="articles_item_date"><span style="color:${itemNumberBgColor};">${itemTypeTag}</span> · ${item.date}</span></div>`;
-            }
-            html += `</div>`;
-            document.getElementById('list_container').innerHTML = html;
-        }
-        // 默认顺序
-        else {
-            let html = '<div class="articles_category_list" id="date-dec"><table class="category_item_table">';
-            for(let i = 0; i < CONTENTS.ARTICLES.length; i++) {
-                let item = CONTENTS.ARTICLES[i];
-                let flagSpan = (item.flag.length > 0) ? ('<span class="flag">' + item.flag + '</span>') : '';
-                html += `<tr class="articles_item_line enter"><td><span class="articles_item_number" style="background-color:${getTypeColor(item.type)};">${addPreZero(i+1)}</span><a class="article_link" href="${item.link}">${item.title}</a>${flagSpan}<span class="article_date"><span style="color:${getTypeColor(item.type)};">${item.type}</span> | ${item.date}</span></td></tr>`;
-            }
-            html += `</table></div>`;
-            document.getElementById('list_container').innerHTML = html;
-        }
-        // 文章标题进场动画
-        let showTime = 0;
-        $(".enter").each(function(i,e) {
-            $(e).css({'display':'block','opacity':0,'margin-top':'-5px'});
-            setTimeout(function() {
-                $(e).animate({'opacity':1.0,'margin-top':'0px'}, 500);
-            }, showTime);
-            showTime += 30;
-        });
-    }
-    function compareDate(a, b) {
-        if(/20\d{2}-\d{2}-\d{2}/gi.test(a) !== true && /20\d{2}-\d{2}-\d{2}/gi.test(b) !== true) {
-            return 0;
-        }
-        else if(/20\d{2}-\d{2}-\d{2}/gi.test(a) === true && /20\d{2}-\d{2}-\d{2}/gi.test(b) !== true){
-            return -1;
-        }
-        else if(/20\d{2}-\d{2}-\d{2}/gi.test(a) !== true && /20\d{2}-\d{2}-\d{2}/gi.test(b) === true){
-            return 1;
-        }
-        else {
-            let yearA = parseInt(a.substring(0,4));
-            let yearB = parseInt(b.substring(0,4));
-            let monthA = parseInt(a.substring(5,7));
-            let monthB = parseInt(b.substring(5,7));
-            let dayA = parseInt(a.substring(8));
-            let dayB = parseInt(b.substring(8));
-            if(yearA === yearB) {
-                if(monthA === monthB) {
-                    if(dayA === dayB) { return 0; }
-                    else { return (dayA > dayB) ? (-1) : (1); } }
-                else { return (monthA > monthB) ? (-1) : (1); } }
-            else { return (yearA > yearB) ? (-1) : (1); }
-        }
-    }
-    function sortByDate(CONTENTS, order) {
-        // 首先扫描一遍CONTENTS.ARTICLES
-        let dateArray = new Array();
-        for(let i = 0; i < CONTENTS.ARTICLES.length; i++) {
-            dateArray.push({
-                index: i,
-                date: CONTENTS.ARTICLES[i].date,
-                isTop: (CONTENTS.ARTICLES[i].flag === "置顶"),
-            });
-        }
-        // 对日期进行排序
-        dateArray.sort(function(a, b) {
-            if(a.isTop) {
-                return -1;
-            }
-            else if(b.isTop) {
-                return 1;
-            }
-            else {
-                return order * compareDate(a.date, b.date);
-            }
-        });
-        // 取出index
-        let indexArray = new Array();
-        for(let i = 0; i < dateArray.length; i++) {
-            indexArray.push(dateArray[i].index);
-        }
-        return indexArray;
-    }
-    (function() {
-        const MAX_ARTICLE_LENGTH = 20000;
-        $('.articles_content_ending').html('正在读取，请稍等…');
-        $.ajax({
-            type: "GET",
-            url: `./markdown/-articles.md`,
-            success: (data)=> {
-                $("#progressbar").animate({width: `100%`});
-                $("#progressbar").fadeOut();
-                let CONTENTS = parseArticleList(data);
-
-
-                //////////////////////////////////////////////////
-                //
-                // 默认排序规则（ date-dec category ）
-                //
-                let defaultRule = 'category';
-                //
-                //////////////////////////////////////////////////
-
-
-                generateArticleList(CONTENTS, defaultRule);
-                document.getElementById(defaultRule).classList.add('articles_sort_option_button_selected');
-                // 排序按钮动作
-                document.getElementById('date-dec').addEventListener('click', ()=>{
-                    document.getElementById('date-dec').classList.add('articles_sort_option_button_selected');
-                    document.getElementById('category').classList.remove('articles_sort_option_button_selected');
-                    generateArticleList(CONTENTS, 'date-dec');
-                });
-                document.getElementById('category').addEventListener('click', ()=>{
-                    document.getElementById('category').classList.add('articles_sort_option_button_selected');
-                    document.getElementById('date-dec').classList.remove('articles_sort_option_button_selected');
-                    generateArticleList(CONTENTS, 'category');
-                });
-
-                $('.articles_content_ending').html('题图作者：silverwing (PixivID:24281303)');
-            },
-            error: ()=> {
-                $("#progressbar").animate({width: `100%`});
-                $("#progressbar").fadeOut();
-                $('.articles_content_ending').html('文章列表获取失败 >_<');
-            },
-            xhr: function() {
-                var xhr = $.ajaxSettings.xhr();
-                xhr.onprogress = function(event) {
-                    let percentage = parseInt((event.loaded / MAX_ARTICLE_LENGTH) * 100);
-                    $("#progressbar").animate({width: `${((percentage > 100) ? 100 : percentage)}%`});
-                };
-                return xhr;
-            }
-        });
-    })();
-    </script>
-
-
+    <script src="./ts/framework/article-list.js"></script>
 </template>
 
 
@@ -600,16 +157,9 @@ $(() => {
 
 <!--links模板-->
 <template id="links">
-    <!-- <div style="color:#bbbbbb;margin: 20px 20px 25px 20px;font-size: 12px;line-height: 22px;text-align: center;">
-        当阿虚被放逐到正常世界之时<br>
-        长门同学留下的书签<br>
-        便是回到那个躁动不已的世界的唯一钥匙<br>
-        只要「钥匙」在手<br>
-        大千世界，由你心动<br>
-    </div> -->
     <div class="links_category">
         <div class="links_subtitle" style="font-weight: bold; color:#ff6893; background: linear-gradient(90deg, #ffffff, #fff3f3, #ffffff);">友 情 链 接<div style="font-size: 10px; font-weight: normal; color: #bbbbbb; padding-top: 5px;">以添加时间为序</div></div>
-        <div style="width: 100%;font-size: 12px;color: #bbbbbb;line-height: 22px;">欢迎添加友情链接<br>请通过 <a class="spa-switch" style="font-weight: bold; color: #888;" href="#/about" data-target="about">微信</a> 联系我</div>
+        <div style="width: 100%;font-size: 12px;color: #bbbbbb;line-height: 22px;">欢迎添加友情链接<br>请通过 <a class="SPA_BUTTON" style="font-weight: bold; color: #888;" href="#/about" data-target="about">微信</a> 联系我</div>
         <div class="links_table_container">
             <table class="links_table">
                 <tr>
@@ -829,19 +379,7 @@ $(() => {
             </table>
         </div>
     </div>
-    <script>
-    (function() {
-        // 进场动画
-        let showTime = 0;
-        $(".links_category").each(function(i,e) {
-            $(e).css({'opacity':0,'margin-top':'-10px'});
-            setTimeout(function() {
-                $(e).animate({'opacity':1.0,'margin-top':'0px'}, 800);
-            }, showTime);
-            showTime += 50;
-        });
-    })();
-    </script>
+    <script> SlideInOneByOne("links_category", 10, 800, 50); // 进场动画 </script>
 </template>
 
 
@@ -989,111 +527,59 @@ $(() => {
 </template>
 
 <!--SPA交互和渲染控制-->
-<script src="./js/jquery.min.js"></script>
-<script src="./js/jquery.easing.js"></script>
+<script src="ts/framework/jquery/jquery.min.js"></script>
+<script src="ts/framework/jquery/jquery.easing.js"></script>
+<script src="ts/framework/framework.js"></script>
 <script>
-// 图片预加载
-/*
-let preloadList = [
-    "./image/chitanda.jpg",
-    "./image/miku-dove.jpg",
-    "./image/haruhi_hoshizora.jpg",
-    "./image/yuki-reading.jpg",
-    "./image/seu-tree.jpg"
-];
-let blurRadius = 5;
-let completeCount = 0;
-let blurTimer = 0;
-preloadList.forEach((src)=>{
-    let img = new Image();
-    img.src = src;
-    img.onload = ()=>{
-        completeCount++;
-        if(completeCount = preloadList.length) {
-            blurTimer = setInterval(()=>{
-                $(".main-box").css("filter", `blur(${blurRadius}px)`);
-                blurRadius -= 0.5;
-                if(blurRadius < 0) {
-                    clearInterval(blurTimer);
-                }
-            }, 40);
-        }
-    };
-});
-*/
 
-function render(pageid) {
+function SPA_Render(PageID) {
     // 进场动画初始化
     $('.spa-content').css({'opacity': '0.1'/*, 'margin-top': '-28px'*/}, 1000);
     // 重置进度条（进度条动作由template里面的内容控制）
     $("#progressbar").show();
     $("#progressbar").css('width', '0%');
     // 页面内容
-    $('.spa-content').html($(`template#${pageid}`).html());
+    $('.spa-content').html($(`template#${PageID}`).html());
     // 标题
-    $('.top_title').html($(`template#${pageid}-title`).html());
+    $('.top_title').html($(`template#${PageID}-title`).html());
     // 题图
     $('.top_title').css({'opacity': '0.5'});
-    $('.top_title').css('background-image', $(`template#${pageid}-titlebg`).html());
+    $('.top_title').css('background-image', $(`template#${PageID}-titlebg`).html());
     $('.top_title').animate({'opacity': '1'});
     // 按钮光标
-    $(`[data-target!="${pageid}"]`).removeClass('top_active');
-    $(`[data-target="${pageid}"]`).addClass('top_active');
+    $(`[data-target!="${PageID}"]`).removeClass('top_active');
+    $(`[data-target="${PageID}"]`).addClass('top_active');
     // 进场动画
     $('.spa-content').animate({'opacity': '1'/*, 'margin-top': '0'*/}, 1000);
     // 处理模板页中的SPA行为
-    registerSpaSwitch();
+    SPA_RegisterButtons();
 }
 
-function registerSpaSwitch() {
-    $('.spa-switch').off('click'); // 避免重复绑定
-    $('.spa-switch').each(function(i,e) {
-        $(e).click(()=>{
-            let targetid = $(e).attr('data-target');
-            history.pushState({pageid: targetid}, '', `#/${targetid}`);
-            render(targetid);
-        });
-    });
-}
+(() => {
+    SPA_RegisterButtons();
+    ActionsOnReady();
 
-registerSpaSwitch();
+    window.onload = function() {
+        let HashString = (window.location.hash === "") ? "#/index" : window.location.hash;
+        let PageID = HashString.replace(/^\#\//g, '');
 
-window.onload = function() {
-    let pageid = null;
-    var reqArg = (function getRequestArg() {
-        let reqArgStr = window.document.location.href.match(/\#\/.*$/gi);
-        return reqArgStr;
-    })();
+        SPA_Render(PageID);
+        if(!history.state) {
+            history.pushState({PageID: PageID}, '', window.location.href);
+        }
+    };
 
-    if(reqArg !== null) {
-        pageid = reqArg[0].replace(/^\#\//g, '');
+    window.onpopstate = function(e) {
+        if(!e.state) {
+            console.log(`目标state为空`);
+        }
+        else {
+            let newTargetId = e.state.PageID;
+            SPA_Render(newTargetId);
+        }
     }
-    else {
-        pageid = 'index';
-    }
-    render(pageid);
-    if(!history.state) {
-        history.pushState({pageid: pageid}, '', window.location.href);
-    }
-    setCopyrightYear();
-};
 
-window.onpopstate = function(e) {
-    if(!e.state) {
-        console.log(`目标state为空`);
-    }
-    else {
-        let newTargetId = e.state.pageid;
-        render(newTargetId);
-    }
-}
-
-function setCopyrightYear() {
-    let copyrightYearNodes = document.getElementsByClassName('copyright_year');
-    for(let i = 0; i < copyrightYearNodes.length; i++) {
-        copyrightYearNodes[i].innerHTML = new Date().getFullYear();
-    }
-}
+})();
 
 </script>
 </body>

@@ -14,6 +14,8 @@
 #!{macro1}: 单行Markdown脚本
 #!content
 此处为正文
+#!base64
+此处为base64编码的正文（目的是防止搜索引擎抓取。注意：如果文档中出现了这一节，则不会解析content。其他字段正常解析。）
 #!style
 此处为CSS
 #!script: 外部脚本路径
@@ -24,7 +26,11 @@
 */
 var Mikumark = /** @class */ (function () {
     function Mikumark(doc) {
+        this.title = "";
         this.authors = new Array();
+        this.date = "2016-11-24";
+        this.cover = "";
+        this.type = "";
         this.tags = new Array();
         this.outline = new Array();
         this.linkedScripts = new Array();
@@ -32,7 +38,8 @@ var Mikumark = /** @class */ (function () {
         this.macros = new Map();
         this.titleCount = 0;
         this.Parse(doc);
-        console.log(this.outline);
+        console.log("Mikumark.js Markdown Parser V3.4");
+        console.log(this);
     }
     // 元字符转义
     Mikumark.EscapeMetachar = function (str) {
@@ -409,7 +416,8 @@ var Mikumark = /** @class */ (function () {
         var styleBuffer = new Array();
         var scriptBuffer = new Array();
         var metadataBuffer = new Array();
-        var state = "content"; // content | style | script | metadata
+        var base64Buffer = new Array();
+        var state = "content"; // content | style | script | metadata | base64
         var lines = doc.split("\n");
         for (var i = 0; i < lines.length; i++) {
             var line = lines[i];
@@ -453,6 +461,9 @@ var Mikumark = /** @class */ (function () {
                 var scriptPath = line.split(":")[1].trim();
                 this.linkedScripts.push(scriptPath);
             }
+            else if (/^#!base64$/.test(line) === true) {
+                state = "base64";
+            }
             else if (/^#!content$/.test(line) === true) {
                 state = "content";
             }
@@ -478,9 +489,32 @@ var Mikumark = /** @class */ (function () {
                 else if (state === "metadata") {
                     metadataBuffer.push(line);
                 }
+                else if (state === "base64") {
+                    base64Buffer.push(line);
+                }
             }
         }
-        this.content = contentBuffer.join("\n");
+        // Base64解码
+        try {
+            var base64content = DecodeB64(base64Buffer.join(""));
+            if (base64content.length > 0) {
+                var key = EncodeB64(prompt('请输入口令'));
+                if (key !== 'IA==') { // 半角空格{
+                    alert('口令不匹配，返回上一页。');
+                    window.history.go(-1);
+                    return;
+                }
+                this.content = base64content;
+            }
+            else {
+                this.content = contentBuffer.join("\n");
+            }
+        }
+        catch (e) {
+            console.error("Base64编码字段并非base64编码，跳过。");
+            this.content = contentBuffer.join("\n");
+            ;
+        }
         this.style = styleBuffer.join("\n");
         this.script = scriptBuffer.join("\n");
         try {
@@ -507,3 +541,11 @@ var Mikumark = /** @class */ (function () {
     Mikumark.C_PCNT = "@PCNT@"; // %
     return Mikumark;
 }());
+// base64编码
+function EncodeB64(str) {
+    return window.btoa(unescape(encodeURIComponent(str)));
+}
+// base64解码
+function DecodeB64(str) {
+    return decodeURIComponent(escape(window.atob(str)));
+}

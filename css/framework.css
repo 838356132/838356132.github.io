@@ -772,7 +772,7 @@ a:hover{
 /* Poster 样式 */
 /*****************************************************/
 .poster {
-    margin:-10px 0px 0px 0px; /*top应为10px，这里支持进场动画（此处正常padding-top在inspiration.js中修改）*/
+    margin: 0;
     padding: 10px 10px 10px 10px;
     /* border-top: 1px solid #dddddd; */
     border-bottom: 1px solid #e0e0e0;

@@ -17,6 +17,8 @@
 #!{macro1}: 单行Markdown脚本
 #!content
 此处为正文
+#!base64
+此处为base64编码的正文（目的是防止搜索引擎抓取。注意：如果文档中出现了这一节，则不会解析content。其他字段正常解析。）
 #!style
 此处为CSS
 #!script: 外部脚本路径
@@ -477,8 +479,9 @@ class Mikumark {
         let styleBuffer = new Array();
         let scriptBuffer = new Array();
         let metadataBuffer = new Array();
+        let base64Buffer = new Array();
 
-        let state = "content"; // content | style | script | metadata
+        let state = "content"; // content | style | script | metadata | base64
 
         let lines = doc.split("\n");
         for(let i = 0; i < lines.length; i++) {
@@ -523,6 +526,7 @@ class Mikumark {
                 let scriptPath = line.split(":")[1].trim();
                 this.linkedScripts.push(scriptPath);
             }
+            else if(/^#!base64$/.test(line) === true) { state = "base64"; }
             else if(/^#!content$/.test(line) === true) { state = "content"; }
             else if(/^#!style$/.test(line) === true) { state = "style"; }
             else if(/^#!script$/.test(line) === true) { state = "script"; }
@@ -532,10 +536,31 @@ class Mikumark {
                 else if(state === "style") { styleBuffer.push(line); }
                 else if(state === "script") { scriptBuffer.push(line); }
                 else if(state === "metadata") { metadataBuffer.push(line); }
+                else if(state === "base64") { base64Buffer.push(line); }
             }
         }
 
-        this.content = contentBuffer.join("\n");
+        // Base64解码
+        try {
+            let base64content = DecodeB64(base64Buffer.join(""));
+            if(base64content.length > 0) {
+                let key = EncodeB64(prompt('请输入口令'));
+                if(key !== 'IA==') { // 半角空格{
+                    alert('口令不匹配，返回上一页。');
+                    window.history.go(-1);
+                    return;
+                }
+                this.content = base64content;
+            }
+            else {
+                this.content = contentBuffer.join("\n");
+            }
+        }
+        catch(e){
+            console.error("Base64编码字段并非base64编码，跳过。")
+            this.content = contentBuffer.join("\n");;
+        }
+
         this.style = styleBuffer.join("\n");
         this.script = scriptBuffer.join("\n");
         try {
@@ -547,7 +572,11 @@ class Mikumark {
     }
 
     constructor(doc: string) {
+        this.title = "";
         this.authors = new Array();
+        this.date = "2016-11-24";
+        this.cover = "";
+        this.type = "";
         this.tags = new Array();
         this.outline = new Array();
         this.linkedScripts = new Array();
@@ -558,6 +587,17 @@ class Mikumark {
 
         this.Parse(doc);
 
-        console.log(this.outline);
+        console.log("Mikumark.js Markdown Parser V3.4");
+        console.log(this);
     }
+}
+
+// base64编码
+function EncodeB64(str: string): string {
+    return window.btoa(unescape(encodeURIComponent(str)));
+}
+
+// base64解码
+function DecodeB64(str: string): string {
+    return decodeURIComponent(escape(window.atob(str)));
 }
