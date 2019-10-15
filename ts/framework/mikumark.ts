@@ -463,8 +463,6 @@ class Mikumark {
             if(/^(>*)\s*```/g.test(para) === true) {
                 let index = parseInt(para.trim().replace(/^(>*)\s*```/g, ""));
                 let codeBlock = codeBlocks[index];
-                let codeLanguage = codeBlock.language;
-                // TODO 此处高亮
                 let code = Mikumark.RecoverHTMLchar(codeBlock.code);
                 HtmlBuffer[i] = `<pre><code>${code}</code></pre>`;
             }

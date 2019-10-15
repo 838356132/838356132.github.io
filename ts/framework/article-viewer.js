@@ -221,23 +221,25 @@ function Render(mikumark) {
     // 文章正文
     $("#MikumarkContainer").html(mikumark.HTML);
 
-    // 脚本节点
-    let bodyNode = document.getElementsByTagName("body")[0];
-    let scriptNode = document.createElement("script");
-    scriptNode.innerHTML = mikumark.script;
-    bodyNode.appendChild(scriptNode);
 
+    // 脚本节点
     for(let scriptSrc of mikumark.linkedScripts) {
         let scriptNode = document.createElement("script");
         scriptNode.src = scriptSrc;
-        bodyNode.appendChild(scriptNode);
+        scriptNode.async = "async";
+        $('head').append(scriptNode);
     }
 
+    let scriptNode = document.createElement("script");
+    scriptNode.innerHTML = mikumark.script;
+    scriptNode.defer = "defer";
+    $('body').append(scriptNode);
+
+
     // 样式节点
-    let headNode = document.getElementsByTagName("head")[0];
     let styleNode = document.createElement("style");
     styleNode.innerHTML = mikumark.style;
-    headNode.appendChild(styleNode);
+    $('head').append(styleNode);
 
     for(let styleSrc of mikumark.linkedStyles) {
         let linkStyleNode = document.createElement("link");
@@ -245,7 +247,7 @@ function Render(mikumark) {
         linkStyleNode.setAttribute("type", "text/css");
         linkStyleNode.setAttribute("charset", "utf-8");
         linkStyleNode.setAttribute("href", styleSrc);
-        headNode.appendChild(linkStyleNode);
+        $('head').append(linkStyleNode);
     }
 
     // 绘制目录

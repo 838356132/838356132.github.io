@@ -402,8 +402,6 @@ var Mikumark = /** @class */ (function () {
             if (/^(>*)\s*```/g.test(para) === true) {
                 var index = parseInt(para.trim().replace(/^(>*)\s*```/g, ""));
                 var codeBlock = codeBlocks[index];
-                var codeLanguage_1 = codeBlock.language;
-                // TODO 此处高亮
                 var code = Mikumark.RecoverHTMLchar(codeBlock.code);
                 HtmlBuffer[i] = "<pre><code>" + code + "</code></pre>";
             }
