@@ -1,12 +1,10 @@
-#!metadata
-{
-    "title":"节拍速度BPM计算",
-    "titleImage":"./image/cover/52498633_p0.jpg",
-    "type":"原创",
-    "date":"2018-11-30",
-    "author":["Mikukonai"],
-    "tags":[]
-}
+
+#!title:    节拍速度BPM计算
+#!date:     2018-11-30
+#!authors:  Mikukonai
+#!cover:    ./image/cover/52498633_p0.jpg
+#!type:     原创
+#!tags:     音乐
 
 #!content
 
@@ -732,15 +730,16 @@ int main()
 ```
 
 
-#!css
+#!style
+
 canvas {
     display: block;
     border: 1px solid #aaaaaa;
     margin: 10px auto 10px auto;
 }
-#!js
+#!script
 
-#script:./ts/signal.js
+#!script:./ts/signal.js
 
 // 将实数序列转换为复数序列
 Array.prototype.toComplexList = function() {

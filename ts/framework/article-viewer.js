@@ -339,7 +339,7 @@ function RenderContents(mikumark) {
 function LoadArticle(id) {
     BeforeRendering();
     let xhr = new XMLHttpRequest();
-    xhr.open("GET", `./markdown/${id}.md`);
+    xhr.open("GET", `./markdown/blog/${id}.md`);
     xhr.onreadystatechange = () => {
         if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
             let text = xhr.responseText;

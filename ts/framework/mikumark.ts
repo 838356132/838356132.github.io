@@ -98,12 +98,12 @@ class Mikumark {
 
     // 覆盖HTML元字符
     static CoverHTMLchar(str: string): string {
-        return str.replace(/>/gi, "&gt;").replace(/</gi, "&lt;").replace(/&/gi, "&amp;");
+        return str.replace(/>/gi, "&gt;").replace(/</gi, "&lt;").replace(/&/gi, "@amp;");
     }
 
     // 换回HTML元字符
     static RecoverHTMLchar(str: string): string {
-        return str.replace(/&gt;>/gi, ">").replace(/&lt;</gi, "<").replace(/&amp;/gi, "&");
+        return str.replace(/&gt;/gi, ">").replace(/&lt;/gi, "<").replace(/@amp;/gi, "&");
     }
 
     // 段内样式解析
@@ -333,7 +333,7 @@ class Mikumark {
             HtmlBuffer.push(`<p>${md}</p>`);
         }
         // 单个HTML元素，直接原样返回
-        else if(/^<.+?>[\s\S]>$/g.test(md) === true) {
+        else if(/^<.+?[\s\S]*>$/g.test(md) === true) {
             HtmlBuffer.push(md);
         }
         // 普通段落

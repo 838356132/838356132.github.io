@@ -170,7 +170,7 @@ function SortByDate(CONTENTS, order) {
     $('.articles_content_ending').html('正在读取，请稍等…');
 
     let xhr = new XMLHttpRequest();
-    xhr.open("GET", `./markdown/-articles.md`);
+    xhr.open("GET", `./markdown/blog/-articles.md`);
     xhr.onreadystatechange = () => {
         if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
             $("#progressbar").animate({width: `100%`});
