@@ -173,8 +173,8 @@ function SortByDate(CONTENTS, order) {
     xhr.open("GET", `./markdown/blog/-articles.md`);
     xhr.onreadystatechange = () => {
         if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-            $("#progressbar").animate({width: `100%`});
-            $("#progressbar").fadeOut();
+            $("#Progressbar").animate({width: `100%`});
+            $("#Progressbar").fadeOut();
             let CONTENTS = ParseArticleList(xhr.responseText);
 
             //////////////////////////////////////////////////
@@ -202,8 +202,8 @@ function SortByDate(CONTENTS, order) {
             $('.articles_content_ending').html('题图作者：silverwing (PixivID:24281303)');
         }
         else if(xhr.readyState === XMLHttpRequest.DONE && xhr.status !== 200){
-            $("#progressbar").animate({width: `100%`});
-            $("#progressbar").fadeOut();
+            $("#Progressbar").animate({width: `100%`});
+            $("#Progressbar").fadeOut();
             $('.articles_content_ending').html('文章列表获取失败 >_<');
             return;
         }

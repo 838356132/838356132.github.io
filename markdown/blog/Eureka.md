@@ -1,12 +1,9 @@
-#!metadata
-{
-    "title":"Project Eureka",
-    "titleImage":"",
-    "type":"原创",
-    "date":"2018-12-02",
-    "author":["Mikukonai"],
-    "tags":[]
-}
+#!title:    Eureka
+#!date:     2018-12-02
+#!authors:  Mikukonai
+#!cover:    
+#!type:     原创
+#!tags:     
 
 #!content
 
@@ -565,8 +562,3 @@ Eureka的建设方针是：交流创作的素材，知识体系的砖瓦，认�
 # 【Z】杂类和未分类
 
 
-
-
-#!css
-
-#!js

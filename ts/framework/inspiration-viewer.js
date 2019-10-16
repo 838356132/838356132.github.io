@@ -135,8 +135,8 @@
     xhr.open("GET", `./markdown/-inspirations.md`);
     xhr.onreadystatechange = () => {
         if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-            $("#progressbar").animate({width: `100%`});
-            $("#progressbar").fadeOut();
+            $("#Progressbar").animate({width: `100%`});
+            $("#Progressbar").fadeOut();
 
             // 解析
             posters = ParsePosters(xhr.responseText);
@@ -145,8 +145,8 @@
             Paint();
         }
         else if(xhr.readyState === XMLHttpRequest.DONE && xhr.status !== 200){
-            $("#progressbar").animate({width: `100%`});
-            $("#progressbar").fadeOut();
+            $("#Progressbar").animate({width: `100%`});
+            $("#Progressbar").fadeOut();
             $('.content-ending').html('灵感不见了 >_<');
             return;
         }
@@ -162,14 +162,10 @@
     window.onresize = () => {
         // Desktop
         if(GetMediaType() === "Desktop") {
-            let rightMargin = $(".main-box").css("margin-right").match(/^\d+/gi);
-            let buttonWidth = $("#ButtonGoTop").css("width").match(/^\d+/gi);
-            $("#ButtonGoTop").css("right", (rightMargin - buttonWidth - 30).toString() + 'px');
             $(".left_nav_button").show();
             $(".left_navbox").show();
         }
         else if(GetMediaType() === "Mobile"){
-            $("#ButtonGoTop").css("right", '20px');
             $("#left_navbox").css("margin-left", "-360px");
         }
     };

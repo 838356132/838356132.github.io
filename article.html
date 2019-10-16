@@ -5,7 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <link rel="stylesheet" type="text/css" href="./css/markdown.css" charset="utf-8"/>
-    <link rel="stylesheet" type="text/css" href="./css/template-dev.css" charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" href="./css/framework.css" charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" href="./css/template.css" charset="utf-8"/>
     <link rel="stylesheet" type="text/css" href="./css/highlight/vs.css" charset="utf-8"/>
     <title></title>
 </head>
@@ -24,7 +25,7 @@
 <aside class="LeftAside">
     <!--左上：后退按钮-->
     <button id="BackButton" class="Button Raised Round" onclick="window.location.href='./#/articles';">
-        <img src="./image/icons/back-gray.png" style="height:16px;width:16px;margin-bottom: 2px;">
+        <img src="./image/icons/back-gray.png" style="height:16px;width:16px;margin-bottom: 2px; vertical-align: middle;">
     </button>
 </aside>
 
@@ -44,8 +45,8 @@
         <div id="ContentsContainer"></div>
     </div>
     <!--右下：回到顶部按钮-->
-    <button id="GoTopButton" class="Button Raised Round" style="position: absolute; bottom: 80px; left: 0;" onclick="$('html, body').animate({scrollTop:0},'fast');">
-        <img src="./image/icons/gotop.png"  style="height:19px;width:17px;">
+    <button id="GoTopButton" class="Button Raised Round" style="position: absolute; bottom: 80px; right: 0;" onclick="$('html, body').animate({scrollTop:0},'fast');">
+        <img src="./image/icons/gotop.png"  style="height:19px;width:17px; vertical-align: middle;">
     </button>
 </aside>
 
@@ -59,15 +60,6 @@
             <div class="Title" id="Title" style="opacity: 1;">Loading...</div>
         </div>
     </header>
-
-    <!--导航栏
-    <nav class="Navbar">
-        <button class="NavbarItem" active="false">首 页</button>
-        <button class="NavbarItem" active="false">灵 感</button>
-        <button class="NavbarItem"  active="true">文 章</button>
-        <button class="NavbarItem" active="false">书 签</button>
-        <button class="NavbarItem" active="false">关 于</button>
-    </nav>-->
 
     <!--正文内容-->
     <article class="Article">

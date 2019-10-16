@@ -11,29 +11,199 @@
 <body>
 
 <!--进度条-->
-<div class="progressbar" id="progressbar"></div>
-<!--页面框架-->
-<div class="main-box">
-    <!--上部标题-->
-    <header class="top_title"></header>
-    <!--栏目切换按钮-->
-    <div class="top_sticky">
-        <button class="item_top top_active SPA_BUTTON" data-target="index">首 页</button><button class="item_top SPA_BUTTON" data-target="inspiration">灵 感</button><button class="item_top SPA_BUTTON" data-target="articles">文 章</button><button class="item_top SPA_BUTTON" data-target="links">书 签</button><button class="item_top SPA_BUTTON" data-target="about">关 于</button>
-    </div>
-    <!--SPA页面内容-->
-    <div class="spa-content"></div>
-    <!--底部版权栏-->
-    <footer class="fw-bottom-copyright">
-        <p class="fw-bottom-copyright-content gradient">☆ Project Aurora V3.3 ☆</p>
-        <p class="fw-bottom-copyright-content">版权所有 © 2016-<span class="CopyrightYear"></span> Mikukonai</p>
+<div class="Progressbar" id="Progressbar"></div>
+
+<!--左边栏-->
+<aside class="LeftAside" style="display:none;">
+    <button id="MenuButton" class="Button Raised Round" style="position: relative; top: 20px; font-family: 'Material Icons'; font-size: 23px;">menu</button>
+</aside>
+
+<!--右边栏-->
+<aside class="RightAside" style="display:none;">
+    <!--右下：回到顶部按钮-->
+    <button id="GoTopButton" class="Button Raised Round" style="position: absolute; bottom: 80px; right: 0;" onclick="$('html, body').animate({scrollTop:0},'fast');">
+        <img src="./image/icons/gotop.png" style="height:19px;width:17px; vertical-align: middle;">
+    </button>
+</aside>
+
+<!--页面主体-->
+<div class="Main">
+
+    <!--标题和封面-->
+    <header class="Header SPA_TITLE_CONTAINER"></header>
+
+    <!--导航栏-->
+    <nav class="Navbar">
+        <button class="NavbarItem SPA_BUTTON" active="false" data-target="index">首 页</button><button class="NavbarItem SPA_BUTTON" active="false" data-target="inspirations">灵 感</button><button class="NavbarItem SPA_BUTTON"  active="true" data-target="articles">文 章</button><button class="NavbarItem SPA_BUTTON" active="false" data-target="wiki">百 科</button><button class="NavbarItem SPA_BUTTON" active="false" data-target="about">关 于</button>
+    </nav>
+
+    <!--正文内容-->
+    <article class="Article SPA_MAIN_CONTAINER"></article>
+
+    <!--底部-->
+    <footer class="Footer">
+        <div style="font-size: 13px; text-align: center; line-height: 25px; color: #888888;" class="RBGradient">☆ Project Aurora ☆</div>
+        <div style="font-size: 13px; text-align: center; line-height: 25px; color: #888888;">版权所有 © 2016-<span class="CopyrightYear"></span> Mikukonai</div>
     </footer>
 </div>
-<!--页面框架结束-->
+
+
+
+
+
 
 <!--页面内容模板-->
 
 <!--index模板-->
 <template class="index" id="index">
+<style>
+:root {
+    --pc_item_padding_left_right: 45px;
+}
+.index_article_intro {
+    margin: 0;
+    color:#233333;
+    background: transparent;
+}
+.index_item {
+    margin: 5px 0 5px 0;
+    text-align: center;
+    border: none;
+    line-height: 35px;
+    font-size: 15px;
+    color: #555555;
+}
+.index_item:after {
+    content:'';
+    display: block;
+    padding-top: 5px;
+    margin-left: 25px;
+    border-bottom: 1px solid #eaeaea;
+}
+.index_last:after {
+    display: none;
+}
+.index_item_title {
+    font-size: 17px;
+    line-height: 30px;
+    text-align: left;
+    font-weight: bold;
+    color: #566666;
+    vertical-align: middle;
+    text-shadow: none;
+}
+.index_item_title_prefix {
+    line-height: inherit;
+    margin-right: 10px;
+    padding-right: 10px;
+    border-right: 5px solid rgba(0,0,0,0.1);
+    color: #55c3dc;
+    font-weight: normal;
+}
+.index_item_content {
+    color: #bbb;
+    text-align: left;
+    padding: 7px 0 3px 0;
+    font-size: 13px;
+    font-weight: lighter;
+    display: block;
+    line-height: 23px;
+    overflow-x: auto;
+}
+.index_item_a {
+    letter-spacing: 1px;
+    color:#555555;
+    text-decoration:none;
+}
+.index_item_a:hover {
+    color:#aaaaaa;
+    text-decoration:none;
+}
+.index_all_article {
+    text-align: center;
+    font-size: 14px;
+}
+.index_all_article_link {
+    line-height: 40px;
+    padding: 5px 0 10px 0;
+    display: block;
+    color: #8f8f8f;
+    font-weight: bold;
+    font-size: 16px;
+    text-decoration: none;
+    letter-spacing: 1px;
+}
+.index_all_article_link:hover {
+    text-decoration: none;
+    background-color: #fefefe;
+    color:#68cce2;
+}
+.index_bottom_link {
+    text-decoration: none;
+    font-weight: bold;
+    color:#999999;
+}
+.index_bottom_link:hover {
+    text-decoration: none;
+    font-weight: bold;
+    color:#cccccc;
+}
+.index_item_table {
+    display: table;
+    border-collapse: separate;
+    border: none;
+    border-spacing: 0;
+    width: 100%;
+}
+.index_item_table_left {
+    padding-right: 10px;
+}
+.index_item_developing {
+    display: inline-block;
+    font-weight: normal;
+    background-color: none;
+    color: #93e76c;
+    border: 1px solid #93e76c;
+    border-radius: 5px;
+    font-size: 10px;
+    line-height: 15px;
+    padding: 1px 3px;
+    margin-left: 5px;
+    vertical-align: middle;
+}
+.index_item_planning {
+    font-size: 14px;
+    font-weight: normal;
+    color:skyblue;
+}
+
+/* PC端：宽度大于651px的设备 */
+@media(min-width:651px){
+    .index_article_intro {
+        padding: 8px var(--pc_item_padding_left_right) 8px var(--pc_item_padding_left_right);
+    }
+    .index_item:after {
+        margin-left: var(--pc_item_padding_left_right);
+    }
+    .index_item_table_right {
+        width: 60px;
+    }
+}
+/*手机*/
+@media(max-width:650px){
+    .index_article_intro {
+        padding:8px 25px 8px 25px;
+    }
+    .index_item_title_prefix {
+        display: none;
+    }
+}
+
+</style>
+
+    <div style="text-align:center; margin: 15px 25px; padding: 10px; border: 1px solid gold; background-color: rgb(255, 249, 218); border-radius: 5px; font-size: 14px;">
+        🚧 博客第4版正在开发
+    </div>
 
     <div class="index_item">
         <div class="index_article_intro">
@@ -107,10 +277,315 @@
 
 
 <!--inspiration模板-->
-<template id="inspiration">
-    <div class="ButtonGoTop" id="ButtonGoTop" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="right: 0px;">
-        <img src="./image/icons/gotop.png" style="height:19px;width:17px; vertical-align: middle;">
-    </div>
+<template id="inspirations">
+<style>
+
+
+
+
+/* PC左侧菜单按钮 */
+.left_nav_button {
+    font-family: "Material Icons";
+    width: 40px;
+    height: 40px;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    color: #666;
+    background-color: #fff;
+    transition:  .08s linear;
+    border-radius: 50%;
+    border: none;
+    line-height: 40px;
+    text-align: center;
+    font-size: 20px;
+    z-index: 10000;
+    cursor: pointer;
+}
+.left_nav_button:active, .left_nav_button:hover {
+    background-color: #eee;
+}
+
+/* PC左侧菜单 */
+.left_navbox {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 360px;
+    height: 100%;
+    background-color: #fff;
+    text-align: left;
+    font-size: 14px;
+    color: #80868b;
+    /* box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15); */
+    overflow: auto;
+    z-index: 9999;
+}
+/* 滚动条 */
+.left_navbox::-webkit-scrollbar { width: 5px; }
+.left_navbox::-webkit-scrollbar-thumb { border-radius: 10px; background: #e0e0e0; }
+.left_navbox::-webkit-scrollbar-track { border-radius: 0; background: #f5f5f5; }
+
+.left_navbox_top {
+    position: sticky;
+    top: 0px;
+    /* padding-bottom: 5px; */
+    color: #696a6b;
+    background-color: #fff;
+    box-shadow: 0 0 5px #ccc;
+    z-index: 9999;
+}
+.left_navbox_top_title {
+    font-size: 22px;
+    line-height: 80px;
+    height: 80px;
+    padding-left: 78px;
+}
+
+.left_navbox_search_container {
+    position: relative;
+    padding: 2px 10px;
+    margin: 10px 20px 20px 20px;
+    box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
+    border-radius: 8px;
+}
+.left_navbox_search_input {
+    border: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    font-size: 14px;
+    height: 30px;
+    line-height: 30px;
+    font-family: inherit;
+}
+.left_navbox_search_clear {
+    position: absolute;
+    top: 2px;
+    right: 10px;
+    height: 30px;
+    line-height: 30px;
+    cursor: pointer;
+}
+.left_navbox_search_clear:hover {
+    color: #1a73e8;
+}
+
+#left_navbox_tags {
+    margin: 15px 0 25px 0;
+    padding-left: 30px;
+}
+
+.left_navbox_tags_item {
+    display: inline-block;
+    background-color: #e1f5ff;
+    color: #009be9;
+    border: none;
+    border-radius: 5px;
+    font-size: 12px;
+    padding: 2px 6px 2px 6px;
+    margin: 3px;
+    word-break: break-all;
+    word-wrap: break-word;
+    cursor: pointer;
+}
+.left_navbox_tags_item:hover, .left_navbox_tags_item_active {
+    color: #ff6893;
+    background-color: #ffdfe8;
+}
+.left_navbox_tags_item_clear {
+    background-color: #eeeeee;
+    color: #a0a0a0;
+}
+
+#left_navbox_item_list {
+    margin-top: 0;
+    margin-bottom: 30px;
+}
+
+.left_navbox_item {
+    display: block;
+    height: 40px;
+    line-height: 40px;
+    padding-left: 30px;
+    cursor: pointer;
+}
+.left_navbox_item:before {
+    content: "❖";
+    padding-right: 10px;
+}
+.left_navbox_item:hover, .left_navbox_item_active {
+    color: #1a73e8;
+    background: #e8f0fe;
+    border-radius: 0 24px 24px 0;
+}
+
+.left_navbox_horiline {
+    position: relative;
+    margin: 18px 0 18px 0;
+    border-bottom: 1px solid #dadce0;
+    font-size: 13px;
+    color: #1a73e8;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.top_title {
+    background-position: left 60%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    text-align: center;
+}
+.timeline-container {
+    background: none;
+    width: 100%;
+    height: 100%;
+}
+
+.content-ending {
+    text-align: center;
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: #bbbbbb;
+    margin: 20px auto 20px auto;
+    /* text-shadow: 1px 1px 0px #ffffff; */
+}
+
+/*****************************************************/
+/* Poster 样式 */
+/*****************************************************/
+.poster {
+    margin: 0;
+    padding: 10px 10px 10px 10px;
+    /* border-top: 1px solid #dddddd; */
+    border-bottom: 1px solid #e0e0e0;
+    border-radius: 0;
+    color: #666666;
+    background-color: #ffffff;
+    text-align: left;
+    font-size: 13px;
+
+    opacity:0.0; /*原本没有，用于进场动画*/
+}
+/* Poster内文 */
+.poster blockquote {
+    font-size: 12px;
+    line-height: 20px;
+    color:#888888;
+    margin:10px 10px 10px 10px;
+    padding: 8px 10px;
+    border: 1px solid #9ee0f8;
+    border-radius: 5px;
+    box-shadow: #c0ebfb 0 0 5px 0;
+}
+p.poster-p {
+    margin:10px 10px 10px 10px;
+    padding:0;
+    color:#666666;
+    font-size:13px;
+    line-height: 22px;
+    display: block;
+    text-indent:0;
+}
+/* Poster标题 */
+.poster-title {
+    width: fit-content;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    margin:3px 20px 0px 50px;
+    padding:0;
+    border-bottom: 1px dotted #dddddd;
+    color:#498bb8;
+    line-height: 20px;
+    font-size:14px;
+    letter-spacing: 1px;
+    font-weight: bold;
+    display: block;
+}
+/* Poster副标题：时间地点等 */
+.poster-subtitle {
+    text-align: left;
+    margin:0px 20px 8px 50px;
+    padding:0;
+    line-height: 20px;
+    color:#aaaaaa;
+    font-size:10px;
+    display: block;
+}
+/* 头像 */
+img.poster-avatar {
+    float:left;
+    position:relative;
+    top:6px;
+    left:6px;
+    margin:0;
+    padding:0;
+    border-radius:50%;
+    border: 0.5px solid #eeeeee;
+    width:35px;
+    height:35px;
+}
+/* 头像徽章 */
+img.poster-badge {
+    float:left;
+    position:relative;
+    top:32px;
+    left:-3px;
+    margin:0;
+    padding:0;
+    border-radius:50%;
+    border: 1px solid #ffffff;
+    /*box-shadow: 1px 1px 0 #cccccc;*/
+    width:8px;
+    height:8px;
+}
+/* 话题标签 */
+.poster-tag {
+    color:#33aadd;
+    font-weight: 600;
+}
+a {
+    color: #558bc4;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #0066dd;
+    text-decoration: none;
+}
+
+/*全部话题顶部的标签，用于显示过滤条件之类的*/
+.poster-top-label {
+    margin: 10px auto 10px auto;
+    /*width: 60%;*/
+    text-align: left;
+    font-size: 11px;
+    color: #aaaaaa;
+    text-shadow: 1px 1px 0px #ffffff;
+    padding-left:20px;
+}
+
+/**********************************************/
+/* 响应式布局 */
+/**********************************************/
+@media(min-width:651px){
+    .poster {
+        padding: 20px 40px 20px 40px;
+    }
+}
+@media(max-width:650px){
+}
+
+</style>
     <!--左侧导航栏切换开关-->
     <div class="left_nav_button" id="left_nav_button">menu</div>
     <!--左侧导航栏-->
@@ -142,6 +617,155 @@
 
 <!--articles模板-->
 <template id="articles">
+<style>
+.articles_category_list {
+    text-align: left;
+    margin: 23px 0 30px 0;
+    color: #222222;
+    font-size: 15px;
+    line-height: 17px;
+    width: 100%;
+}
+.articles_category_title {
+    color: #2b81ac;
+    margin: 10px 0 15px 0;
+    padding-left: 12px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 19px;
+    border-left: 8px solid #dddddd;
+    letter-spacing: 1px;
+    font-weight: normal;
+}
+.articles_category_title .articles_category_title_en {
+    color: #bccccc;
+    font-size: 12px;
+}
+
+.articles_item_line {
+    transition: background-color 0.2s ease-out 0s;
+    vertical-align: text-top;
+    padding: 9px 0;
+    margin: 0px 20px;
+    line-height: 19px;
+    background-color: #ffffff;
+    text-align: left;
+    border-bottom: 1px dotted #eee;
+}
+/* 标题前序号 */
+.articles_item_number {
+    text-align: center;
+    font-size: 11px;
+    line-height: 16px;
+    margin-right: 8px;
+    padding: 0 5px 0 5px;
+    border-radius: 10px;
+    background-color: #fff;
+    border: 1px solid;
+}
+
+.articles_item_flag {
+    line-height: inherit;
+    background-color: #ffeaf0;
+    color: #ff88a9;
+    border: none;
+    border-radius: 10px;
+    font-size: 9px;
+    padding: 1px 4px 1px 4px;
+    margin-left: 5px;
+    vertical-align: text-bottom;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+.articles_item_date {
+    font-size: 12px;
+    line-height: inherit;
+    text-align: right;
+    margin: 0 0 0 auto;
+    float: right;
+    color: #888888;
+}
+.article_link {
+    color: #333333;
+    font-weight: lighter;
+    text-decoration: none;
+    cursor: pointer;
+}
+.article_link:hover {
+    color: #333333;
+    text-decoration: underline;
+}
+.articles_content_ending {
+    text-align: center;
+    font-size: 12px;
+    color: #cccccc;
+    margin: 20px auto 20px auto;
+}
+
+.articles_sort_option {
+    margin-top: 25px;
+    padding-left: 20px;
+    padding-right: 20px;
+    line-height: 25px;
+    font-size: 14px;
+    color: #888888;
+    text-align: center;
+}
+.articles_sort_option_button_left {
+    padding: 4px 7px 4px 10px;
+    border-radius: 8px 0 0 8px;
+    border: 1px solid #9dd9ff;
+    color: #9dd9ff;
+    cursor: pointer;
+}
+.articles_sort_option_button_right {
+    padding: 4px 10px 4px 7px;
+    border-radius: 0 8px 8px 0;
+    border: 1px solid #9dd9ff;
+    border-left: none;
+    color: #9dd9ff;
+    cursor: pointer;
+}
+.articles_sort_option_button_selected {
+    background-color: #9dd9ff;
+    color: #fff;
+}
+
+.articles_sort_option a {
+    color:#ffb4dd;
+    text-decoration: none;
+}
+.articles_sort_option a:hover {
+    color:#ffb4dd;
+    text-decoration: underline;
+}
+
+/* PC端：宽度大于651px的设备 */
+@media(min-width:651px){
+    .articles_item_line {
+        margin: 0px 40px;
+    }
+    .articles_category_title {
+        padding-left: 18px;
+        border-left: 18px solid #dddddd;
+    }
+    .articles_sort_option {
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+    .articles_item_flag {
+        font-weight: lighter;
+    }
+}
+/*手机*/
+@media(max-width:650px){
+    .article_link {
+        font-weight: normal;
+    }
+}
+
+</style>
     <div class="articles_sort_option">
         <span id="date-dec" class="articles_sort_option_button_left">日期降序</span><span id="category" class="articles_sort_option_button_right">分类归类</span>
     </div>
@@ -156,51 +780,55 @@
 
 
 <!--links模板-->
-<template id="links">
-    <div class="links_category">
-        <div class="links_subtitle" style="font-weight: bold; color:#ff6893; background: linear-gradient(90deg, #ffffff, #fff3f3, #ffffff);">友 情 链 接<div style="font-size: 10px; font-weight: normal; color: #bbbbbb; padding-top: 5px;">以添加时间为序</div></div>
-        <div style="width: 100%;font-size: 12px;color: #bbbbbb;line-height: 22px;">欢迎添加友情链接<br>请通过 <a class="SPA_BUTTON" style="font-weight: bold; color: #888;" href="#/about" data-target="about">微信</a> 联系我</div>
-        <div class="links_table_container">
-            <table class="links_table">
-                <tr>
-                    <td><a target="_blank" href="http://zephray.cnvintage.org/">ZephRay</a></td>
-                    <td><a target="_blank" href="https://mp.weixin.qq.com/s/QOw9mRvGVtocy3Nb315fYA">白痴一只喵</a></td>
-                </tr>
-                <tr>
-                    <td><a target="_blank" href="https://aoaoao.me/">Aaron's Blog</a></td>
-                    <td><a target="_blank" href="https://imjad.cn/">猫与向日葵</a></td>
-                </tr>
-                <tr>
-                    <td><a target="_blank" href="https://256kb.cn/">野生喵喵的Blog</a></td>
-                    <td><a target="_blank" href="https://blog.ddlee.cn/">萧爽楼</a></td>
-                </tr>
-                <tr>
-                    <td><a target="_blank" href="https://ice1000.org/">中间表示(IR)</a></td>
-                    <td><a target="_blank" href="https://tcxx.info/">甜欣屋</a></td>
-                </tr>
-                <tr>
-                    <td><a target="_blank" href="https://meow3.family.blog/">惡魔菌の记事簿</a></td>
-                    <td><a target="_blank" href="https://tql.ink/">Akkariin’s Blog</a></td>
-                </tr>
-                <tr>
-                    <td><a target="_blank" href="http://www.qiutianaimeili.com/">秋天爱美丽</a></td>
-                    <td><a target="_blank" href="https://chanshiyu.com/">蝉時雨</a></td>
-                </tr>
-                <tr>
-                    <td><a target="_blank" href="https://razertory.me/">Razertory</a></td>
-                    <td><a target="_blank" href="https://ssshooter.com/">UsubeniFantasy</a></td>
-                </tr>
-                <tr>
-                    <td><a target="_blank" href="http://www.brethland.com/">Brethland</a></td>
-                    <td><a target="_blank" href="http://pixelart.cn/">像素艺术</a></td>
-                </tr>
-                <tr>
-                    <td><a target="_blank" href="https://www.imalan.cn/">三无计划</a></td>
-                    <td><a target="_blank" href="https://ntzyz.io">ntzyz</a></td>
-                </tr>
-            </table>
-        </div>
-    </div>
+<template id="wiki">
+<style>
+.links_subtitle {
+    text-align: center;
+    font-size: 16px;
+    color: #66bbdd;
+    margin: 20px 0 20px 0;
+    padding: 10px 0 10px 0;
+    background: linear-gradient(90deg, #ffffff, #f0faff, #ffffff);
+}
+
+.links_table_container {
+    margin: 15px 5px 15px 5px;
+}
+.links_table {
+    width: 100%;
+    font-size: 14px;
+    color:#888888;
+    table-layout:fixed;
+}
+.links_table td {
+    text-align: center;
+    line-height: 22px;
+    height: 36px;
+}
+.links_table a {
+    text-decoration: none;
+    color:#111111;
+}
+.links_table a:hover {
+    color:#aaaaaa;
+}
+.links_table td:first-child {
+    padding-right: 15px;
+    text-align: right;
+}
+.links_table td:last-child {
+    padding-left: 15px;
+    text-align: left;
+}
+
+/*手机*/
+@media(max-width:650px){
+    .links_table {
+        font-size: 13px;
+    }
+}
+
+</style>
     <div class="links_category">
         <div class="links_subtitle">博 客<div style="font-size: 10px; color: #bbbbbb; padding-top: 5px;">以下链接没有顺序</div></div>
         <div class="links_table_container">
@@ -387,6 +1015,110 @@
 
 <!--about模板-->
 <template id="about">
+<style>
+.about_tdl {
+    text-align: right;
+    font-weight: bold;
+    padding-right:5px;
+    width: 160px;
+}
+.about_tdr {
+    text-align: left;
+    padding-left:5px;
+    width: 160px;
+}
+.about_edition {
+    font-size: 14px;
+    line-height: 25px;
+    text-align: left;
+    margin: 20px 50px 20px 50px;
+    font-weight: normal;
+}
+.about_edition .about_vernum {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.about_vernum {
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    border-bottom: 2px solid #cceeff;
+}
+.about_changelog {
+    color: #666666;
+    text-align: center;
+    line-height: 25px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+.about_a {
+    text-decoration: none;
+    color: #222222;
+    border-bottom: 1px dotted #222;
+}
+.about_a:hover {
+    color: #0066dd;
+    text-decoration: none;
+    border-bottom: 1px solid #0066dd;
+}
+.about_subtitle{
+    text-align: center;
+    font-size: 15px;
+    color: #66bbdd;
+    margin: 20px 0 20px 0;
+    padding: 10px 0 10px 0;
+    background: linear-gradient(90deg, #ffffff, #f0faff, #ffffff);
+}
+.about_content {
+    font-size: 14px;
+    line-height: 25px;
+    text-align: center;
+    margin: 5px 0 5px 0;
+    padding: 10px 10px 10px 10px;
+    font-weight: normal;
+}
+
+.links_table_container {
+    margin: 15px 5px 15px 5px;
+}
+.links_table {
+    width: 100%;
+    font-size: 14px;
+    color:#888888;
+    table-layout:fixed;
+}
+.links_table td {
+    text-align: center;
+    line-height: 22px;
+    height: 36px;
+}
+.links_table a {
+    text-decoration: none;
+    color:#111111;
+}
+.links_table a:hover {
+    color:#ff6893;
+    border-bottom: 1px solid #ff6893;
+}
+.links_table td:first-child {
+    padding-right: 15px;
+    text-align: right;
+}
+.links_table td:last-child {
+    padding-left: 15px;
+    text-align: left;
+}
+
+.bar {
+    color: #bababa;
+    margin: 0 10px 0 10px;
+}
+
+</style>
     <table style="width:100%; font-size:14px; text-align: left; margin: 30px auto 30px auto; color: #233333;" align="center">
         <tr>
             <td class="about_tdl">性别</td>
@@ -401,13 +1133,48 @@
     <div class="about_subtitle" id="motto">格 言</div>
     <div class="about_content">怕什么真理无穷，进一步有进一步的欢喜</div>
 
+    <div class="about_subtitle" id="blogroll" style="color:#ff6893; background: linear-gradient(90deg, #ffffff, #fff3f3, #ffffff);">友 情 链 接<div style="font-size: 10px; font-weight: normal; color: #ccc; padding-top: 5px;">以添加时间为序 / 欢迎交换友情链接</div></div>
+            <table class="links_table">
+                <tr>
+                    <td><a target="_blank" href="http://zephray.cnvintage.org/">ZephRay</a></td>
+                    <td><a target="_blank" href="https://mp.weixin.qq.com/s/QOw9mRvGVtocy3Nb315fYA">白痴一只喵</a></td>
+                    <td><a target="_blank" href="https://aoaoao.me/">Aaron</a></td>
+                </tr>
+                <tr>
+                    <td><a target="_blank" href="https://imjad.cn/">猫与向日葵</a></td>
+                    <td><a target="_blank" href="https://256kb.cn/">野生喵喵</a></td>
+                    <td><a target="_blank" href="https://blog.ddlee.cn/">萧爽楼</a></td>
+                </tr>
+                <tr>
+                    <td><a target="_blank" href="https://ice1000.org/">中间表示(IR)</a></td>
+                    <td><a target="_blank" href="https://tcxx.info/">甜欣屋</a></td>
+                    <td><a target="_blank" href="https://meow3.family.blog/">惡魔菌</a></td>
+                </tr>
+                <tr>
+                    <td><a target="_blank" href="https://tql.ink/">Akkariin</a></td>
+                    <td><a target="_blank" href="http://www.qiutianaimeili.com/">秋天爱美丽</a></td>
+                    <td><a target="_blank" href="https://chanshiyu.com/">蝉時雨</a></td>
+                </tr>
+                <tr>
+                    <td><a target="_blank" href="https://razertory.me/">Razertory</a></td>
+                    <td><a target="_blank" href="https://ssshooter.com/">UsubeniFantasy</a></td>
+                    <td><a target="_blank" href="http://www.brethland.com/">Brethland</a></td>
+                </tr>
+                <tr>
+                    <td><a target="_blank" href="http://pixelart.cn/">像素艺术</a></td>
+                    <td><a target="_blank" href="https://www.imalan.cn/">三无计划</a></td>
+                    <td><a target="_blank" href="https://ntzyz.io">ntzyz</a></td>
+                </tr>
+            </table>
+
+
     <div class="about_subtitle" id="contacts">联 系 方 式</div>
-        <div class="about_content">
-            <a class="about_a" target="_blank" href="https://github.com/mikukonai/">GitHub</a><span class="bar">/</span><a class="about_a" target="_blank" href="https://www.douban.com/people/mikukonai/">豆瓣</a><span class="bar">/</span><a class="about_a" target="_blank" href="https://www.zhihu.com/people/mikukonai/">知乎</a>
-        </div>
-        <div class="about_content">
-            <div style="margin:0 auto 20px auto">
-            <p style="font-size: 13px;color:#888888;line-height: 25px;">- 个人微信 -</p>
+    <div class="about_content">
+        <a class="about_a" target="_blank" href="https://github.com/mikukonai/">GitHub</a><span class="bar">/</span><a class="about_a" target="_blank" href="https://www.douban.com/people/mikukonai/">豆瓣</a><span class="bar">/</span><a class="about_a" target="_blank" href="https://www.zhihu.com/people/mikukonai/">知乎</a>
+    </div>
+    <div class="about_content">
+        <div style="margin:0 auto 0px auto">
+            <div style="font-size: 13px;color:#888888;line-height: 25px;">- 个人微信 -</div>
             <img src="./image/qrcode.png" style="display:block;margin:0px auto 0 auto;width:35%;">
         </div>
     </div>
@@ -459,11 +1226,11 @@
     </div>
     <div class="about_edition">
         <p class="about_vernum">V3.3<span style="color:#888888;padding-left: 15px;">2019.03.15</span></p>
-        <p class="about_changelog">【当前版本】<br>重构为SPA单页应用<br>样式设计参考 Material Design</p>
+        <p class="about_changelog">重构为SPA单页应用<br>样式设计参考 Material Design</p>
     </div>
     <div class="about_edition">
-        <p class="about_vernum">V3.4<span style="color:#888888;padding-left: 15px;">2019.10.**</span></p>
-        <p class="about_changelog">【正在开发】<br>重构MD解析器<br>灵感页增加目录和标签索引</p>
+        <p class="about_vernum">V4.0<span style="color:#888888;padding-left: 15px;">2019.10</span></p>
+        <p class="about_changelog">【正在开发】<br>彻底重构博客框架<br>灵感页增加目录和标签索引<br>增加个人Wiki功能</p>
     </div>
 
     <div class="about_subtitle" id="hoshinoarika">星 之 所 在</div>
@@ -482,48 +1249,37 @@
 <!-- <template id="index-titlebg">url('./image/chitanda.jpg')</template> -->
 <!--灵感-->
 <!-- <template id="inspiration-titlebg">url(./image/haruhi_hoshizora.jpg)</template> -->
-<template id="inspiration-titlebg">url('http://wx1.sinaimg.cn/large/450be1f5gy1g5zjkk1w7hj20p00dyt9q.jpg')</template>
+<template id="inspirations-titlebg">url('http://wx1.sinaimg.cn/large/450be1f5gy1g5zjkk1w7hj20p00dyt9q.jpg')</template>
 <!--文章列表-->
 <!-- <template id="articles-titlebg">url('./image/miku-dove.jpg')</template> -->
 <template id="articles-titlebg">url('http://wx4.sinaimg.cn/large/450be1f5gy1g5zjkkxbjej20p00dz40b.jpg')</template>
 <!--书签-->
 <!-- <template id="links-titlebg">url('./image/yuki-reading.jpg')</template> -->
-<template id="links-titlebg">url('http://wx2.sinaimg.cn/large/450be1f5gy1g5zjklyqq1j20p00e23zc.jpg')</template>
+<template id="wiki-titlebg">url('http://wx2.sinaimg.cn/large/450be1f5gy1g5zjklyqq1j20p00e23zc.jpg')</template>
 <!--关于-->
 <!-- <template id="about-titlebg">url('./image/seu-tree.jpg')</template> -->
 <template id="about-titlebg">url('http://wx4.sinaimg.cn/large/450be1f5gy1g5zjklikpij20rs0fi762.jpg')</template>
 
 <!--上部标题模板-->
 <template id="index-title">
-    <div class="top_title_content">
-        Project <strong>Aurora</strong>
-        <div class="top_title_subtitle">- 仁者心动 -</div>
+    <div class="HeaderTitleCenter">Project <b>Aurora</b><div class="HeaderSubtitleCenter">- 仁者心动 -</div>
     </div>
 </template>
 
-<template id="inspiration-title">
-    <div class="top_title_content_left">
-        <span style="font-weight: bold;">灵感</span><span class="top_title_vertline">Project Aurora</span>
-    </div>
+<template id="inspirations-title">
+    <div class="HeaderTitleLeft">灵感<span class="HeaderTitleLeftVertLine">Project Aurora</span></div>
 </template>
 
 <template id="articles-title">
-    <div class="top_title_content_left">
-        <span style="font-weight: bold;">文章</span><span class="top_title_vertline">Project Aurora</span>
-    </div>
+    <div class="HeaderTitleLeft">文章<span class="HeaderTitleLeftVertLine">Project Aurora</span></div>
 </template>
 
-<template id="links-title">
-    <div class="top_title_content_left">
-        <span style="font-weight: bold;">书签</span><span class="top_title_vertline">Project Aurora</span>
-    </div>
+<template id="wiki-title">
+    <div class="HeaderTitleLeft">Eureka<span class="HeaderTitleLeftVertLine">Project Aurora</span></div>
 </template>
 
 <template id="about-title">
-    <div class="top_title_content">
-        <span style="color:rgba(255,255,255,1.0);font-weight: bold;">Project Aurora</span>
-        <div class="top_title_subtitle">Mikukonai / 初音没有来</div>
-    </div>
+    <div class="HeaderTitleCenter"><b>Project Aurora</b><div class="HeaderSubtitleCenter">Mikukonai / 初音没有来</div></div>
 </template>
 
 <!--SPA交互和渲染控制-->
@@ -534,23 +1290,30 @@
 
 function SPA_Render(PageID) {
     // 进场动画初始化
-    $('.spa-content').css({'opacity': '0.1'/*, 'margin-top': '-28px'*/}, 1000);
+    $('.SPA_MAIN_CONTAINER').css({'opacity': '0.1'/*, 'margin-top': '-28px'*/}, 1000);
+
     // 重置进度条（进度条动作由template里面的内容控制）
-    $("#progressbar").show();
-    $("#progressbar").css('width', '0%');
+    $("#Progressbar").show();
+    $("#Progressbar").css('width', '0%');
+
     // 页面内容
-    $('.spa-content').html($(`template#${PageID}`).html());
+    $('.SPA_MAIN_CONTAINER').html($(`template#${PageID}`).html());
+
     // 标题
-    $('.top_title').html($(`template#${PageID}-title`).html());
+    $('.SPA_TITLE_CONTAINER').html($(`template#${PageID}-title`).html());
+
     // 题图
-    $('.top_title').css({'opacity': '0.5'});
-    $('.top_title').css('background-image', $(`template#${PageID}-titlebg`).html());
-    $('.top_title').animate({'opacity': '1'});
+    $('.Header').css({'opacity': '0.5'});
+    $('.Header').css('background-image', $(`template#${PageID}-titlebg`).html());
+    $('.Header').animate({'opacity': '1'});
+
     // 按钮光标
-    $(`[data-target!="${PageID}"]`).removeClass('top_active');
-    $(`[data-target="${PageID}"]`).addClass('top_active');
+    $(`.SPA_BUTTON[data-target!="${PageID}"]`).attr("active", "false");
+    $(`.SPA_BUTTON[data-target="${PageID}"]`).attr("active", "true");
+
     // 进场动画
-    $('.spa-content').animate({'opacity': '1'/*, 'margin-top': '0'*/}, 1000);
+    $('.SPA_MAIN_CONTAINER').animate({'opacity': '1'/*, 'margin-top': '0'*/}, 1000);
+
     // 处理模板页中的SPA行为
     SPA_RegisterButtons();
 }
@@ -559,7 +1322,7 @@ function SPA_Render(PageID) {
     SPA_RegisterButtons();
     ActionsOnReady();
 
-    window.onload = function() {
+    window.onload = () => {
         let HashString = (window.location.hash === "") ? "#/index" : window.location.hash;
         let PageID = HashString.replace(/^\#\//g, '');
 
@@ -569,7 +1332,11 @@ function SPA_Render(PageID) {
         }
     };
 
-    window.onpopstate = function(e) {
+    window.onresize = () => {
+        ArrangeSideButtonLayout();
+    };
+
+    window.onpopstate = (e) => {
         if(!e.state) {
             console.log(`目标state为空`);
         }
@@ -577,7 +1344,10 @@ function SPA_Render(PageID) {
             let newTargetId = e.state.PageID;
             SPA_Render(newTargetId);
         }
-    }
+    };
+
+    $(window).resize();
+    $(window).scroll();
 
 })();
 

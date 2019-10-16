@@ -71,6 +71,23 @@ function SlideInOneByOne(
     setTimeout(callback, showTime);
 }
 
+// 布局侧栏位置
+function ArrangeSideButtonLayout() {
+    let buttonWidth = $(".Button").width();
+    // 控制左右侧栏的水平位置
+    if(GetMediaType() === "Desktop") {
+        let MainRightMargin = parseInt($(".Main").css("margin-right").match(/^\d+/gi)[0]);
+        let MainLeftMargin = parseInt($(".Main").css("margin-left").match(/^\d+/gi)[0]);
+        $(".RightAside").css("right", (MainRightMargin - 70).toString() + 'px');
+        $(".LeftAside").css("left", (MainLeftMargin - 40 - buttonWidth).toString() + 'px');
+    }
+    else if(GetMediaType() === "Mobile"){
+        $(".RightAside").css("right", '0px');
+        $(".RightAside").css("height", "100%");
+        $(".LeftAside").css("left", '0px');
+    }
+}
+
 //////////////////////////////////////////////////////
 //
 //  SPA 相 关 逻 辑

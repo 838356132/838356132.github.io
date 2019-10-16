@@ -81,25 +81,6 @@ function ShowTopTitleOnThreshold() {
 //
 ///////////////////////////////////////////////////////
 
-// 重新布局按钮
-function RearrangeButtonLayout() {
-    let buttonWidth = $(".Button").width();
-
-    // 控制左右侧栏的水平位置
-    if(GetMediaType() === "Desktop") {
-        let MainRightMargin = parseInt($(".Main").css("margin-right").match(/^\d+/gi)[0]);
-        let MainLeftMargin = parseInt($(".Main").css("margin-left").match(/^\d+/gi)[0]);
-
-        $(".RightAside").css("right", (MainRightMargin - 30).toString() + 'px');
-        $(".MenuContainer").css("right", (MainRightMargin - 30 - buttonWidth).toString() + 'px');
-
-        $(".LeftAside").css("left", (MainLeftMargin - 30 - buttonWidth).toString() + 'px');
-    }
-    else if(GetMediaType() === "Mobile"){
-        $(".RightAside").css("right", String(buttonWidth + 20) + 'px');
-        $(".LeftAside").css("left", '0px');
-    }
-}
 
 ///////////////////////////////////////////////////////
 //
@@ -133,7 +114,7 @@ function MenuToggle() {
         }
         else if(GetMediaType() === "Mobile") {
             $("#MenuContainer").css("background-color", "#ffffff");
-            $("#MenuContainer").animate({width: "100%", height: "100%"}, 200, "easeOutExpo");
+            $("#MenuContainer").animate({width: $(window).width(), height: "100%"}, 200, "easeOutExpo");
         }
     }
 }
@@ -147,7 +128,7 @@ function MenuToggle() {
 // 在文章渲染之前执行的操作
 function BeforeRendering() {
     $("#MenuButton").click(() => { MenuToggle(); }); // 菜单按钮的点击事件
-    RearrangeButtonLayout(); // 设置按钮布局
+    ArrangeSideButtonLayout(); // 设置按钮布局
     ShowTopTitleOnThreshold(); // 设置顶部标题栏状态
 
     ActionsOnResize();
@@ -165,7 +146,7 @@ function AfterRendering() {
         });
 
         window.onresize = () => {
-            RearrangeButtonLayout();
+            ArrangeSideButtonLayout();
             ActionsOnResize();
         };
 
