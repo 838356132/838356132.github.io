@@ -1,4 +1,8 @@
 function ParseArticleList(articleList) {
+    // 标题→文件名
+    function TitleToFilename(title) {
+        return title.replace(/\s+/gi, "-");
+    }
     let CATEGORIES = new Array();
     let ARTICLES = new Array();
     let lines = articleList.split(/\n+/gi);
@@ -16,14 +20,13 @@ function ParseArticleList(articleList) {
         // 文章信息行
         else {
             let fields = line.split('|');
-            let title     = fields[0] ? fields[0].trim() : "";
-            let articleID = fields[1] ? fields[1].trim() : "";
-            let date      = fields[2] ? fields[2].trim() : "";
-            let type      = fields[3] ? fields[3].trim() : "";
-            let flag      = fields[4] ? fields[4].trim() : "";
+            let title = fields[0] ? fields[0].trim() : "";
+            let date  = fields[1] ? fields[1].trim() : "";
+            let type  = fields[2] ? fields[2].trim() : "";
+            let flag  = fields[3] ? fields[3].trim() : "";
             ARTICLES.push({
                 "title": title,
-                "link": `./article.html?id=${articleID}`,
+                "link": `./article.html?id=${TitleToFilename(title)}`,
                 "date": date,
                 "type": type,
                 "category": currentCategory,
