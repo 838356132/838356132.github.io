@@ -23,7 +23,7 @@ let IS_SCROLLING = false;
 function ImageLazyLoading() {
     let top = document.documentElement.scrollTop || document.body.scrollTop;
     let clientHeight = document.documentElement.clientHeight;
-    $('.md_img').each(function(i,e) {
+    $('.MikumarkImage').each(function(i,e) {
         let offsetTop = $(e).offset().top;
         if($(e).attr('src') === undefined) {
             if(offsetTop >= top && offsetTop <= top + clientHeight) {
@@ -100,14 +100,12 @@ function MenuToggle() {
         else if(GetMediaType() === "Mobile") {
             $("#MenuContainer").animate({width: "40px", height: "40px"}, 200, "easeOutExpo", ()=> {
                 $("#MenuContainer").css("background", "transparent");
-                $(".NavbarItem").hide();
             });
         }
     }
     else if(state === "off") {
         $("#MenuButton").attr("data-state", "on");
         $("#MenuButton").html("close");
-        $(".NavbarItem").show();
         if(GetMediaType() === "Desktop") {
             $("#MenuContainer").css("border-radius", "20px");
             $("#MenuContainer").animate({width: "400px", height: "600px"}, 200, "easeOutExpo");
@@ -127,6 +125,7 @@ function MenuToggle() {
 
 // 在文章渲染之前执行的操作
 function BeforeRendering() {
+    $('#MenuButton').off('click'); // 避免重复绑定
     $("#MenuButton").click(() => { MenuToggle(); }); // 菜单按钮的点击事件
     ArrangeSideButtonLayout(); // 设置按钮布局
     ShowTopTitleOnThreshold(); // 设置顶部标题栏状态
@@ -139,7 +138,7 @@ function BeforeRendering() {
 function AfterRendering() {
     setTimeout(() => { // 穷人版的回调函数：延时0.5秒等待渲染完成
         // 为每张图片注册单击事件
-        $('.md_img').each(function(i,e) {
+        $('.MikumarkImage').each(function(i,e) {
             $(e).click(function() {
                 window.open($(e).attr('src'), "_blank");
             });
@@ -348,17 +347,3 @@ function LoadArticle(id) {
     };
     xhr.send();
 }
-
-
-(()=> {
-    ActionsOnReady();
-    let RequestArgs = GetRequestArgs();
-    if(!("id" in RequestArgs)) {
-        $("#Progressbar").animate({width: `100%`});
-        $("#Progressbar").fadeOut();
-        alert(`请求参数不正确。`);
-    }
-    else {
-        LoadArticle(RequestArgs['id']);
-    }
-})();

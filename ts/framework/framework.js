@@ -90,23 +90,6 @@ function ArrangeSideButtonLayout() {
 
 //////////////////////////////////////////////////////
 //
-//  SPA 相 关 逻 辑
-//
-//////////////////////////////////////////////////////
-
-function SPA_RegisterButtons() {
-    $('.SPA_BUTTON').off('click'); // 避免重复绑定
-    $('.SPA_BUTTON').each(function(i,e) {
-        $(e).click(()=>{
-            let targetid = $(e).attr('data-target');
-            history.pushState({PageID: targetid}, '', `#/${targetid}`);
-            SPA_Render(targetid);
-        });
-    });
-}
-
-//////////////////////////////////////////////////////
-//
 //  工 具 函 数
 //
 //////////////////////////////////////////////////////

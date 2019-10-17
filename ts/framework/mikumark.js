@@ -99,12 +99,12 @@ var Mikumark = /** @class */ (function () {
         }
         // TODO 处理标签
         HTML = Mikumark.EscapeMetachar(HTML);
-        HTML = HTML.replace(RegexTag, "<span class=\"tag\">$1</span>")
-            .replace(RegexBold, "<strong>$1</strong>")
+        HTML = HTML.replace(RegexTag, "<span class=\"MikumarkTag\">$1</span>")
+            .replace(RegexBold, "<b>$1</b>")
             .replace(RegexItalic, "<i>$1</i>")
             .replace(RegexDeleted, "<del>$1</del>")
             .replace(RegexColor, "<span style=\"color:$1;\">$2</span>")
-            .replace(RegexLink, "<a href=\"$2\">$1</a>");
+            .replace(RegexLink, "<a class=\"MikumarkLink\" target=\"_blank\" href=\"$2\">$1</a>");
         return Mikumark.RecoverHTMLchar(Mikumark.RecoverMetachar(HTML));
     };
     // 段落级样式解析
@@ -127,7 +127,7 @@ var Mikumark = /** @class */ (function () {
         }
         // 分割线（至少3个连续dash的单行段落）
         else if (/^\-{3,}$/g.test(md) === true) {
-            HtmlBuffer.push("<hr/>");
+            HtmlBuffer.push("<hr class=\"MikumarkHorizontalLine\"/>");
         }
         // 有序列表（+号开头的段落）
         else if (/^\++[\s\S]+/g.test(md) === true) {
@@ -275,16 +275,16 @@ var Mikumark = /** @class */ (function () {
             imgTitle = imgTitle.substring(2, imgTitle.length - 2);
             var imgURL = md.match(/\]\([^(\]\()]+\)$/g)[0];
             imgURL = imgURL.substring(2, imgURL.length - 1);
-            HtmlBuffer.push("<div class=\"imgbox\">\n            <div class=\"loading\">\n                <div class=\"dot\"></div><div class=\"dot\"></div><div class=\"dot\"></div><div class=\"dot\"></div><div class=\"dot\"></div>\n            </div>\n            <img class=\"md_img\" data-src=\"" + imgURL + "\"><div class=\"imgtitle\">" + this.ParseInnerPara(imgTitle) + "</div></div>");
+            HtmlBuffer.push("<div class=\"MikumarkImageContainer\">\n            <div class=\"loading\">\n                <div class=\"dot\"></div><div class=\"dot\"></div><div class=\"dot\"></div><div class=\"dot\"></div><div class=\"dot\"></div>\n            </div>\n            <img class=\"MikumarkImage\" data-src=\"" + imgURL + "\"><div class=\"MikumarkImageTitle\">" + this.ParseInnerPara(imgTitle) + "</div></div>");
         }
         // 居中的段落
         else if (/^\:.+/g.test(md) === true) {
             var content = md.substring(1).trim(); // 截取:号后面的内容
-            HtmlBuffer.push("<p style=\"text-align:center;\">" + this.ParseInnerPara(content) + "</p>");
+            HtmlBuffer.push("<p class=\"MikumarkParagraph\" style=\"text-align:center;\">" + this.ParseInnerPara(content) + "</p>");
         }
         // LaTeX公式段落
         else if (/^\$\$.+?\$\$$/g.test(md) === true) {
-            HtmlBuffer.push("<p>" + md + "</p>");
+            HtmlBuffer.push("<p class=\"MikumarkParagraph\">" + md + "</p>");
         }
         // 单个HTML元素，直接原样返回
         else if (/^<.+?[\s\S]*>$/g.test(md) === true) {
@@ -292,7 +292,7 @@ var Mikumark = /** @class */ (function () {
         }
         // 普通段落
         else {
-            HtmlBuffer.push("<p>" + this.ParseInnerPara(md) + "</p>");
+            HtmlBuffer.push("<p class=\"MikumarkParagraph\">" + this.ParseInnerPara(md) + "</p>");
         }
         return HtmlBuffer.join("");
     };

@@ -28,11 +28,6 @@ i, cite, em, var, address, dfn { font-style: italic;}
 .code-identifier { color:#000000; }
 .code-member { color:#ff0000; }
 
-/* 用于页面定位时将位置偏移一个顶栏高度的距离的锚 */
-.target-fix { position: relative; margin: 0; display: block; height: 0; overflow: hidden;
-    top: -53px;
-}
-
 
 /* 文章内部的控件的样式 */
 .md-button {
@@ -158,8 +153,8 @@ i, cite, em, var, address, dfn { font-style: italic;}
 
     /******** PC端 Markdown 样式变量 ********/
     :root {
-        --p_font_size: 14px;       /* 正文段落 字体大小，此值是全部正文字体的基准大小 */
-        --p_line_height: 24px;     /* 正文段落 行高 */
+        --p_font_size: 15px;       /* 正文段落 字体大小，此值是全部正文字体的基准大小 */
+        --p_line_height: 25px;     /* 正文段落 行高 */
         --p_margin_bottom: 20px;   /* 正文段落 底部段间距 */
         --p_color: #505050;      /* 正文段落 字体颜色 */
 
@@ -182,7 +177,7 @@ i, cite, em, var, address, dfn { font-style: italic;}
     /******** PC端 Markdown 样式开始 ********/
 
     /* 段落基础样式（只可改动参数） */
-    p {
+    p.MikumarkParagraph {
         margin: var(--p_margin_bottom) 0;
         color: var(--p_color);
         font-size: var(--p_font_size);
@@ -261,12 +256,12 @@ i, cite, em, var, address, dfn { font-style: italic;}
     }
 
     /* 超链接样式（部分可直接改动） */
-    a {
+    a.MikumarkLink {
         color: inherit;
         text-decoration: none;
         border-bottom: 1px dotted var(--p_color);
     }
-    a:hover{
+    a.MikumarkLink:hover{
         color: #0066dd;
         text-decoration:none;
         border-bottom: 1px solid #0066dd;
@@ -312,18 +307,18 @@ i, cite, em, var, address, dfn { font-style: italic;}
     pre code { padding: 0; }
 
     /* 图片样式（部分可直接改动） */
-    img {
+    img.MikumarkImage {
         max-width: var(--img_max_width);
         max-height: var(--img_max_height);
         vertical-align: middle;
         border: none;
     }
-    div.imgbox {
+    div.MikumarkImageContainer {
         padding: 10px 0;
         margin: var(--p_margin_bottom) auto;
         text-align: center;
     }
-    div.imgtitle {
+    div.MikumarkImageTitle {
         font-size: calc(var(--p_font_size) - 1px);
         line-height: calc(var(--p_line_height) - 1px);
         margin-top: 8px;
@@ -331,7 +326,7 @@ i, cite, em, var, address, dfn { font-style: italic;}
     }
 
     /* 水平线（可直接改动） */
-    hr {
+    hr.MikumarkHorizontalLine {
         margin: var(--p_margin_bottom) 0px;
         height: 0px;
         border: 0;
@@ -454,8 +449,8 @@ i, cite, em, var, address, dfn { font-style: italic;}
     }
 
     /* 超链接样式（部分可直接改动） */
-    a{color: #558bc4;text-decoration: none;}
-    a:hover{color:#0066dd;text-decoration:underline;}
+    a.Mikumark_Link{color: #558bc4;text-decoration: none;}
+    a.Mikumark_Link:hover{color:#0066dd;text-decoration:underline;}
 
     /* 列表和表项样式（部分可直接改动） */
     ul, ol {
@@ -497,18 +492,18 @@ i, cite, em, var, address, dfn { font-style: italic;}
     pre code { padding: 0; }
 
     /* 图片样式（部分可直接改动） */
-    img {
+    img.MikumarkImage {
         max-width: var(--img_max_width);
         max-height: var(--img_max_height);
         vertical-align: middle;
         border: none;
     }
-    div.imgbox {
+    div.MikumarkImageContainer {
         padding: 10px 0;
         margin: var(--p_margin_bottom) auto;
         text-align: center;
     }
-    div.imgtitle {
+    div.MikumarkImageTitle {
         font-size: calc(var(--p_font_size) - 1px);
         line-height: calc(var(--p_line_height) - 1px);
         margin-top: 8px;
@@ -516,7 +511,7 @@ i, cite, em, var, address, dfn { font-style: italic;}
     }
 
     /* 水平线（可直接改动） */
-    hr {
+    hr.MikumarkHorizontalLine {
         margin: var(--p_margin_bottom) 0px;
         height: 0px;
         border: 0;

@@ -100,5 +100,19 @@ MathJax.Hub.Config({
 <script src="./ts/framework/framework.js"></script>
 <script src="./ts/framework/mikumark.js"></script>
 <script src="./ts/framework/article-viewer.js"></script>
+<script>
+(()=> {
+    ActionsOnReady();
+    let RequestArgs = GetRequestArgs();
+    if(!("id" in RequestArgs)) {
+        $("#Progressbar").animate({width: `100%`});
+        $("#Progressbar").fadeOut();
+        alert(`请求参数不正确。`);
+    }
+    else {
+        LoadArticle(RequestArgs['id']);
+    }
+})();
+</script>
 
 </html>
