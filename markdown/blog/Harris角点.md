@@ -1,12 +1,11 @@
-#!metadata
-{
-    "title":"Harris角点",
-    "titleImage":"",
-    "type":"原创",
-    "date":"2019-08-07",
-    "author":["Mikukonai"],
-    "tags":[]
-}
+
+#!title:    Harris角点
+#!date:     2019-08-07
+#!authors:  Mikukonai
+#!cover:    
+#!type:     原创
+#!tags:     
+
 
 #!content
 
@@ -16,7 +15,7 @@
 
 <canvas id="cv" style="width:640px;height:360px;" width="640" height="360"></canvas>
 
-#!css
+#!style
 
 canvas {
     display: block;
@@ -25,11 +24,11 @@ canvas {
     margin: 10px auto 10px auto;
 }
 
-#!js
+#!script
 
-#script:./ts/signal.js
-#script:./ts/image.js
-#script:./ts/canvas.js
+#!script:./ts/signal.js
+#!script:./ts/image.js
+#!script:./ts/canvas.js
 
 let cv = new Canvas('cv', [0,360], [640,0]);
 

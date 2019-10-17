@@ -1,12 +1,11 @@
-#!metadata
-{
-    "title":"In Event of Moon Disaster",
-    "titleImage":"./image/lunar-vehicle.jpg",
-    "type":"翻译",
-    "date":"2016-10-27",
-    "author":["Mikukonai"],
-    "tags":[]
-}
+
+#!title:    In Event of Moon Disaster
+#!date:     2016-10-27
+#!authors:  Mikukonai
+#!cover:    ./image/lunar-vehicle.jpg
+#!type:     翻译
+#!tags:     
+
 
 #!content
 
@@ -43,8 +42,3 @@ For every human being who looks up at the moon in the nights to come will know t
 据说阿姆斯特朗在结束月面行走，返回登月舱的时候，厚重的登月服意外碰断了上升发动机点火开关的手柄。束手无策之际，两个人灵机一动，用金属制的太空笔接通了上升发动机点火开关的触点，上升段顺利起飞。
 
 记忆里是这样，如果讲述上有什么偏差欢迎指出～其实我个人对此表示怀疑，从仪表板设计图我们可以看到，几乎每个开关的两边都有防止误触的保护梁，有些重要的开关甚至有保护盖（参见《阿波罗13号》电影中给抛逃逸塔开关和指令舱-服务舱分离开关的特写）。所以我觉得这个事情可能并不是「碰一下就断」那么简单。
-
-
-#!css
-
-#!js

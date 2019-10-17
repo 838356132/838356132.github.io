@@ -1,12 +1,11 @@
-#!metadata
-{
-    "title":"Galileo入门指南",
-    "titleImage":"",
-    "type":"原创",
-    "date":"2017-10-18",
-    "author":["Mikukonai"],
-    "tags":["Galileo","智能硬件","物联网"]
-}
+
+#!title:    Galileo入门指南
+#!date:     2017-10-18
+#!authors:  Mikukonai
+#!cover:    
+#!type:     原创
+#!tags:     Galileo,智能硬件,物联网
+
 
 #!content
 
@@ -100,14 +99,19 @@ Galileo板子非常漂亮，尺寸比Arduino和树莓派略大，但也只是手
 ### (5) 系统时间设定
 
 与树莓派不同，Galileo带有RTC电池插针。Galileo的RTC电池使用普通的3V电池，例如常见的CR2032。首次启动，先执行以下命令设置时间。注意引号内的时间字符串是UTC时间，也就是北京时间向前调8个小时。
+
 ```
 date -s "yyyy-mm-dd hh:MM:ss"
 ```
+
 然后执行以下命令，将UTC时间写入硬件RTC。
+
 ```
 hwclock -w
 ```
+
 最后设置系统时间为中国标准时间CST，即完成时间设置。
+
 ```
 cp /usr/share/zoneinfo/PRC /etc/localtime
 ```
@@ -153,12 +157,14 @@ Galileo本质上是一款可以运行Linux的单板计算机，因此可以进�
 ### GPIO和低级总线操作
 
 操作系统将可用GPIO（包括控制复用器的内部端口）抽象为目录和文件，位于`/sys/class/gpio`目录下，直接读写这些文件即可操作GPIO。例如，执行
+
 ```
 echo 3 > /sys/class/gpio/unexport
 echo 3 > /sys/class/gpio/export
 echo out > /sys/class/gpio/gpio3/direction
 echo 1 > /sys/class/gpio/gpio3/value
 ```
+
 将点亮板子上的LED。Arduino库的digitalWrite等函数的内部本质上就是这样的文件操作。但由于Quark内部的GPIO有两种，板子上的选通关系也比较复杂，所以接口内部的实现也有一些比较复杂的细节。参考资料[[2，3]](#参考资料与文献)详细分析了Linux系统中GPIO操作的原理，值得一读。
 
 ![图4 GPIO编号的对应关系](./image/galileo/galileo-io.png)
@@ -170,6 +176,7 @@ I<sup>2</sup>C和SPI按照通常方法即可操作，唯一需要注意的是板
 很多PC能做的事情，例如连接摄像头等外设进行图像处理、搭建HTTP服务器这些事情都可以做。以OpenCV图像处理为例：由于官方Yocto系统中已经集成了OpenCV，所以可以实现很多机器视觉的功能。但由于处理器速度是硬伤，所以不能跑太复杂的图像应用。
 
 测试：运行下列Python代码，即可从USB摄像头捕捉图像，并且在上面添加文字并保存。
+
 ```
 import cv2
 import numpy as np
@@ -244,9 +251,3 @@ MRAA库的[在线文档](http://iotdk.intel.com/docs/master/mraa/index.html)。
 -[Galileo Curriculum](https://www.intel.com/content/www/us/en/support/articles/000022551/programs.html)
 -[Yocto Build x264 Error](https://www.intel.com/content/www/us/en/support/articles/000006363/boards-and-kits/intel-galileo-boards.html)
 -[Power Consumption](https://www.intel.com/content/www/us/en/support/articles/000006250/boards-and-kits/intel-galileo-boards.html)
-
-
-
-#!css
-
-#!js

@@ -130,6 +130,10 @@ function BeforeRendering() {
     ArrangeSideButtonLayout(); // 设置按钮布局
     ShowTopTitleOnThreshold(); // 设置顶部标题栏状态
 
+    // 删除所有已有的MikumarkScript和MikumarkStyle节点
+    $(".MikumarkScript").remove();
+    $(".MikumarkStyle").remove();
+
     ActionsOnResize();
     ActionsOnScroll();
 }
@@ -206,18 +210,21 @@ function Render(mikumark) {
     for(let scriptSrc of mikumark.linkedScripts) {
         let scriptNode = document.createElement("script");
         scriptNode.src = scriptSrc;
+        scriptNode.setAttribute("class", "MikumarkScript");
         scriptNode.async = "async";
         $('head').append(scriptNode);
     }
 
     let scriptNode = document.createElement("script");
     scriptNode.innerHTML = mikumark.script;
+    scriptNode.setAttribute("class", "MikumarkScript");
     scriptNode.defer = "defer";
     $('body').append(scriptNode);
 
 
     // 样式节点
     let styleNode = document.createElement("style");
+    styleNode.setAttribute("class", "MikumarkStyle");
     styleNode.innerHTML = mikumark.style;
     $('head').append(styleNode);
 
@@ -227,6 +234,7 @@ function Render(mikumark) {
         linkStyleNode.setAttribute("type", "text/css");
         linkStyleNode.setAttribute("charset", "utf-8");
         linkStyleNode.setAttribute("href", styleSrc);
+        linkStyleNode.setAttribute("class", "MikumarkStyle");
         $('head').append(linkStyleNode);
     }
 

@@ -70,11 +70,11 @@ var Mikumark = /** @class */ (function () {
     };
     // 覆盖HTML元字符
     Mikumark.CoverHTMLchar = function (str) {
-        return str.replace(/>/gi, "&gt;").replace(/</gi, "&lt;").replace(/&/gi, "@amp;");
+        return str.replace(/>/gi, "&gt;").replace(/</gi, "&lt;").replace(/&/gi, "&amp;");
     };
     // 换回HTML元字符
     Mikumark.RecoverHTMLchar = function (str) {
-        return str.replace(/&gt;/gi, ">").replace(/&lt;/gi, "<").replace(/@amp;/gi, "&");
+        return str.replace(/&gt;/gi, ">").replace(/&lt;/gi, "<").replace(/&amp;/gi, "&");
     };
     // 段内样式解析
     Mikumark.prototype.ParseInnerPara = function (md) {
@@ -105,7 +105,8 @@ var Mikumark = /** @class */ (function () {
             .replace(RegexDeleted, "<del>$1</del>")
             .replace(RegexColor, "<span style=\"color:$1;\">$2</span>")
             .replace(RegexLink, "<a class=\"MikumarkLink\" target=\"_blank\" href=\"$2\">$1</a>");
-        return Mikumark.RecoverHTMLchar(Mikumark.RecoverMetachar(HTML));
+        // return Mikumark.RecoverHTMLchar(Mikumark.RecoverMetachar(HTML));
+        return Mikumark.RecoverMetachar(HTML);
     };
     // 段落级样式解析
     Mikumark.prototype.ParsePara = function (md) {
@@ -420,43 +421,43 @@ var Mikumark = /** @class */ (function () {
         for (var i = 0; i < lines.length; i++) {
             var line = lines[i];
             if (/^#!title:/g.test(line) === true) {
-                var title = line.split(":")[1].trim();
+                var title = line.replace(/^#!title:/g, "").trim();
                 this.title = title;
             }
             else if (/^#!date:/g.test(line) === true) {
-                var date = line.split(":")[1].trim();
+                var date = line.replace(/^#!date:/g, "").trim();
                 this.date = date;
             }
             else if (/^#!cover:/g.test(line) === true) {
-                var cover = line.split(":")[1].trim();
+                var cover = line.replace(/^#!cover:/g, "").trim();
                 this.cover = cover;
             }
             else if (/^#!type:/g.test(line) === true) {
-                var type = line.split(":")[1].trim();
+                var type = line.replace(/^#!type:/g, "").trim();
                 this.type = type;
             }
             else if (/^#!authors:/g.test(line) === true) {
-                var authors = line.split(":")[1].trim().split(",").map(function (e) { return e.trim(); });
+                var authors = line.replace(/^#!authors:/g, "").trim().split(",").map(function (e) { return e.trim(); });
                 this.authors = authors;
             }
             else if (/^#!tags:/g.test(line) === true) {
-                var tags = line.split(":")[1].trim().split(",").map(function (e) { return e.trim(); });
+                var tags = line.replace(/^#!tags:/g, "").trim().split(",").map(function (e) { return e.trim(); });
                 this.tags = tags;
             }
             // 宏定义
             else if (/^#!{(.+?)}:/g.test(line) === true) {
-                var macroContent = line.split(":")[1].trim();
+                var macroContent = line.replace(/^#!{(.+?)}:/g, "").trim();
                 var macroName = line.split(":")[0].replace(/^#!/g, ""); // 包括大括号
                 this.macros[macroName] = macroContent;
             }
             // 外部CSS
             else if (/^#!style:/g.test(line) === true) {
-                var cssPath = line.split(":")[1].trim();
+                var cssPath = line.replace(/^#!style:/g, "").trim();
                 this.linkedStyles.push(cssPath);
             }
             // 外部脚本
             else if (/^#!script:/g.test(line) === true) {
-                var scriptPath = line.split(":")[1].trim();
+                var scriptPath = line.replace(/^#!script:/g, "").trim();
                 this.linkedScripts.push(scriptPath);
             }
             else if (/^#!base64$/.test(line) === true) {
@@ -496,12 +497,12 @@ var Mikumark = /** @class */ (function () {
         try {
             var base64content = DecodeB64(base64Buffer.join(""));
             if (base64content.length > 0) {
-                var key = EncodeB64(prompt('请输入口令'));
-                if (key !== 'IA==') { // 半角空格{
-                    alert('口令不匹配，返回上一页。');
-                    window.history.go(-1);
-                    return;
-                }
+                // let key = EncodeB64(prompt('请输入口令'));
+                // if(key !== 'IA==') { // 半角空格{
+                //     alert('口令不匹配，返回上一页。');
+                //     window.history.go(-1);
+                //     return;
+                // }
                 this.content = base64content;
             }
             else {

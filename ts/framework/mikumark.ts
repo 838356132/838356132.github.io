@@ -98,12 +98,12 @@ class Mikumark {
 
     // 覆盖HTML元字符
     static CoverHTMLchar(str: string): string {
-        return str.replace(/>/gi, "&gt;").replace(/</gi, "&lt;").replace(/&/gi, "@amp;");
+        return str.replace(/>/gi, "&gt;").replace(/</gi, "&lt;").replace(/&/gi, "&amp;");
     }
 
     // 换回HTML元字符
     static RecoverHTMLchar(str: string): string {
-        return str.replace(/&gt;/gi, ">").replace(/&lt;/gi, "<").replace(/@amp;/gi, "&");
+        return str.replace(/&gt;/gi, ">").replace(/&lt;/gi, "<").replace(/&amp;/gi, "&");
     }
 
     // 段内样式解析
@@ -144,7 +144,8 @@ class Mikumark {
                     .replace(RegexLink, `<a class="MikumarkLink" target="_blank" href="$2">$1</a>`)
                     ;
 
-        return Mikumark.RecoverHTMLchar(Mikumark.RecoverMetachar(HTML));
+        // return Mikumark.RecoverHTMLchar(Mikumark.RecoverMetachar(HTML));
+        return Mikumark.RecoverMetachar(HTML);
     }
 
     // 段落级样式解析
@@ -485,43 +486,43 @@ class Mikumark {
         for(let i = 0; i < lines.length; i++) {
             let line = lines[i];
             if(/^#!title:/g.test(line) === true) {
-                let title = line.split(":")[1].trim();
+                let title = line.replace(/^#!title:/g, "").trim();
                 this.title = title;
             }
             else if(/^#!date:/g.test(line) === true) {
-                let date = line.split(":")[1].trim();
+                let date = line.replace(/^#!date:/g, "").trim();
                 this.date = date;
             }
             else if(/^#!cover:/g.test(line) === true) {
-                let cover = line.split(":")[1].trim();
+                let cover = line.replace(/^#!cover:/g, "").trim();
                 this.cover = cover;
             }
             else if(/^#!type:/g.test(line) === true) {
-                let type = line.split(":")[1].trim();
+                let type = line.replace(/^#!type:/g, "").trim();
                 this.type = type;
             }
             else if(/^#!authors:/g.test(line) === true) {
-                let authors = line.split(":")[1].trim().split(",").map((e)=>{return e.trim();});
+                let authors = line.replace(/^#!authors:/g, "").trim().split(",").map((e)=>{return e.trim();});
                 this.authors = authors;
             }
             else if(/^#!tags:/g.test(line) === true) {
-                let tags = line.split(":")[1].trim().split(",").map((e)=>{return e.trim();});
+                let tags = line.replace(/^#!tags:/g, "").trim().split(",").map((e)=>{return e.trim();});
                 this.tags = tags;
             }
             // 宏定义
             else if(/^#!{(.+?)}:/g.test(line) === true) {
-                let macroContent = line.split(":")[1].trim();
+                let macroContent = line.replace(/^#!{(.+?)}:/g, "").trim();
                 let macroName = line.split(":")[0].replace(/^#!/g, ""); // 包括大括号
                 this.macros[macroName] = macroContent;
             }
             // 外部CSS
             else if(/^#!style:/g.test(line) === true) {
-                let cssPath = line.split(":")[1].trim();
+                let cssPath = line.replace(/^#!style:/g, "").trim();
                 this.linkedStyles.push(cssPath);
             }
             // 外部脚本
             else if(/^#!script:/g.test(line) === true) {
-                let scriptPath = line.split(":")[1].trim();
+                let scriptPath = line.replace(/^#!script:/g, "").trim();
                 this.linkedScripts.push(scriptPath);
             }
             else if(/^#!base64$/.test(line) === true) { state = "base64"; }
@@ -542,12 +543,12 @@ class Mikumark {
         try {
             let base64content = DecodeB64(base64Buffer.join(""));
             if(base64content.length > 0) {
-                let key = EncodeB64(prompt('请输入口令'));
-                if(key !== 'IA==') { // 半角空格{
-                    alert('口令不匹配，返回上一页。');
-                    window.history.go(-1);
-                    return;
-                }
+                // let key = EncodeB64(prompt('请输入口令'));
+                // if(key !== 'IA==') { // 半角空格{
+                //     alert('口令不匹配，返回上一页。');
+                //     window.history.go(-1);
+                //     return;
+                // }
                 this.content = base64content;
             }
             else {

@@ -1,12 +1,11 @@
-#!metadata
-{
-    "title":"Bad Apple!!",
-    "titleImage":"",
-    "type":"原创",
-    "date":"2019-08-11",
-    "author":["Mikukonai"],
-    "tags":[]
-}
+
+#!title:    Bad Apple!!
+#!date:     2019-08-11
+#!authors:  Mikukonai
+#!cover:    
+#!type:     原创
+#!tags:     
+
 
 #!content
 
@@ -18,7 +17,7 @@
 |--------|
 |2019.08.11|模仿模拟示波器XY模式的动画框架，绘制含有两个连通分量的简单图形|
 
-#!css
+#!style
 
 canvas {
     display: block;
@@ -27,11 +26,11 @@ canvas {
     margin: 10px auto 10px auto;
 }
 
-#!js
+#!script
 
-#script:./ts/signal.js
-#script:./ts/image.js
-#script:./ts/canvas.js
+#!script:./ts/signal.js
+#!script:./ts/image.js
+#!script:./ts/canvas.js
 
 let cv = new Canvas('cv', [-160, -160], [160, 160]);
 cv.SetBackgroundColor("#000");

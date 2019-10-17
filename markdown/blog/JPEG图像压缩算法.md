@@ -1,12 +1,10 @@
-#!metadata
-{
-    "title":"JPEG图像压缩算法",
-    "titleImage":"",
-    "type":"原创",
-    "date":"2019-07-07",
-    "author":["Mikukonai"],
-    "tags":[]
-}
+
+#!title:    JPEG图像压缩算法
+#!date:     2019-07-07
+#!authors:  Mikukonai
+#!cover:    
+#!type:     原创
+#!tags:     
 
 #!content
 
@@ -27,7 +25,7 @@
 + [Fast discrete cosine transform algorithms](https://www.nayuki.io/page/fast-discrete-cosine-transform-algorithms)
 + [ITU T.81](https://www.w3.org/Graphics/JPEG/itu-t81.pdf)
 
-#!css
+#!style
 
 canvas {
     display: block;
@@ -36,12 +34,12 @@ canvas {
     margin: 10px auto 10px auto;
 }
 
-#!js
+#!script
 
-#script:./ts/signal.js
-#script:./ts/image.js
-#script:./ts/jpeg.js
-#script:./ts/canvas.js
+#!script:./ts/signal.js
+#!script:./ts/image.js
+#!script:./ts/jpeg.js
+#!script:./ts/canvas.js
 
 
 

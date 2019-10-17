@@ -1440,6 +1440,10 @@ function SPA_Render(pathString, callback) {
         $('.Header').animate({'opacity': '1'});
     }
 
+    // 删除所有已有的MikumarkScript和MikumarkStyle节点
+    $(".MikumarkScript").remove();
+    $(".MikumarkStyle").remove();
+
     // 进场动画初始化
     $('.SPA_MAIN_CONTAINER').css({'opacity': '0.1'/*, 'margin-top': '-28px'*/}, 1000);
     // 重置进度条（进度条动作由template里面的内容控制）

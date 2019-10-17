@@ -1,12 +1,11 @@
-#!metadata
-{
-    "title":"AuroraScheme 设计笔记",
-    "titleImage":"",
-    "type":"原创",
-    "date":"2019-01-25",
-    "author":["Mikukonai"],
-    "tags":[]
-}
+
+#!title:    AuroraScheme设计笔记
+#!date:     2019-01-25
+#!authors:  Mikukonai
+#!cover:    
+#!type:     原创
+#!tags:     
+
 
 #!content
 
@@ -919,7 +918,3 @@ Dict.parseJson string
 ## 垃圾回收与内存控制
 
 # 模块机制
-
-#!css
-
-#!js

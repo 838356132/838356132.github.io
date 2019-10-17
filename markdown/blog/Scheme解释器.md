@@ -1,12 +1,11 @@
-#!metadata
-{
-    "title":"Scheme 解释器",
-    "titleImage":"",
-    "type":"原创",
-    "date":"2018-08-16",
-    "author":["Mikukonai"],
-    "tags":["计算机科学","函数式编程","Scheme"]
-}
+
+#!title:    Scheme解释器
+#!date:     2018-08-16
+#!authors:  Mikukonai
+#!cover:    
+#!type:     原创
+#!tags:     函数式编程,计算机科学,Scheme
+
 
 #!content
 
@@ -197,10 +196,10 @@ Scheme创新性地引入了**卫生宏**的概念。所谓的卫生宏，指的�
 + [Matt Might 的博客](http://matt.might.net/)
 
 
-#!css
+#!style
 
-#css:./css/codemirror/codemirror.css
-#css:./css/codemirror/matchesonscrollbar.css
+#!style:./css/codemirror/codemirror.css
+#!style:./css/codemirror/matchesonscrollbar.css
 
 .CodeMirror-focused .cm-matchhighlight {
     background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAFklEQVQI12NgYGBgkKzc8x9CMDAwAAAmhwSbidEoSQAAAABJRU5ErkJggg==);
@@ -209,16 +208,16 @@ Scheme创新性地引入了**卫生宏**的概念。所谓的卫生宏，指的�
 }
 .cm-matchhighlight {background-color: rgba(0, 0, 0, 0.1)}
 
-#!js
+#!script
 
-#script:./js/codemirror/codemirror.js
-#script:./js/codemirror/scheme.js
-#script:./js/codemirror/active-line.js
-#script:./js/codemirror/matchbrackets.js
-#script:./js/codemirror/match-highlighter.js
-#script:./js/codemirror/matchesonscrollbar.js
-#script:./ts/signal.js
-#script:./js/mikurec3.js
+#!script:./js/codemirror/codemirror.js
+#!script:./js/codemirror/scheme.js
+#!script:./js/codemirror/active-line.js
+#!script:./js/codemirror/matchbrackets.js
+#!script:./js/codemirror/match-highlighter.js
+#!script:./js/codemirror/matchesonscrollbar.js
+#!script:./ts/signal.js
+#!script:./js/mikurec3.js
 
 // 2018.10.10 大数乘法
 function bigIntMultiply(astr, bstr) {

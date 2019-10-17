@@ -244,7 +244,7 @@ i, cite, em, var, address, dfn { font-style: italic;}
         border-radius: 5px;
         box-shadow: 0 1px 1px 0 rgba(64,64,64,0.08), 0 1px 3px 1px rgba(64,64,64,0.16);
     }
-    blockquote p {
+    blockquote p.MikumarkParagraph {
         margin: var(--quote_p_margin) 0;
         font-size: inherit;
         line-height: inherit;
@@ -437,7 +437,7 @@ i, cite, em, var, address, dfn { font-style: italic;}
         border-radius: 5px;
         box-shadow: 0 1px 1px 0 rgba(64,64,64,0.08), 0 1px 3px 1px rgba(64,64,64,0.16);
     }
-    blockquote p {
+    blockquote p.MikumarkParagraph {
         margin: var(--quote_p_margin) 0;
         font-size: inherit;
         line-height: inherit;
