@@ -128,7 +128,7 @@ class Mikumark {
         let inlineCodeSegments = RegexInlineCode.exec(HTML);
         while(inlineCodeSegments !== null) {
             HTML = HTML.replace(inlineCodeSegments[0],
-                `<code>${Mikumark.CoverHTMLchar(Mikumark.CoverMetachar(inlineCodeSegments[1]))}</code>`);
+                `<code class="MikumarkCode">${Mikumark.CoverHTMLchar(Mikumark.CoverMetachar(inlineCodeSegments[1]))}</code>`);
             inlineCodeSegments = RegexInlineCode.exec(HTML);
         }
 
@@ -192,9 +192,9 @@ class Mikumark {
                 // 判断层级是否改变
                 if(level > currentLevel) { // 嵌套加深
                     for(let c = 0; c < (level - currentLevel); c++) {
-                        HtmlBuffer.push(`<ol>`);
+                        HtmlBuffer.push(`<ol class="MikumarkList">`);
                     }
-                    HtmlBuffer.push(`<li>`);
+                    HtmlBuffer.push(`<li class="MikumarkListItem">`);
                     HtmlBuffer.push(this.ParseInnerPara(item));
                     currentLevel = level;
                 }
@@ -202,12 +202,12 @@ class Mikumark {
                     for(let c = 0; c < (currentLevel - level); c++) {
                         HtmlBuffer.push(`</li></ol>`);
                     }
-                    HtmlBuffer.push(`</li><li>`);
+                    HtmlBuffer.push(`</li><li class="MikumarkListItem">`);
                     HtmlBuffer.push(this.ParseInnerPara(item));
                     currentLevel = level;
                 }
                 else { // 保持同级
-                    HtmlBuffer.push(`</li><li>`);
+                    HtmlBuffer.push(`</li><li class="MikumarkListItem">`);
                     HtmlBuffer.push(this.ParseInnerPara(item));
                     currentLevel = level;
                 }
@@ -237,9 +237,9 @@ class Mikumark {
                 // 判断层级是否改变
                 if(level > currentLevel) { // 嵌套加深
                     for(let c = 0; c < (level - currentLevel); c++) {
-                        HtmlBuffer.push(`<ul>`);
+                        HtmlBuffer.push(`<ul class="MikumarkList">`);
                     }
-                    HtmlBuffer.push(`<li>`);
+                    HtmlBuffer.push(`<li class="MikumarkListItem">`);
                     HtmlBuffer.push(this.ParseInnerPara(item));
                     currentLevel = level;
                 }
@@ -247,12 +247,12 @@ class Mikumark {
                     for(let c = 0; c < (currentLevel - level); c++) {
                         HtmlBuffer.push(`</li></ul>`);
                     }
-                    HtmlBuffer.push(`</li><li>`);
+                    HtmlBuffer.push(`</li><li class="MikumarkListItem">`);
                     HtmlBuffer.push(this.ParseInnerPara(item));
                     currentLevel = level;
                 }
                 else { // 保持同级
-                    HtmlBuffer.push(`</li><li>`);
+                    HtmlBuffer.push(`</li><li class="MikumarkListItem">`);
                     HtmlBuffer.push(this.ParseInnerPara(item));
                     currentLevel = level;
                 }
@@ -270,7 +270,7 @@ class Mikumark {
             let hasHeadline = false;
             // 对齐方式：下标为列序号（从1开始）
             let alignType = new Array();
-            HtmlBuffer.push('<div class="md-table-container"><table class="md-table">');
+            HtmlBuffer.push('<div class="MikumarkTableContainer"><table class="MikumarkTable">');
 
             for(let i = 0; i < rows.length; i++) {
                 let row = rows[i];
@@ -419,7 +419,7 @@ class Mikumark {
                 // 判断层级是否改变
                 if(level > quoteLevel) { // 嵌套加深
                     for(let c = 0; c < (level - quoteLevel); c++) {
-                        HtmlBuffer.push(`<blockquote>`);
+                        HtmlBuffer.push(`<blockquote class="MikumarkBlockquote">`);
                     }
                 }
                 else if(level < quoteLevel){ // 嵌套退出
@@ -465,7 +465,7 @@ class Mikumark {
                 let index = parseInt(para.trim().replace(/^(>*)\s*```/g, ""));
                 let codeBlock = codeBlocks[index];
                 let code = Mikumark.RecoverHTMLchar(codeBlock.code);
-                HtmlBuffer[i] = `<pre><code>${code}</code></pre>`;
+                HtmlBuffer[i] = `<pre class="MikumarkPre"><code class="MikumarkCode">${code}</code></pre>`;
             }
         }
 
@@ -586,8 +586,8 @@ class Mikumark {
 
         this.Parse(doc);
 
-        console.log("Mikumark.js Markdown Parser V3.4");
-        console.log(this);
+        // console.log("Mikumark.js Markdown Parser V3.4");
+        // console.log(this);
     }
 }
 

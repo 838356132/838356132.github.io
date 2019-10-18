@@ -16,18 +16,6 @@
 <!--进度条-->
 <div class="Progressbar" id="Progressbar"></div>
 
-<!--左边栏
-<aside class="LeftAside" style="display:none;">
-    <button id="MenuButton" class="Button Raised Round" style="position: relative; top: 20px; font-family: 'Material Icons'; font-size: 23px;">menu</button>
-</aside>-->
-
-<!--右边栏
-<aside class="RightAside" style="display:none;">
-    <button id="GoTopButton" class="Button Raised Round" style="position: absolute; bottom: 80px; right: 0;" onclick="$('html, body').animate({scrollTop:0},'fast');">
-        <img src="./image/icons/gotop.png" style="height:19px;width:17px; vertical-align: middle;">
-    </button>
-</aside>-->
-
 <!--顶部标题（仅移动端显示）-->
 <div class="StickyTitleContainer" style="display: none;">
     <div id="StickyTitle" class="StickyTitle" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"></div>
@@ -67,7 +55,7 @@
 
     <!--导航栏-->
     <nav class="Navbar">
-        <button class="NavbarItem SPA_BUTTON" active="false" data-target="index">首 页</button><button class="NavbarItem SPA_BUTTON" active="false" data-target="inspirations">灵 感</button><button class="NavbarItem SPA_BUTTON"  active="true" data-target="blog">博 客</button><button class="NavbarItem SPA_BUTTON" active="false" data-target="wiki">百 科</button><button class="NavbarItem SPA_BUTTON" active="false" data-target="about">关 于</button>
+        <button class="NavbarItem SPA_TRIGGER" active="false" data-target="index">首 页</button><button class="NavbarItem SPA_TRIGGER" active="false" data-target="inspirations">灵 感</button><button class="NavbarItem SPA_TRIGGER"  active="true" data-target="blog">博 客</button><button class="NavbarItem SPA_TRIGGER" active="false" data-target="wiki">百 科</button><button class="NavbarItem SPA_TRIGGER" active="false" data-target="about">关 于</button>
     </nav>
 
     <!--正文内容-->
@@ -295,7 +283,7 @@
     </div>
 
     <div class="index_all_article">
-        <div class="index_all_article_link SPA_BUTTON" data-target="blog">全部文章 »</div>
+        <div class="index_all_article_link SPA_TRIGGER" data-target="blog">全部文章 »</div>
     </div>
 
     <!-- <div style="color:#bbbbbb;margin: 10px 0;font-size: 14px;line-height: 22px;text-align: center;">
@@ -1076,6 +1064,7 @@ a:hover {
     font-weight: bold;
     margin-top: 10px;
     margin-bottom: 10px;
+    line-height: 18px;
 }
 .about_vernum {
     margin-left: auto;
@@ -1379,35 +1368,75 @@ MathJax.Hub.Config({
 
 <script src="./ts/framework/jquery/jquery.min.js"></script>
 <script src="./ts/framework/jquery/jquery.easing.js"></script>
-<script src="./ts/framework//highlight/highlight.js"></script>
+<script src="./ts/framework/highlight/highlight.js"></script>
 <script src="./ts/framework/framework.js"></script>
 <script src="./ts/framework/mikumark.js"></script>
 <script src="./ts/framework/article-viewer.js"></script>
 <script>
 
-let ScrollStack = new Array();
+////////////////////////////////////////////////////////
+//
+//  SPA 全 局 状 态
+//
+////////////////////////////////////////////////////////
+
+// 滚动位置记录
+let SCROLL_POSITION_STACK = new Array();
+// 排序选项
 let SORTING_OPTION = "category";
 
-function SPA_RegisterButtons() {
-    $('.SPA_BUTTON').off('click'); // 避免重复绑定
-    $('.SPA_BUTTON').each(function(i,e) {
+// 框架Article节点监听器
+let ARTICLE_OBSERVER;
+// 博客列表监听器
+let BLOG_LIST_OBSERVER;
+
+////////////////////////////////////////////////////////
+//
+//  注 册 SPA 触 发 器
+//
+////////////////////////////////////////////////////////
+
+function SPA_RegisterTriggers() {
+    $('.SPA_TRIGGER').off('click'); // 避免重复绑定
+    $('.SPA_TRIGGER').each(function(i,e) {
         $(e).click(()=>{
             let targetid = $(e).attr('data-target');
-            console.log(targetid);
             history.pushState({PageID: targetid}, '', `#/${targetid}`);
-            ScrollStack.push(window.pageYOffset);
+            SCROLL_POSITION_STACK.push(window.pageYOffset);
             SPA_Render(targetid);
         });
     });
 }
 
+////////////////////////////////////////////////////////
+//
+//  SPA 页 面 渲 染 / 格 局 切 换 管 理
+//
+////////////////////////////////////////////////////////
+
 function SPA_Render(pathString, callback) {
     callback = callback || (() => {});
+
+    // SPA路径
+
     let path = pathString.replace(/^\#\//gi, "").split("/");
     let PageID = path[0];
     let ArticleID = path[1];
-    // 博客文章页
+
+    console.log(`[PA-SPA] 渲染器：当前SPA路径为 ${path.map((v)=>{return decodeURI(v);}).join("/")}`);
+
+    // 每个格局各自的渲染流程，目前包括：注册监听器以处理渲染后动作、渲染格局对应的视图布局
+
+    // 博客文章
     if(PageID === "blog" && ArticleID !== undefined) {
+
+        // 监听Article变动，处理渲染后动作
+        let ARTICLE_OBSERVER = new MutationObserver((mutations, observer) => {
+            console.log(`[PA-SPA] 监听器：框架Article节点已更新`);
+            AfterRendering();
+        });
+        ARTICLE_OBSERVER.observe(document.getElementsByTagName('Article')[0], {childList: true});
+
         // 显示返回和菜单按钮
         $("#BackButton").show();
         $(".MenuContainer").show();
@@ -1424,6 +1453,8 @@ function SPA_Render(pathString, callback) {
         $('.SPA_TITLE_CONTAINER').html($(`template#blog-article-title`).html());
         LoadArticle(ArticleID);
     }
+
+    // 其他 TODO 待开发，注意有些格局的初始化代码位于其他模块中，是动态加载动态执行的。这些模块之间的关系，后续需要妥善规划。
     else {
         // 不显示返回和菜单按钮
         $("#BackButton").hide();
@@ -1440,32 +1471,41 @@ function SPA_Render(pathString, callback) {
         $('.Header').animate({'opacity': '1'});
     }
 
+    // 所有格局共享的：渲染框架布局、格局切入时的初始化工作、SPA触发器注册，等等
+
     // 删除所有已有的MikumarkScript和MikumarkStyle节点
     $(".MikumarkScript").remove();
     $(".MikumarkStyle").remove();
 
-    // 进场动画初始化
-    $('.SPA_MAIN_CONTAINER').css({'opacity': '0.1'/*, 'margin-top': '-28px'*/}, 1000);
+
+
     // 重置进度条（进度条动作由template里面的内容控制）
     $("#Progressbar").show();
     $("#Progressbar").css('width', '0%');
 
     // 按钮光标
-    $(`.SPA_BUTTON[data-target!="${PageID}"]`).attr("active", "false");
-    $(`.SPA_BUTTON[data-target="${PageID}"]`).attr("active", "true");
+    $(`.SPA_TRIGGER[data-target!="${PageID}"]`).attr("active", "false");
+    $(`.SPA_TRIGGER[data-target="${PageID}"]`).attr("active", "true");
 
     // 进场动画
-    $('.SPA_MAIN_CONTAINER').animate({'opacity': '1'/*, 'margin-top': '0'*/}, 1000);
+    $('.SPA_MAIN_CONTAINER').css({'opacity': '0.1'}, 1000);
+    $('.SPA_MAIN_CONTAINER').animate({'opacity': '1'}, 1000);
 
-    // 处理SPA行为
+    // 处理SPA行为：这里使用简单的延时，暂时不使用监听器
     setTimeout(() => {
-        SPA_RegisterButtons();
+        SPA_RegisterTriggers();
         callback();
     }, 100);
 }
 
+////////////////////////////////////////////////////////
+//
+//  页 面 冷 启 动 流 程
+//
+////////////////////////////////////////////////////////
+
 (() => {
-    SPA_RegisterButtons();
+    SPA_RegisterTriggers();
     ActionsOnReady();
 
     window.onload = () => {
@@ -1473,7 +1513,7 @@ function SPA_Render(pathString, callback) {
         SPA_Render(HashString);
         if(!history.state) {
             history.pushState({PageID: HashString}, '', window.location.href);
-            ScrollStack.push(window.pageYOffset);
+            SCROLL_POSITION_STACK.push(window.pageYOffset);
         }
     };
 
@@ -1483,7 +1523,7 @@ function SPA_Render(pathString, callback) {
 
     // 返回按钮动作
     window.onpopstate = (e) => {
-        let prevScrollY = ScrollStack.pop() || 0;
+        let prevScrollY = SCROLL_POSITION_STACK.pop() || 0;
         let currentPath = e.state.PageID;
         let pageId = currentPath.split("/")[0];
         if(!e.state) {

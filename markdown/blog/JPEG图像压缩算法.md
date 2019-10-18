@@ -10,9 +10,9 @@
 
 请尽量使用PC以获得最佳演示效果。
 
-: <button id="loadLena" class="md-button">①Lena原图</button> <button id="loadMenhera" class="md-button">②Menhera原图</button>
+: <button id="loadLena" class="MikumarkButton">①Lena原图</button> <button id="loadMenhera" class="MikumarkButton">②Menhera原图</button>
 
-: <button id="qualityLena" class="md-button">压缩①</button> <button id="qualityMenhera" class="md-button">压缩②</button>
+: <button id="qualityLena" class="MikumarkButton">压缩①</button> <button id="qualityMenhera" class="MikumarkButton">压缩②</button>
 
 <canvas id="cv" style="width:256px;height:256px;" width="256" height="256"></canvas>
 

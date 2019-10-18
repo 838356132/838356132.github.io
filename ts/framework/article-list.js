@@ -40,7 +40,7 @@ function ParseArticleList(articleList) {
         "CATEGORIES": CATEGORIES,
         "ARTICLES": ARTICLES
     };
-    console.log(contents);
+
     return contents;
 }
 
@@ -68,7 +68,7 @@ function RenderArticleList(CONTENTS, sortOption) {
             // 先组装HTML
             let itemNumberBgColor = (item.flag === "置顶") ? GetTypeColor('置顶') : GetTypeColor(item.type);
             let itemTypeTag = item.type;
-            let htmlstr = `<div class="articles_item_line enter"><span class="articles_item_number" style="color:${itemNumberBgColor};border-color:${itemNumberBgColor};">${FillZero(i+1)}</span><span style="display:inline-block;max-width:50%;"><a class="article_link SPA_BUTTON" data-target="${item.link}">${item.title}</a>${flagSpan}</span><span class="articles_item_date"><span style="color:${itemNumberBgColor};">${itemTypeTag}</span> · ${item.date}</span></div>`;
+            let htmlstr = `<div class="articles_item_line enter"><span class="articles_item_number" style="color:${itemNumberBgColor};border-color:${itemNumberBgColor};">${FillZero(i+1)}</span><span style="display:inline-block;max-width:50%;"><a class="article_link SPA_TRIGGER" data-target="${item.link}">${item.title}</a>${flagSpan}</span><span class="articles_item_date"><span style="color:${itemNumberBgColor};">${itemTypeTag}</span> · ${item.date}</span></div>`;
 
             html[item.category] += htmlstr;
         }
@@ -91,7 +91,7 @@ function RenderArticleList(CONTENTS, sortOption) {
             let flagSpan = (item.flag.length > 0) ? ('<span class="articles_item_flag">' + item.flag + '</span>') : '';
             let itemNumberBgColor = (item.flag === "置顶") ? GetTypeColor('置顶') : GetTypeColor(item.type);
             let itemTypeTag = item.type;
-            html += `<div class="articles_item_line enter"><span class="articles_item_number" style="color:${itemNumberBgColor};border-color:${itemNumberBgColor};">${FillZero(i+1)}</span><span style="display:inline-block;max-width:50%;"><a class="article_link SPA_BUTTON" data-target="${item.link}">${item.title}</a>${flagSpan}</span><span class="articles_item_date"><span style="color:${itemNumberBgColor};">${itemTypeTag}</span> · ${item.date}</span></div>`;
+            html += `<div class="articles_item_line enter"><span class="articles_item_number" style="color:${itemNumberBgColor};border-color:${itemNumberBgColor};">${FillZero(i+1)}</span><span style="display:inline-block;max-width:50%;"><a class="article_link SPA_TRIGGER" data-target="${item.link}">${item.title}</a>${flagSpan}</span><span class="articles_item_date"><span style="color:${itemNumberBgColor};">${itemTypeTag}</span> · ${item.date}</span></div>`;
         }
         html += `</div>`;
         document.getElementById('list_container').innerHTML = html;
@@ -102,18 +102,20 @@ function RenderArticleList(CONTENTS, sortOption) {
         for(let i = 0; i < CONTENTS.ARTICLES.length; i++) {
             let item = CONTENTS.ARTICLES[i];
             let flagSpan = (item.flag.length > 0) ? ('<span class="flag">' + item.flag + '</span>') : '';
-            html += `<tr class="articles_item_line enter"><td><span class="articles_item_number" style="background-color:${GetTypeColor(item.type)};">${FillZero(i+1)}</span><a class="article_link SPA_BUTTON" data-target="${item.link}">${item.title}</a>${flagSpan}<span class="article_date"><span style="color:${GetTypeColor(item.type)};">${item.type}</span> | ${item.date}</span></td></tr>`;
+            html += `<tr class="articles_item_line enter"><td><span class="articles_item_number" style="background-color:${GetTypeColor(item.type)};">${FillZero(i+1)}</span><a class="article_link SPA_TRIGGER" data-target="${item.link}">${item.title}</a>${flagSpan}<span class="article_date"><span style="color:${GetTypeColor(item.type)};">${item.type}</span> | ${item.date}</span></td></tr>`;
         }
         html += `</table></div>`;
         document.getElementById('list_container').innerHTML = html;
     }
 
+    // 监听列表变动，处理SPA行为
+    
+    // setTimeout(() => {
+    //     SPA_RegisterTriggers();
+    // }, 100);
+
     // 文章标题进场动画
-    // SlideInOneByOne("enter", 5, 100, 10);
-    // 处理SPA行为
-    setTimeout(() => {
-        SPA_RegisterButtons();
-    }, 100);
+    SlideInOneByOne("enter", 5, 100, 10);
 }
 
 function CompareDate(a, b) {
@@ -173,6 +175,12 @@ function SortByDate(CONTENTS, order) {
 }
 
 (() => {
+    // 初始化文章列表监听器
+    BLOG_LIST_OBSERVER = new MutationObserver((mutations, observer) => {
+        console.log(`[PA-SPA] 监听器：博客文章列表已更新`);
+        SPA_RegisterTriggers();
+    });
+    BLOG_LIST_OBSERVER.observe(document.getElementById('list_container'), {childList: true});
 
     $('.articles_content_ending').html('正在读取，请稍等…');
 

@@ -17,7 +17,7 @@
 
 **V4 测试用例**：<a id="v4test0">call/cc测试1</a> / <a id="v4test1">call/cc测试2</a> / <a id="v4test2">词法作用域</a> / <a id="v4test3">Man or Boy Test</a> / <a id="v4test4">日历</a> / <a id="v4test5">快排</a> / <a id="v4test6">TLS解释器</a> / <a id="v4test7">CPS阶乘</a> / <a id="v4test8">CPS阴阳谜题</a> / <a id="v4test9">2的65536次幂</a> / <a id="v4test10">丘奇编码</a> / <a id="v4test11">set!测试</a> / <a id="v4test12">生成器</a> / <a id="v4test13">仅使用Call/cc无限循环</a> / <a id="v4test14">Hey! Call/cc</a> / <a id="v4test15">阴阳谜题</a>
 
-<button class="md-button-green" id="test" style="width:100%;">执行</button>
+<button class="MikumarkButtonGreen" id="test" style="width:100%;">执行</button>
 
 <span id="test_result"></span>
 

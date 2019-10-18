@@ -214,7 +214,7 @@ Y组合子的存在构造性地证明，λ演算完全可以实现匿名函数�
            (* n (f (- n 1))))))) 10)
 ```
 
-> : <button id="js00" onclick="try{alert(mrRun(getCode('z-cb')));}catch(err){alert(err);}" class="md-button">执行</button>
+> : <button id="js00" onclick="try{alert(mrRun(getCode('z-cb')));}catch(err){alert(err);}" class="MikumarkButton">执行</button>
 
 尽管是用Scheme写成的，但实际上是被编译为JavaScript后，在你的浏览器上执行的。JavaScript原本就是一门以Scheme为参照的语言，它在很多方面都有Scheme的影子，因此JavaScript其实是一门非常棒的学习函数式编程的语言。
 

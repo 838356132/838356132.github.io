@@ -33,9 +33,9 @@ function Change(item, code, config, cv) {
         config[item] = item + "/" + code + ".png";
     }
     console.log(config);
-    Render(cv, config);
+    AvaterRender(cv, config);
 }
-function Render(cv, config) {
+function AvaterRender(cv, config) {
     cv.Clear();
     loadAssetImage(cv, config.background, function () {
         loadAssetImage(cv, config.hair, function () {

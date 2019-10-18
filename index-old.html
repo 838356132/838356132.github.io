@@ -18,7 +18,7 @@
     <header class="top_title"></header>
     <!--栏目切换按钮-->
     <div class="top_sticky">
-        <button class="item_top top_active SPA_BUTTON" data-target="index">首 页</button><button class="item_top SPA_BUTTON" data-target="inspiration">灵 感</button><button class="item_top SPA_BUTTON" data-target="articles">文 章</button><button class="item_top SPA_BUTTON" data-target="links">书 签</button><button class="item_top SPA_BUTTON" data-target="about">关 于</button>
+        <button class="item_top top_active SPA_TRIGGER" data-target="index">首 页</button><button class="item_top SPA_TRIGGER" data-target="inspiration">灵 感</button><button class="item_top SPA_TRIGGER" data-target="articles">文 章</button><button class="item_top SPA_TRIGGER" data-target="links">书 签</button><button class="item_top SPA_TRIGGER" data-target="about">关 于</button>
     </div>
     <!--SPA页面内容-->
     <div class="spa-content"></div>
@@ -91,7 +91,7 @@
     </div>
 
     <div class="index_all_article">
-        <a class="index_all_article_link SPA_BUTTON" href="#/articles" data-target="articles">全部文章 »</a>
+        <a class="index_all_article_link SPA_TRIGGER" href="#/articles" data-target="articles">全部文章 »</a>
     </div>
 
     <!-- <div style="color:#bbbbbb;margin: 10px 0;font-size: 14px;line-height: 22px;text-align: center;">
@@ -159,7 +159,7 @@
 <template id="links">
     <div class="links_category">
         <div class="links_subtitle" style="font-weight: bold; color:#ff6893; background: linear-gradient(90deg, #ffffff, #fff3f3, #ffffff);">友 情 链 接<div style="font-size: 10px; font-weight: normal; color: #bbbbbb; padding-top: 5px;">以添加时间为序</div></div>
-        <div style="width: 100%;font-size: 12px;color: #bbbbbb;line-height: 22px;">欢迎添加友情链接<br>请通过 <a class="SPA_BUTTON" style="font-weight: bold; color: #888;" href="#/about" data-target="about">微信</a> 联系我</div>
+        <div style="width: 100%;font-size: 12px;color: #bbbbbb;line-height: 22px;">欢迎添加友情链接<br>请通过 <a class="SPA_TRIGGER" style="font-weight: bold; color: #888;" href="#/about" data-target="about">微信</a> 联系我</div>
         <div class="links_table_container">
             <table class="links_table">
                 <tr>
@@ -552,11 +552,11 @@ function SPA_Render(PageID) {
     // 进场动画
     $('.spa-content').animate({'opacity': '1'/*, 'margin-top': '0'*/}, 1000);
     // 处理模板页中的SPA行为
-    SPA_RegisterButtons();
+    SPA_RegisterTriggers();
 }
 
 (() => {
-    SPA_RegisterButtons();
+    SPA_RegisterTriggers();
     ActionsOnReady();
 
     window.onload = function() {

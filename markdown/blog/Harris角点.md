@@ -9,9 +9,9 @@
 
 #!content
 
-: <button id="origin1" class="md-button">原图1</button> <button id="origin2" class="md-button">原图2</button> <button id="origin3" class="md-button">原图3</button> <button id="origin4" class="md-button">原图4</button> <button id="origin5" class="md-button">原图5</button> <button id="origin6" class="md-button">原图6</button>
+: <button id="origin1" class="MikumarkButton">原图1</button> <button id="origin2" class="MikumarkButton">原图2</button> <button id="origin3" class="MikumarkButton">原图3</button> <button id="origin4" class="MikumarkButton">原图4</button> <button id="origin5" class="MikumarkButton">原图5</button> <button id="origin6" class="MikumarkButton">原图6</button>
 
-: <button id="harris" class="md-button" style="width: 100%;">角点提取</button>
+: <button id="harris" class="MikumarkButton" style="width: 100%;">角点提取</button>
 
 <canvas id="cv" style="width:640px;height:360px;" width="640" height="360"></canvas>
 

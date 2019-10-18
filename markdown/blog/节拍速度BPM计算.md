@@ -40,7 +40,7 @@
 
 点击按钮查看演示：
 
-: <button id="bpm" class="md-button" style="width:100%;">计算BPM</button>
+: <button id="bpm" class="MikumarkButton" style="width:100%;">计算BPM</button>
 
 自相关序列（滤除直流分量的。这里数出峰值的数目，再结合采样时长23.777s就可以算出BPM了）
 

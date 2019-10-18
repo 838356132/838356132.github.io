@@ -124,7 +124,7 @@
 }
 
 /* 目录UL样式 */
-.ContentsList { margin: 20px 0 20px 20px; z-index: 100;}
+.ContentsList { display: block; margin: 20px 0 20px 20px; color: #222222; padding-left: 2em; text-indent: 0; font-size: 14px; line-height: 24px; word-wrap:break-word; z-index: 100; }
 .ContentsListItem { padding-left: 20px; text-indent: 0; font-size: 14px; margin-top: 0px; margin-bottom: 0px; display: block; line-height: 26px; font-weight: inherit; word-wrap: break-word; list-style-type: square; color: #333333; }
 .ContentsItem { cursor: pointer; }
 .ContentsItem:hover { text-decoration: underline; }

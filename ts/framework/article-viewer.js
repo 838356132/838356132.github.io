@@ -140,7 +140,7 @@ function BeforeRendering() {
 
 // 在文章渲染完成之后执行的操作
 function AfterRendering() {
-    setTimeout(() => { // 穷人版的回调函数：延时0.5秒等待渲染完成
+    // setTimeout(() => { // 穷人版的回调函数：延时0.5秒等待渲染完成
         // 为每张图片注册单击事件
         $('.MikumarkImage').each(function(i,e) {
             $(e).click(function() {
@@ -166,7 +166,10 @@ function AfterRendering() {
         $(window).scroll();
         $(window).resize();
 
-    }, 500);
+        // MathJax刷新
+        MathJax.Hub.Configured();
+        MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    // }, 500);
 }
 
 ///////////////////////////////////////////////////////
@@ -239,7 +242,7 @@ function Render(mikumark) {
     }
 
     // 绘制目录
-    RenderContents(mikumark);
+    RenderTOC(mikumark);
 
     // 使用highlight.js处理代码高亮
     document.querySelectorAll('pre code').forEach((block) => { hljs.highlightBlock(block); });
@@ -247,7 +250,7 @@ function Render(mikumark) {
 }
 
 // 渲染文章目录，并为每个按钮注册点击跳转事件
-function RenderContents(mikumark) {
+function RenderTOC(mikumark) {
     let outline = mikumark.outline;
     let HtmlBuffer = new Array();
     HtmlBuffer.push(`<ul class="ContentsList">`);
@@ -334,12 +337,11 @@ function LoadArticle(id) {
             // 进度条读满
             $("#Progressbar").animate({width: `100%`});
             $("#Progressbar").fadeOut();
+
             // Markdown解析并渲染
             let mikumark = new Mikumark(text);
+            console.log(`[PA-SPA] Mikumark：文档解析完毕`);
             Render(mikumark);
-            AfterRendering();
-            // MathJax初始化
-            MathJax.Hub.Configured();
         }
         else if(xhr.readyState === XMLHttpRequest.DONE && xhr.status !== 200){
             $("#Progressbar").animate({width: `100%`});
