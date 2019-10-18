@@ -1212,7 +1212,7 @@ a:hover {
     </div>
 
     <div class="about_subtitle" id="copyright">权 利 声 明</div>
-    <div class="about_content">版权所有 &copy; 2016-<span class="copyright_year">2019</span> Mikukonai</div>
+    <div class="about_content">版权所有 &copy; 2016-<span class="CopyrightYear"></span> Mikukonai<br>保留所有权利</div>
     <div class="about_content">除另有声明外，所有原创内容均可在①署原作者名和②非盈利用途的前提下使用和传播。</div>
     <!-- <div class="about_content">文章默认题图「<a class="about_a" href="https://www.pixiv.net/member_illust.php?mode=medium&illust_id=70145976">紫音</a>」：画师 <a class="about_a" href="https://www.pixiv.net/member.php?id=9412">月神るな</a></div> -->
     <div class="about_content">文章默认题图「<a class="about_a" href="https://www.pixiv.net/member_illust.php?mode=medium&illust_id=71410837">天体観測</a>」：画师 <a class="about_a" href="https://www.pixiv.net/member.php?id=648285">mocha</a></div>
@@ -1220,7 +1220,7 @@ a:hover {
 
     <div class="about_subtitle" id="changelog">版 本 记 录</div>
 
-    <div class="about_content"><img src="./image/pa-icon.jpg" style="width:45px; height: 45px;"><br><span style="color:#888888">Project Aurora V3.3</span></div>
+    <div class="about_content"><img src="./image/pa-icon.jpg" style="width:45px; height: 45px;"><br><span style="color:#888888">Project Aurora V4.0</span></div>
 
     <div class="about_content">
         【<a class="about_a" href="https://github.com/mikukonai/mikukonai.github.io" target="_blank">Git仓库</a>】
@@ -1242,6 +1242,7 @@ a:hover {
         <p class="about_vernum">V3.0<span style="color:#888888;padding-left: 15px;">2018.07.26</span></p>
         <p class="about_changelog">博客更名“Project Aurora”<br>精简内容和结构，重新设计样式</p>
     </div>
+    <!--
     <div class="about_edition">
         <p class="about_vernum">V3.1<span style="color:#888888;padding-left: 15px;">2019.01.11</span></p>
         <p class="about_changelog">MD解析器与文章模板重构<br>Markdown与模板分离</p>
@@ -1254,6 +1255,7 @@ a:hover {
         <p class="about_vernum">V3.3<span style="color:#888888;padding-left: 15px;">2019.03.15</span></p>
         <p class="about_changelog">重构为SPA单页应用<br>样式设计参考 Material Design</p>
     </div>
+    -->
     <div class="about_edition">
         <p class="about_vernum">V4.0<span style="color:#888888;padding-left: 15px;">2019.10</span></p>
         <p class="about_changelog">【正在开发】<br>彻底重构博客框架<br>灵感页增加目录和标签索引<br>增加个人Wiki功能</p>
@@ -1473,11 +1475,12 @@ function SPA_Render(pathString, callback) {
 
     // 所有格局共享的：渲染框架布局、格局切入时的初始化工作、SPA触发器注册，等等
 
+    // 通用初始化
+    ActionsOnReady();
+
     // 删除所有已有的MikumarkScript和MikumarkStyle节点
     $(".MikumarkScript").remove();
     $(".MikumarkStyle").remove();
-
-
 
     // 重置进度条（进度条动作由template里面的内容控制）
     $("#Progressbar").show();
@@ -1488,8 +1491,8 @@ function SPA_Render(pathString, callback) {
     $(`.SPA_TRIGGER[data-target="${PageID}"]`).attr("active", "true");
 
     // 进场动画
-    $('.SPA_MAIN_CONTAINER').css({'opacity': '0.1'}, 1000);
-    $('.SPA_MAIN_CONTAINER').animate({'opacity': '1'}, 1000);
+    $('body').css({'opacity': '0.1'});
+    $('body').animate({'opacity': '1'});
 
     // 处理SPA行为：这里使用简单的延时，暂时不使用监听器
     setTimeout(() => {

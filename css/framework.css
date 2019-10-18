@@ -65,7 +65,7 @@ body { font-family: Microsoft YaHei, "宋体", "Helvetica Neue", Helvetica, Aria
     top: 0;
     height: var(--NavbarHeight);
     background: #fff;
-    border-bottom: 1px solid #cccccc;
+    border-bottom: 0.5px solid #cccccc;
     text-align: center;
     z-index: 1001;
 }

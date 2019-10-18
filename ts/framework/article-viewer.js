@@ -27,7 +27,7 @@ function ImageLazyLoading() {
         let offsetTop = $(e).offset().top;
         if($(e).attr('src') === undefined) {
             if(offsetTop >= top && offsetTop <= top + clientHeight) {
-                console.log(`开始加载当前视口内未加载的图片：${$(e).attr('data-src')}`);
+                console.log(`[PA-SPA] 图片懒加载：${$(e).attr('data-src')}`);
                 $(e).attr('src', $(e).attr('data-src'));
                 e.onload = ()=>{
                     $(e).parent().children('.loading').fadeOut(500);
@@ -140,36 +140,36 @@ function BeforeRendering() {
 
 // 在文章渲染完成之后执行的操作
 function AfterRendering() {
-    // setTimeout(() => { // 穷人版的回调函数：延时0.5秒等待渲染完成
-        // 为每张图片注册单击事件
-        $('.MikumarkImage').each(function(i,e) {
-            $(e).click(function() {
-                window.open($(e).attr('src'), "_blank");
-            });
+    // 为每张图片注册单击事件
+    $('.MikumarkImage').each(function(i,e) {
+        $(e).click(function() {
+            window.open($(e).attr('src'), "_blank");
         });
+    });
 
-        window.onresize = () => {
-            ArrangeSideButtonLayout();
-            ActionsOnResize();
-        };
+    window.onresize = () => {
+        ArrangeSideButtonLayout();
+        ActionsOnResize();
+    };
 
-        window.onscroll = () => {
-            if(IS_SCROLLING !== true) { // 见IS_SCROLLING定义处注释
-                ImageLazyLoading();
-                TraceCurrentTitle();
-            }
-            ShowTopTitleOnThreshold();
-            ActionsOnScroll();
-        };
+    window.onscroll = () => {
+        if(IS_SCROLLING !== true) { // 见IS_SCROLLING定义处注释
+            ImageLazyLoading();
+            TraceCurrentTitle();
+        }
+        ShowTopTitleOnThreshold();
+        ActionsOnScroll();
+    };
 
-        // 各触发一次以刷新布局
+    // MathJax刷新
+    MathJax.Hub.Configured();
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+
+    // 各触发一次以刷新布局
+    setTimeout(() => {
         $(window).scroll();
         $(window).resize();
-
-        // MathJax刷新
-        MathJax.Hub.Configured();
-        MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
-    // }, 500);
+    }, 10);
 }
 
 ///////////////////////////////////////////////////////

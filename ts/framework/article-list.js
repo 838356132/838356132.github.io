@@ -108,14 +108,8 @@ function RenderArticleList(CONTENTS, sortOption) {
         document.getElementById('list_container').innerHTML = html;
     }
 
-    // 监听列表变动，处理SPA行为
-    
-    // setTimeout(() => {
-    //     SPA_RegisterTriggers();
-    // }, 100);
-
-    // 文章标题进场动画
-    SlideInOneByOne("enter", 5, 100, 10);
+    // 淡入动画
+    SlideInOneByOne("enter", 0, 700, 1);
 }
 
 function CompareDate(a, b) {
