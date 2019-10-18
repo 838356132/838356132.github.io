@@ -112,6 +112,14 @@ body { font-family: Microsoft YaHei, "宋体", "Helvetica Neue", Helvetica, Aria
     font-weight: bold;
     text-align: left;
 }
+.HeaderTitleLeft:after {
+    content:" / Project Aurora";
+    font-size: 19px;
+    letter-spacing: 1px;
+    color: rgba(255,255,255,0.9);
+    text-shadow: 2px 2px 5px #000000;
+    font-weight: 100;
+}
 @media(min-width:651px){
     .HeaderTitleLeft {
         padding-top: calc(var(--HeaderHeight) - 70px);
@@ -126,31 +134,6 @@ body { font-family: Microsoft YaHei, "宋体", "Helvetica Neue", Helvetica, Aria
         padding-left: 30px;
     }
 }
-
-.HeaderTitleLeftVertLine{
-    border: none;
-    border-left: 5px solid rgba(255,255,255, 0.6);
-    margin: 0 0 0 10px;
-    padding:0 0 0 14px;
-    height: inherit;
-    vertical-align:text-top;
-    font-weight: 200;
-}
-@media(min-width:651px){
-    .HeaderTitleLeftVertLine {
-        font-size: 23px;
-        line-height: 42px;
-    }
-}
-@media(max-width:650px){
-    .HeaderTitleLeftVertLine {
-        font-size: 20px;
-        line-height: 36px;
-    }
-}
-
-
-
 
 
 
