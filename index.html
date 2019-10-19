@@ -57,7 +57,7 @@
     <article class="Article SPA_MAIN_CONTAINER"></article>
     <!--底部-->
     <footer class="Footer">
-        <div style="font-size: 13px; text-align: center; line-height: 25px; color: #888888;" class="RBGradient">☆ Project Aurora ☆</div>
+        <div style="font-size: 13px; text-align: center; line-height: 25px; color: #888888;" class="RBGradient">★ Project Aurora ★</div>
         <div style="font-size: 13px; text-align: center; line-height: 25px; color: #888888;">版权所有 © 2016-<span class="CopyrightYear"></span> Mikukonai</div>
     </footer>
 </div>
@@ -426,6 +426,10 @@
                     <td><a target="_blank" href="https://aidn.jp/mikutap/">MikuTap</a></td>
                     <td><a target="_blank" href="https://explainshell.com">explainshell</a></td>
                 </tr>
+                <tr>
+                    <td><a target="_blank" href="https://unicode-table.com/cn">Unicode字符百科</a></td>
+                    <td></td>
+                </tr>
             </table>
         </div>
     </div>
@@ -745,6 +749,8 @@ function SPA_Render(pathString, callback) {
 
     // 其他 TODO 待开发，注意有些格局的初始化代码位于其他模块中，是动态加载动态执行的。这些模块之间的关系，后续需要妥善规划。
     else {
+        // 页面标题
+        $("title").html("Project Aurora");
         // 不显示返回和菜单按钮
         $("#BackButton").hide();
         $(".MenuContainer").hide();
