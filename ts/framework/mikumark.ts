@@ -114,6 +114,7 @@ class Mikumark {
         let RegexItalic = /%%(.+?)%%/g;
         let RegexDeleted = /~(.+?)~/g;
         let RegexColor = /\[\[(#?[a-zA-Z0-9]+?)\:(.+?)#\]\]/g;
+        let RegexSelfLink = /\[(.+?)\]\(\)/g;
         let RegexLink = /\[(.+?)\]\((.+?)\)/g;
 
         // 首先处理换行
@@ -141,6 +142,7 @@ class Mikumark {
                     .replace(RegexItalic, `<i>$1</i>`)
                     .replace(RegexDeleted, `<del>$1</del>`)
                     .replace(RegexColor, `<span style="color:$1;">$2</span>`)
+                    .replace(RegexSelfLink, `<a class="MikumarkLink" target="_blank" href="$1">$1</a>`)
                     .replace(RegexLink, `<a class="MikumarkLink" target="_blank" href="$2">$1</a>`)
                     ;
 

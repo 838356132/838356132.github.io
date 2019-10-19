@@ -84,6 +84,7 @@ var Mikumark = /** @class */ (function () {
         var RegexItalic = /%%(.+?)%%/g;
         var RegexDeleted = /~(.+?)~/g;
         var RegexColor = /\[\[(#?[a-zA-Z0-9]+?)\:(.+?)#\]\]/g;
+        var RegexSelfLink = /\[(.+?)\]\(\)/g;
         var RegexLink = /\[(.+?)\]\((.+?)\)/g;
         // 首先处理换行
         var HTML = md.replace(/[\n\r]/g, "<br/>");
@@ -104,6 +105,7 @@ var Mikumark = /** @class */ (function () {
             .replace(RegexItalic, "<i>$1</i>")
             .replace(RegexDeleted, "<del>$1</del>")
             .replace(RegexColor, "<span style=\"color:$1;\">$2</span>")
+            .replace(RegexSelfLink, "<a class=\"MikumarkLink\" target=\"_blank\" href=\"$1\">$1</a>")
             .replace(RegexLink, "<a class=\"MikumarkLink\" target=\"_blank\" href=\"$2\">$1</a>");
         // return Mikumark.RecoverHTMLchar(Mikumark.RecoverMetachar(HTML));
         return Mikumark.RecoverMetachar(HTML);
