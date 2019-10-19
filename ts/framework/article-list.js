@@ -25,14 +25,14 @@ function ParseArticleList(articleList) {
             let title = fields[0] ? fields[0].trim() : "";
             let date  = fields[1] ? fields[1].trim() : "";
             let type  = fields[2] ? fields[2].trim() : "";
-            let flag  = fields[3] ? fields[3].trim() : "";
+            let tag  = fields[3] ? fields[3].trim() : "";
             ARTICLES.push({
                 "title": title,
                 "link": `blog/${TitleToFilename(title)}`,
                 "date": date,
                 "type": type,
                 "category": currentCategory,
-                "flag": flag
+                "tag": tag
             });
         }
     }
@@ -64,11 +64,11 @@ function RenderArticleList(CONTENTS, sortOption) {
         for(let i = 0; i < CONTENTS.CATEGORIES.length; i++) { html[i] = ''; }
         for(let i = 0; i < CONTENTS.ARTICLES.length; i++) {
             let item = CONTENTS.ARTICLES[i];
-            let flagSpan = (item.flag.length > 0) ? ('<span class="articles_item_flag">' + item.flag + '</span>') : '';
+            let tagSpan = (item.tag.length > 0) ? ('<span class="ListItemTag">' + item.tag + '</span>') : '';
             // 先组装HTML
-            let itemNumberBgColor = (item.flag === "置顶") ? GetTypeColor('置顶') : GetTypeColor(item.type);
+            let itemNumberBgColor = (item.tag === "置顶") ? GetTypeColor('置顶') : GetTypeColor(item.type);
             let itemTypeTag = item.type;
-            let htmlstr = `<div class="articles_item_line enter"><span class="articles_item_number" style="color:${itemNumberBgColor};border-color:${itemNumberBgColor};">${FillZero(i+1)}</span><span style="display:inline-block;max-width:50%;"><a class="article_link SPA_TRIGGER" data-target="${item.link}">${item.title}</a>${flagSpan}</span><span class="articles_item_date"><span style="color:${itemNumberBgColor};">${itemTypeTag}</span> · ${item.date}</span></div>`;
+            let htmlstr = `<div class="ListItem enter"><span class="ListItemNumber" style="color:${itemNumberBgColor};border-color:${itemNumberBgColor};">${FillZero(i+1)}</span><span style="display:inline-block;max-width:50%;"><a class="ListItemLink SPA_TRIGGER" data-target="${item.link}">${item.title}</a>${tagSpan}</span><span class="ListItemDate"><span style="color:${itemNumberBgColor};">${itemTypeTag}</span> · ${item.date}</span></div>`;
 
             html[item.category] += htmlstr;
         }
@@ -76,36 +76,36 @@ function RenderArticleList(CONTENTS, sortOption) {
         for(let i = 0; i < CONTENTS.CATEGORIES.length; i++) {
             let title = CONTENTS.CATEGORIES[i].split('|')[0];
             let subtitle = CONTENTS.CATEGORIES[i].split('|')[1];
-            listHtml += `<div class="articles_category_list" id="c${i}"><div class="articles_category_title enter">${title}<span class="articles_category_title_en"> · ${subtitle}</span></div>`;
+            listHtml += `<div class="ListCategoryBlock" id="c${i}"><div class="ListCategoryBlockTitle enter">${title}<span class="ListCategoryBlockTitle_en"> · ${subtitle}</span></div>`;
             listHtml += html[i];
             listHtml += '</div>';
         }
-        document.getElementById('list_container').innerHTML = listHtml;
+        document.getElementById('ListContainer').innerHTML = listHtml;
     }
     // 按日期降序
     else if(sortOption === 'date-dec') {
-        let html = '<div class="articles_category_list" id="date-dec">';
+        let html = '<div class="ListCategoryBlock" id="date-dec">';
         let indexArray = SortByDate(CONTENTS, 1);
         for(let i = 0; i < indexArray.length; i++) {
             let item = CONTENTS.ARTICLES[indexArray[i]];
-            let flagSpan = (item.flag.length > 0) ? ('<span class="articles_item_flag">' + item.flag + '</span>') : '';
-            let itemNumberBgColor = (item.flag === "置顶") ? GetTypeColor('置顶') : GetTypeColor(item.type);
+            let tagSpan = (item.tag.length > 0) ? ('<span class="ListItemTag">' + item.tag + '</span>') : '';
+            let itemNumberBgColor = (item.tag === "置顶") ? GetTypeColor('置顶') : GetTypeColor(item.type);
             let itemTypeTag = item.type;
-            html += `<div class="articles_item_line enter"><span class="articles_item_number" style="color:${itemNumberBgColor};border-color:${itemNumberBgColor};">${FillZero(i+1)}</span><span style="display:inline-block;max-width:50%;"><a class="article_link SPA_TRIGGER" data-target="${item.link}">${item.title}</a>${flagSpan}</span><span class="articles_item_date"><span style="color:${itemNumberBgColor};">${itemTypeTag}</span> · ${item.date}</span></div>`;
+            html += `<div class="ListItem enter"><span class="ListItemNumber" style="color:${itemNumberBgColor};border-color:${itemNumberBgColor};">${FillZero(i+1)}</span><span style="display:inline-block;max-width:50%;"><a class="ListItemLink SPA_TRIGGER" data-target="${item.link}">${item.title}</a>${tagSpan}</span><span class="ListItemDate"><span style="color:${itemNumberBgColor};">${itemTypeTag}</span> · ${item.date}</span></div>`;
         }
         html += `</div>`;
-        document.getElementById('list_container').innerHTML = html;
+        document.getElementById('ListContainer').innerHTML = html;
     }
     // 默认顺序
     else {
-        let html = '<div class="articles_category_list" id="date-dec"><table class="category_item_table">';
+        let html = '<div class="ListCategoryBlock" id="date-dec"><table class="category_item_table">';
         for(let i = 0; i < CONTENTS.ARTICLES.length; i++) {
             let item = CONTENTS.ARTICLES[i];
-            let flagSpan = (item.flag.length > 0) ? ('<span class="flag">' + item.flag + '</span>') : '';
-            html += `<tr class="articles_item_line enter"><td><span class="articles_item_number" style="background-color:${GetTypeColor(item.type)};">${FillZero(i+1)}</span><a class="article_link SPA_TRIGGER" data-target="${item.link}">${item.title}</a>${flagSpan}<span class="article_date"><span style="color:${GetTypeColor(item.type)};">${item.type}</span> | ${item.date}</span></td></tr>`;
+            let tagSpan = (item.tag.length > 0) ? ('<span class="tag">' + item.tag + '</span>') : '';
+            html += `<tr class="ListItem enter"><td><span class="ListItemNumber" style="background-color:${GetTypeColor(item.type)};">${FillZero(i+1)}</span><a class="ListItemLink SPA_TRIGGER" data-target="${item.link}">${item.title}</a>${tagSpan}<span class="article_date"><span style="color:${GetTypeColor(item.type)};">${item.type}</span> | ${item.date}</span></td></tr>`;
         }
         html += `</table></div>`;
-        document.getElementById('list_container').innerHTML = html;
+        document.getElementById('ListContainer').innerHTML = html;
     }
 
     // 淡入动画
@@ -145,7 +145,7 @@ function SortByDate(CONTENTS, order) {
         dateArray.push({
             index: i,
             date: CONTENTS.ARTICLES[i].date,
-            isTop: (CONTENTS.ARTICLES[i].flag === "置顶"),
+            isTop: (CONTENTS.ARTICLES[i].tag === "置顶"),
         });
     }
     // 对日期进行排序
@@ -174,7 +174,7 @@ function SortByDate(CONTENTS, order) {
         console.log(`[PA-SPA] 监听器：博客文章列表已更新`);
         SPA_RegisterTriggers();
     });
-    BLOG_LIST_OBSERVER.observe(document.getElementById('list_container'), {childList: true});
+    BLOG_LIST_OBSERVER.observe(document.getElementById('ListContainer'), {characterData: true, childList: true, subtree: true});
 
     $('.articles_content_ending').html('正在读取，请稍等…');
 
@@ -187,27 +187,23 @@ function SortByDate(CONTENTS, order) {
             let CONTENTS = ParseArticleList(xhr.responseText);
 
             RenderArticleList(CONTENTS, SORTING_OPTION);
-            document.getElementById(SORTING_OPTION).classList.add('articles_sort_option_button_selected');
-            // 排序按钮动作
-            document.getElementById('date-dec').addEventListener('click', ()=>{
-                document.getElementById('date-dec').classList.add('articles_sort_option_button_selected');
-                document.getElementById('category').classList.remove('articles_sort_option_button_selected');
-                RenderArticleList(CONTENTS, 'date-dec');
-                SORTING_OPTION = 'date-dec';
-            });
-            document.getElementById('category').addEventListener('click', ()=>{
-                document.getElementById('category').classList.add('articles_sort_option_button_selected');
-                document.getElementById('date-dec').classList.remove('articles_sort_option_button_selected');
-                RenderArticleList(CONTENTS, 'category');
-                SORTING_OPTION = 'category';
-            });
 
-            $('.articles_content_ending').html('题图作者：silverwing (PixivID:24281303)');
+            // 排序选项按钮
+            $(`.ListSortingOption[data-sorting-option=${SORTING_OPTION}]`).addClass('ListSortingOptionSelected');
+            $(`.ListSortingOption`).each((i, e) => {
+                $(e).click(() => {
+                    let sortingOption = $(e).attr("data-sorting-option");
+                    $(".ListSortingOption").removeClass("ListSortingOptionSelected");
+                    $(e).addClass("ListSortingOptionSelected");
+                    RenderArticleList(CONTENTS, sortingOption);
+                    SORTING_OPTION = sortingOption;
+                });
+            });
         }
         else if(xhr.readyState === XMLHttpRequest.DONE && xhr.status !== 200){
             $("#Progressbar").animate({width: `100%`});
             $("#Progressbar").fadeOut();
-            $('.articles_content_ending').html('文章列表获取失败 >_<');
+            $('.ListEnding').html('文章列表获取失败 >_<');
             return;
         }
     };

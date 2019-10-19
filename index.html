@@ -30,7 +30,6 @@
     </button>
 </aside>
 
-
 <!--右边栏-->
 <aside class="RightAside">
     <!--右侧：菜单（目录）-->
@@ -46,21 +45,16 @@
     </button>
 </aside>
 
-
-<!--页面主体-->
+<!--页面框架-->
 <div class="Main">
-
     <!--标题和封面-->
     <header class="Header SPA_TITLE_CONTAINER"></header>
-
     <!--导航栏-->
     <nav class="Navbar">
         <button class="NavbarItem SPA_TRIGGER" active="false" data-target="index">首 页</button><button class="NavbarItem SPA_TRIGGER" active="false" data-target="inspirations">灵 感</button><button class="NavbarItem SPA_TRIGGER"  active="true" data-target="blog">博 客</button><button class="NavbarItem SPA_TRIGGER" active="false" data-target="wiki">百 科</button><button class="NavbarItem SPA_TRIGGER" active="false" data-target="about">关 于</button>
     </nav>
-
     <!--正文内容-->
     <article class="Article SPA_MAIN_CONTAINER"></article>
-
     <!--底部-->
     <footer class="Footer">
         <div style="font-size: 13px; text-align: center; line-height: 25px; color: #888888;" class="RBGradient">☆ Project Aurora ☆</div>
@@ -70,565 +64,137 @@
 
 
 
+<!--首页模板-->
 
-
-
-<!--页面内容模板-->
-
-<!--index模板-->
 <template class="index" id="index">
 <style>
-:root {
-    --pc_item_padding_left_right: 45px;
-}
-.index_article_intro {
-    margin: 0;
-    color:#233333;
-    background: transparent;
-}
-.index_item {
-    margin: 5px 0 5px 0;
-    text-align: center;
-    border: none;
-    line-height: 35px;
-    font-size: 15px;
-    color: #555555;
-}
-.index_item:after {
-    content:'';
-    display: block;
-    padding-top: 5px;
-    margin-left: 25px;
-    border-bottom: 1px solid #eaeaea;
-}
-.index_last:after {
-    display: none;
-}
-.index_item_title {
-    font-size: 17px;
-    line-height: 30px;
-    text-align: left;
-    font-weight: bold;
-    color: #566666;
-    vertical-align: middle;
-    text-shadow: none;
-}
-.index_item_title_prefix {
-    line-height: inherit;
-    margin-right: 10px;
-    padding-right: 10px;
-    border-right: 5px solid rgba(0,0,0,0.1);
-    color: #55c3dc;
-    font-weight: normal;
-}
-.index_item_content {
-    color: #bbb;
-    text-align: left;
-    padding: 7px 0 3px 0;
-    font-size: 13px;
-    font-weight: lighter;
-    display: block;
-    line-height: 23px;
-    overflow-x: auto;
-}
-.index_item_a {
-    letter-spacing: 1px;
-    color:#555555;
-    text-decoration:none;
-}
-.index_item_a:hover {
-    color:#aaaaaa;
-    text-decoration:none;
-}
-.index_all_article {
-    text-align: center;
-    font-size: 14px;
-}
-.index_all_article_link {
-    line-height: 40px;
-    padding: 5px 0 10px 0;
-    display: block;
-    color: #8f8f8f;
-    font-weight: bold;
-    font-size: 16px;
-    text-decoration: none;
-    letter-spacing: 1px;
-    cursor: pointer;
-}
-.index_all_article_link:hover {
-    text-decoration: none;
-    background-color: #fefefe;
-    color:#68cce2;
-}
-.index_bottom_link {
-    text-decoration: none;
-    font-weight: bold;
-    color:#999999;
-}
-.index_bottom_link:hover {
-    text-decoration: none;
-    font-weight: bold;
-    color:#cccccc;
-}
-.index_item_table {
-    display: table;
-    border-collapse: separate;
-    border: none;
-    border-spacing: 0;
-    width: 100%;
-}
-.index_item_table_left {
-    padding-right: 10px;
-}
-.index_item_developing {
-    display: inline-block;
-    font-weight: normal;
-    background-color: none;
-    color: #93e76c;
-    border: 1px solid #93e76c;
-    border-radius: 5px;
-    font-size: 10px;
-    line-height: 15px;
-    padding: 1px 3px;
-    margin-left: 5px;
-    vertical-align: middle;
-}
-.index_item_planning {
-    font-size: 14px;
-    font-weight: normal;
-    color:skyblue;
-}
-
-/* PC端：宽度大于651px的设备 */
-@media(min-width:651px){
-    .index_article_intro {
-        padding: 8px var(--pc_item_padding_left_right) 8px var(--pc_item_padding_left_right);
-    }
-    .index_item:after {
-        margin-left: var(--pc_item_padding_left_right);
-    }
-    .index_item_table_right {
-        width: 60px;
-    }
-}
-/*手机*/
-@media(max-width:650px){
-    .index_article_intro {
-        padding:8px 25px 8px 25px;
-    }
-    .index_item_title_prefix {
-        display: none;
-    }
-}
-
+.IndexItemContainer { margin: 5px 0 5px 0; text-align: center; border: none; line-height: 35px; font-size: 15px; color: #555555; }
+.IndexItemContainer:after { content:''; display: block; padding-top: 5px; border-bottom: 1px solid #eaeaea; }
+@media(min-width:651px) { /* Desktop */.IndexItemContainer:after { margin-left: 50px; }}
+@media(max-width:650px) { /* Mobile */.IndexItemContainer:after { margin-left: 25px; }}
+@media(min-width:651px) { /* Desktop */.IndexItemPaddingBox { margin: 0; padding: 8px 50px 8px 50px; background: transparent; }}
+@media(max-width:650px) { /* Mobile */.IndexItemPaddingBox { margin: 0; padding:8px 25px 8px 25px; background: transparent; }}
+.IndexItemTitle { font-size: 17px; line-height: 30px; text-align: left; font-weight: bold; color: #566666; vertical-align: middle; text-shadow: none; }
+@media(min-width:651px) { /* Desktop */ .IndexItemTitle::before { content:attr(data-prefix); line-height: inherit; margin-right: 10px; padding-right: 10px; border-right: 5px solid rgba(0,0,0,0.1); color: #55c3dc; font-weight: normal; }}
+@media(max-width:650px) { /* Mobile */ .IndexItemTitle::before { display: none; }}
+.IndexItemTitleLink { letter-spacing: 1px; color:#555555; text-decoration:none; cursor: pointer; }
+.IndexItemTitleLink:hover { color:#aaaaaa; text-decoration:none; }
+.IndexItemTitleTag { display: inline-block; font-weight: normal; background-color: none; color: #93e76c; border: 1px solid #93e76c; border-radius: 5px; font-size: 9px; line-height: 15px; padding: 1px 3px; margin-left: 5px; vertical-align: middle; }
+.IndexItemSummary { color: #bbb; text-align: left; padding: 7px 0 3px 0; font-size: 13px; font-weight: lighter; display: block; line-height: 23px; overflow-x: auto; }
+.IndexItemTable { display: table; border-collapse: separate; border: none; border-spacing: 0; width: 100%; }
+.IndexItemTableLeft { padding-right: 10px; }
+@media(min-width:651px) { /* Desktop */ .IndexItemTableRight { width: 60px; }}
+.IndexBottomLink { line-height: 40px; padding: 5px 0 10px 0; display: block; color: #8f8f8f; font-weight: bold; font-size: 16px; text-decoration: none; text-align: center; letter-spacing: 1px; cursor: pointer; }
+.IndexBottomLink:hover { text-decoration: none; background-color: #fefefe; color:#68cce2; }
 </style>
 
     <div style="text-align:center; margin: 15px 25px; padding: 10px; border: 1px solid gold; background-color: rgb(255, 249, 218); border-radius: 5px; font-size: 14px;">
         🚧 博客第4版正在开发
     </div>
 
-    <div class="index_item">
-        <div class="index_article_intro">
-            <table class="index_item_table"><tr>
-                <td class="index_item_table_left">
-                    <div class="index_item_title"><span class="index_item_title_prefix">壹</span><a class="index_item_a" href="https://github.com/mikukonai/AuroraScheme">AuroraScheme</a><span class="index_item_developing">填坑中</span></div>
-                    <div class="index_item_content">
-                        <code>(<span style="color:#6ecfff;">lambda</span> (creates) the <span style="color:#ffafcb;">world</span>)</code>
-                    </div>
-                </td>
-                <td class="index_item_table_right">
-                    <div style="float:right;margin: auto 7px auto auto;width:50px; height:50px;">
-                        <img style="width:100%; height:100%" src="./image/logos/AuroraScheme-Logo-icon.png"/>
-                    </div>
-                </td>
-            </tr></table>
-        </div>
-    </div>
+    <div class="IndexItemContainer"><div class="IndexItemPaddingBox">
+        <table class="IndexItemTable"><tr>
+            <td class="IndexItemTableLeft">
+                <div class="IndexItemTitle" data-prefix="壹"><a class="IndexItemTitleLink" target="_blank" href="https://github.com/mikukonai/AuroraScheme">AuroraScheme</a><span class="IndexItemTitleTag">填坑中</span></div>
+                <div class="IndexItemSummary">
+                    <code>(<span style="color:#6ecfff;">lambda</span> (creates) the <span style="color:#ffafcb;">world</span>)</code>
+                </div>
+            </td>
+            <td class="IndexItemTableRight">
+                <div style="float:right;margin: auto 7px auto auto;width:50px; height:50px;">
+                    <img style="width:100%; height:100%" src="./image/logos/AuroraScheme-Logo-icon.png"/>
+                </div>
+            </td>
+        </tr></table>
+    </div></div>
 
-    <div class="index_item">
-        <div class="index_article_intro">
-            <table class="index_item_table"><tr>
-                <td class="index_item_table_left">
-                    <div class="index_item_title"><span class="index_item_title_prefix">贰</span><a class="index_item_a" href="./article.html?id=%E7%87%83%E7%83%A7%E4%BD%A0%E7%9A%84%E5%8D%A1%E8%B7%AF%E9%87%8C">燃烧你的卡路里！</a><span class="index_item_developing">填坑中</span></div>
-                    <div class="index_item_content">
-                        二十一世纪是生命科学的世纪~
-                    </div>
-                </td>
-                <td class="index_item_table_right">
-                    <span style="font-size: 30px;">🍋</span>
-                </td>
-            </tr></table>
-        </div>
-    </div>
+    <div class="IndexItemContainer"><div class="IndexItemPaddingBox">
+        <table class="IndexItemTable"><tr>
+            <td class="IndexItemTableLeft">
+                <div class="IndexItemTitle" data-prefix="贰"><a class="IndexItemTitleLink SPA_TRIGGER" data-target="blog/燃烧你的卡路里">燃烧你的卡路里！</a><span class="IndexItemTitleTag">填坑中</span></div>
+                <div class="IndexItemSummary">
+                    二十一世纪是生命科学的世纪~
+                </div>
+            </td>
+            <td class="IndexItemTableRight">
+                <span style="font-size: 30px;">🍋</span>
+            </td>
+        </tr></table>
+    </div></div>
 
-    <div class="index_item">
-        <div class="index_article_intro">
-            <table class="index_item_table"><tr>
-                <td class="index_item_table_left">
-                    <div class="index_item_title"><span class="index_item_title_prefix">叁</span><a class="index_item_a" href="./article.html?id=我想给你整个世界">我想给你整个世界</a><span class="index_item_developing">填坑中</span></div>
-                    <div class="index_item_content">
-                        好啊，那你整吧。
-                    </div>
-                </td>
-                <td class="index_item_table_right">
-                    <span style="font-size: 30px;">🌌</span>
-                </td>
-                <!-- <td class="index_item_table_right">
-                    <div style="float:right;margin: auto 0 auto auto;width:60px; height:60px;">
-                        <img style="width:100%; height:100%" src="./image/cover/nikki.jpg"/>
-                    </div>
-                </td> -->
-            </tr></table>
-        </div>
-    </div>
+    <div class="IndexItemContainer"><div class="IndexItemPaddingBox">
+        <table class="IndexItemTable"><tr>
+            <td class="IndexItemTableLeft">
+                <div class="IndexItemTitle" data-prefix="叁"><a class="IndexItemTitleLink SPA_TRIGGER" data-target="blog/我想给你整个世界">我想给你整个世界</a><span class="IndexItemTitleTag">填坑中</span></div>
+                <div class="IndexItemSummary">
+                    好啊，那你整吧。
+                </div>
+            </td>
+            <td class="IndexItemTableRight">
+                <span style="font-size: 30px;">🌌</span>
+            </td>
+        </tr></table>
+    </div></div>
 
-    <div class="index_all_article">
-        <div class="index_all_article_link SPA_TRIGGER" data-target="blog">全部文章 »</div>
-    </div>
+    <div class="IndexBottomLink SPA_TRIGGER" data-target="blog">全部文章 »</div>
 
-    <!-- <div style="color:#bbbbbb;margin: 10px 0;font-size: 14px;line-height: 22px;text-align: center;">
-        <a class="index_bottom_link" style="color:orange;" href="https://mikukonai.com/feed.xml">RSS</a><span class="bar">/</span><a class="index_bottom_link" href="https://github.com/mikukonai/mikukonai.github.io/blob/master/README.md" target="_blank">关于博客</a>
-    </div> -->
-    <style>.foot_link { color: inherit; text-decoration: none; border-bottom: 1px dotted #cccccc;} .foot_link:hover {color: #ff88a9; border-bottom: 1px dotted #ff88a9;}</style>
-    <!-- <div class="articles_content_ending" style="margin: 0;">题图作者：<a class="foot_link" href="https://www.pixiv.net/member_illust.php?mode=medium&illust_id=66037995">ALPCMAS</a></div> -->
-
-    <script> SlideInOneByOne("index_item", 5, 800, 300); // 进场动画 </script>
+    <script> SlideInOneByOne("IndexItemContainer", 5, 800, 300); // 进场动画 </script>
 </template>
 
 
 
 
-<!--inspiration模板-->
+<!--灵感页模板-->
+
 <template id="inspirations">
 <style>
-
-
-
-
-/* PC左侧菜单按钮 */
-.left_nav_button {
-    font-family: "Material Icons";
-    width: 40px;
-    height: 40px;
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    color: #666;
-    background-color: #fff;
-    transition:  .08s linear;
-    border-radius: 50%;
-    border: none;
-    line-height: 40px;
-    text-align: center;
-    font-size: 20px;
-    z-index: 10000;
-    cursor: pointer;
-}
-.left_nav_button:active, .left_nav_button:hover {
-    background-color: #eee;
-}
-
-/* PC左侧菜单 */
-.left_navbox {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 360px;
-    height: 100%;
-    background-color: #fff;
-    text-align: left;
-    font-size: 14px;
-    color: #80868b;
-    /* box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15); */
-    overflow: auto;
-    z-index: 9999;
-}
-/* 滚动条 */
-.left_navbox::-webkit-scrollbar { width: 5px; }
-.left_navbox::-webkit-scrollbar-thumb { border-radius: 10px; background: #e0e0e0; }
-.left_navbox::-webkit-scrollbar-track { border-radius: 0; background: #f5f5f5; }
-
-.left_navbox_top {
-    position: sticky;
-    top: 0px;
-    /* padding-bottom: 5px; */
-    color: #696a6b;
-    background-color: #fff;
-    box-shadow: 0 0 5px #ccc;
-    z-index: 9999;
-}
-.left_navbox_top_title {
-    font-size: 22px;
-    line-height: 80px;
-    height: 80px;
-    padding-left: 78px;
-}
-
-.left_navbox_search_container {
-    position: relative;
-    padding: 2px 10px;
-    margin: 10px 20px 20px 20px;
-    box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
-    border-radius: 8px;
-}
-.left_navbox_search_input {
-    border: none;
-    padding: 0;
-    margin: 0;
-    width: 100%;
-    font-size: 14px;
-    height: 30px;
-    line-height: 30px;
-    font-family: inherit;
-}
-.left_navbox_search_clear {
-    position: absolute;
-    top: 2px;
-    right: 10px;
-    height: 30px;
-    line-height: 30px;
-    cursor: pointer;
-}
-.left_navbox_search_clear:hover {
-    color: #1a73e8;
-}
-
-#left_navbox_tags {
-    margin: 15px 0 25px 0;
-    padding-left: 30px;
-}
-
-.left_navbox_tags_item {
-    display: inline-block;
-    background-color: #e1f5ff;
-    color: #009be9;
-    border: none;
-    border-radius: 5px;
-    font-size: 12px;
-    padding: 2px 6px 2px 6px;
-    margin: 3px;
-    word-break: break-all;
-    word-wrap: break-word;
-    cursor: pointer;
-}
-.left_navbox_tags_item:hover, .left_navbox_tags_item_active {
-    color: #ff6893;
-    background-color: #ffdfe8;
-}
-.left_navbox_tags_item_clear {
-    background-color: #eeeeee;
-    color: #a0a0a0;
-}
-
-#left_navbox_item_list {
-    margin-top: 0;
-    margin-bottom: 30px;
-}
-
-.left_navbox_item {
-    display: block;
-    height: 40px;
-    line-height: 40px;
-    padding-left: 30px;
-    cursor: pointer;
-}
-.left_navbox_item:before {
-    content: "❖";
-    padding-right: 10px;
-}
-.left_navbox_item:hover, .left_navbox_item_active {
-    color: #1a73e8;
-    background: #e8f0fe;
-    border-radius: 0 24px 24px 0;
-}
-
-.left_navbox_horiline {
-    position: relative;
-    margin: 18px 0 18px 0;
-    border-bottom: 1px solid #dadce0;
-    font-size: 13px;
-    color: #1a73e8;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-.top_title {
-    background-position: left 60%;
-    background-repeat: no-repeat;
-    background-size: cover;
-    text-align: center;
-}
-.timeline-container {
-    background: none;
-    width: 100%;
-    height: 100%;
-}
-
-.content-ending {
-    text-align: center;
-    font-size: 12px;
-    letter-spacing: 2px;
-    color: #bbbbbb;
-    margin: 20px auto 20px auto;
-    /* text-shadow: 1px 1px 0px #ffffff; */
-}
-
-/*****************************************************/
+/* 灵感目录 */
+.InspirationMenu { position: fixed; left: 0; top: 0; width: 360px; height: 100%; background-color: #fff; text-align: left; font-size: 14px; color: #80868b; overflow: auto; z-index: 9999;}
+.InspirationMenu::-webkit-scrollbar { width: 5px; }
+.InspirationMenu::-webkit-scrollbar-thumb { border-radius: 10px; background: #e0e0e0; }
+.InspirationMenu::-webkit-scrollbar-track { border-radius: 0; background: #f5f5f5; }
+.InspirationMenuToggle { font-family: "Material Icons"; width: 40px; height: 40px; position: fixed; top: 20px; left: 20px; text-align: center; font-size: 20px; z-index: 10000; cursor: pointer;}
+.InspirationMenuTitleContainer { position: sticky; top: 0px; color: #696a6b; background-color: #fff; box-shadow: 0 0 5px #ccc; z-index: 9999;}
+.InspirationMenuTitle { font-size: 22px; line-height: 80px; height: 80px; padding-left: 78px;}
+#InspirationMenuTags { margin: 15px 0 25px 0; padding-left: 30px;}
+.InspirationMenuTagItem { display: inline-block; background-color: #e1f5ff; color: #009be9; border: none; border-radius: 5px; font-size: 12px; padding: 2px 6px 2px 6px; margin: 3px; word-break: break-all; word-wrap: break-word; cursor: pointer;}
+.InspirationMenuTagItem:hover, .InspirationMenuTagItem_active { color: #ff6893; background-color: #ffdfe8;}
+.InspirationMenuTagItem_clear { background-color: #eeeeee; color: #a0a0a0;}
+#InspirationMenuList { margin-top: 0; margin-bottom: 30px;}
+.InspirationMenuItem { display: block; height: 40px; line-height: 40px; padding-left: 30px; cursor: pointer;}
+.InspirationMenuItem:before { content: "❖"; padding-right: 10px;}
+.InspirationMenuItem:hover, .InspirationMenuItem_active { color: #1a73e8; background: #e8f0fe; border-radius: 0 24px 24px 0;}
+.InspirationMenuItemHrline { position: relative; margin: 18px 0 18px 0; border-bottom: 1px solid #dadce0; font-size: 13px; color: #1a73e8;}
+/* 灵感页框架 */
+.InspirationContainer { background: none; width: 100%; height: 100%;}
+.InspirationEnding { text-align: center; font-size: 12px; letter-spacing: 2px; color: #bbbbbb; padding: 20px 0;}
 /* Poster 样式 */
-/*****************************************************/
-.poster {
-    margin: 0;
-    padding: 10px 10px 10px 10px;
-    /* border-top: 1px solid #dddddd; */
-    border-bottom: 1px solid #e0e0e0;
-    border-radius: 0;
-    color: #666666;
-    background-color: #ffffff;
-    text-align: left;
-    font-size: 13px;
-
-    opacity:0.0; /*原本没有，用于进场动画*/
-}
-/* Poster内文 */
-.poster blockquote {
-    font-size: 12px;
-    line-height: 20px;
-    color:#888888;
-    margin:10px 10px 10px 10px;
-    padding: 8px 10px;
-    border: 1px solid #9ee0f8;
-    border-radius: 5px;
-    box-shadow: #c0ebfb 0 0 5px 0;
-}
-p.poster-p {
-    margin:10px 10px 10px 10px;
-    padding:0;
-    color:#666666;
-    font-size:13px;
-    line-height: 22px;
-    display: block;
-    text-indent:0;
-}
-/* Poster标题 */
-.poster-title {
-    width: fit-content;
-    width: -webkit-fit-content;
-    width: -moz-fit-content;
-    margin:3px 20px 0px 50px;
-    padding:0;
-    border-bottom: 1px dotted #dddddd;
-    color:#498bb8;
-    line-height: 20px;
-    font-size:14px;
-    letter-spacing: 1px;
-    font-weight: bold;
-    display: block;
-}
-/* Poster副标题：时间地点等 */
-.poster-subtitle {
-    text-align: left;
-    margin:0px 20px 8px 50px;
-    padding:0;
-    line-height: 20px;
-    color:#aaaaaa;
-    font-size:10px;
-    display: block;
-}
-/* 头像 */
-img.poster-avatar {
-    float:left;
-    position:relative;
-    top:6px;
-    left:6px;
-    margin:0;
-    padding:0;
-    border-radius:50%;
-    border: 0.5px solid #eeeeee;
-    width:35px;
-    height:35px;
-}
-/* 头像徽章 */
-img.poster-badge {
-    float:left;
-    position:relative;
-    top:32px;
-    left:-3px;
-    margin:0;
-    padding:0;
-    border-radius:50%;
-    border: 1px solid #ffffff;
-    /*box-shadow: 1px 1px 0 #cccccc;*/
-    width:8px;
-    height:8px;
-}
-/* 话题标签 */
-.poster-tag {
-    color:#33aadd;
-    font-weight: 600;
-}
-a {
-    color: #558bc4;
-    text-decoration: none;
-}
-
-a:hover {
-    color: #0066dd;
-    text-decoration: none;
-}
-
-/*全部话题顶部的标签，用于显示过滤条件之类的*/
-.poster-top-label {
-    margin: 10px auto 10px auto;
-    /*width: 60%;*/
-    text-align: left;
-    font-size: 11px;
-    color: #aaaaaa;
-    text-shadow: 1px 1px 0px #ffffff;
-    padding-left:20px;
-}
-
-/**********************************************/
-/* 响应式布局 */
-/**********************************************/
-@media(min-width:651px){
-    .poster {
-        padding: 20px 40px 20px 40px;
-    }
-}
-@media(max-width:650px){
-}
-
+.Poster { margin: 0; padding: 10px 10px 10px 10px; border-bottom: 1px solid #e0e0e0; border-radius: 0; color: #666666; background-color: #ffffff; text-align: left; opacity:0.0;}
+@media(min-width:651px){ /* Desktop */.Poster { padding: 20px 40px 20px 40px;}}
+.PosterTitle { display: block; width: fit-content; width: -webkit-fit-content; width: -moz-fit-content; margin:3px 20px 0px 60px; padding:0; border-bottom: 1px dotted #dddddd; color:#498bb8; line-height: 26px; font-size:16px; letter-spacing: 1px; font-weight: bold;}
+.PosterSubtitle { display: block; text-align: left; margin:0px 20px 8px 60px; padding:0; line-height: 21px; color:#aaaaaa; font-size:12px;}
+.PosterAvater { float:left; position:relative; top:6px; left:6px; margin:0; padding:0; border-radius:50%; border: 0.5px solid #eeeeee; width:40px; height:40px;}
+.Poster blockquote { font-size: 13px; line-height: 21px; color:#888888; margin:10px 10px 10px 10px; padding: 8px 10px; border: 1px solid #9ee0f8; border-radius: 5px; box-shadow: #c0ebfb 0 0 5px 0;}
+.PosterParagraph { margin: 10px 5px 10px 6px; padding: 0; color: #666666; font-size: 14px; line-height: 23px; display: block; text-indent: 0;}
+.PosterLink { color: #558bc4; text-decoration: none; cursor: pointer;}
+.PosterLink:hover { color: #0066dd; text-decoration: none;}
+.PosterTag { color: #00aaff; font-weight: bold;}
 </style>
     <!--左侧导航栏切换开关-->
-    <div class="left_nav_button" id="left_nav_button">menu</div>
+    <div class="Button Flat Round InspirationMenuToggle" id="InspirationMenuToggle">menu</div>
     <!--左侧导航栏-->
-    <div class="left_navbox" id="left_navbox">
+    <div class="InspirationMenu" id="InspirationMenu">
         <!--sticky顶栏-->
-        <div class="left_navbox_top">
-            <span class="left_navbox_top_title">灵感目录</span>
-            <!-- <div class="left_navbox_search_container">
-                <input class="left_navbox_search_input" id="left_navbox_search_input" placeholder="输入关键字…">
-                <span class="left_navbox_search_clear">✖</span>
-            </div> -->
-        </div>
+        <div class="InspirationMenuTitleContainer"><span class="InspirationMenuTitle">灵感目录</span></div>
         <!--标签容器-->
-        <div id="left_navbox_tags"></div>
+        <div id="InspirationMenuTags"></div>
         <!--目录容器-->
-        <div id="left_navbox_item_list"></div>
+        <div id="InspirationMenuList"></div>
     </div>
-    <div class="timeline-container">
-        <div id="poster_anchor"></div>
-        <div class="content-ending" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"></div>
-    </div>
+    <!--正文容器-->
+    <div class="InspirationContainer" id="InspirationContainer"></div>
+    <!--底部内容-->
+    <div class="InspirationEnding" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"></div>
     <script src="./ts/framework/inspiration.js"></script>
     <script src="./ts/framework/inspiration-viewer.js"></script>
 </template>
@@ -637,165 +203,34 @@ a:hover {
 
 
 
-<!--blog模板-->
+<!--博客文章列表模板-->
+
 <template id="blog">
 <style>
-.articles_category_list {
-    text-align: left;
-    margin: 23px 0 30px 0;
-    color: #222222;
-    font-size: 15px;
-    line-height: 17px;
-    width: 100%;
-}
-.articles_category_title {
-    color: #2b81ac;
-    margin: 10px 0 15px 0;
-    padding-left: 12px;
-    height: 20px;
-    line-height: 20px;
-    font-size: 19px;
-    border-left: 8px solid #dddddd;
-    letter-spacing: 1px;
-    font-weight: normal;
-}
-.articles_category_title .articles_category_title_en {
-    color: #bccccc;
-    font-size: 12px;
-}
-
-.articles_item_line {
-    transition: background-color 0.2s ease-out 0s;
-    vertical-align: text-top;
-    padding: 9px 0;
-    margin: 0px 20px;
-    line-height: 19px;
-    background-color: #ffffff;
-    text-align: left;
-    border-bottom: 1px dotted #eee;
-}
-/* 标题前序号 */
-.articles_item_number {
-    position: relative;
-    top: 2px;
-    text-align: center;
-    font-size: 11px;
-    line-height: 16px;
-    margin-right: 8px;
-    padding: 0px 5px 0px 5px;
-    border-radius: 10px;
-    vertical-align: top;
-    background-color: #fff;
-    border: 1px solid;
-}
-
-.articles_item_flag {
-    line-height: inherit;
-    background-color: #ffeaf0;
-    color: #ff88a9;
-    border: none;
-    border-radius: 10px;
-    font-size: 9px;
-    padding: 1px 4px 1px 4px;
-    margin-left: 5px;
-    vertical-align: text-bottom;
-    word-break: break-all;
-    word-wrap: break-word;
-}
-
-.articles_item_date {
-    font-size: 12px;
-    line-height: inherit;
-    text-align: right;
-    margin: 0 0 0 auto;
-    float: right;
-    color: #888888;
-}
-.article_link {
-    color: #333333;
-    font-weight: lighter;
-    text-decoration: none;
-    cursor: pointer;
-}
-.article_link:hover {
-    color: #333333;
-    text-decoration: underline;
-}
-.articles_content_ending {
-    text-align: center;
-    font-size: 12px;
-    color: #cccccc;
-    margin: 20px auto 20px auto;
-}
-
-.articles_sort_option {
-    margin-top: 25px;
-    padding-left: 20px;
-    padding-right: 20px;
-    line-height: 25px;
-    font-size: 14px;
-    color: #888888;
-    text-align: center;
-}
-.articles_sort_option_button_left {
-    padding: 4px 7px 4px 10px;
-    border-radius: 8px 0 0 8px;
-    border: 1px solid #9dd9ff;
-    color: #9dd9ff;
-    cursor: pointer;
-}
-.articles_sort_option_button_right {
-    padding: 4px 10px 4px 7px;
-    border-radius: 0 8px 8px 0;
-    border: 1px solid #9dd9ff;
-    border-left: none;
-    color: #9dd9ff;
-    cursor: pointer;
-}
-.articles_sort_option_button_selected {
-    background-color: #9dd9ff;
-    color: #fff;
-}
-
-.articles_sort_option a {
-    color:#ffb4dd;
-    text-decoration: none;
-}
-.articles_sort_option a:hover {
-    color:#ffb4dd;
-    text-decoration: underline;
-}
-
-/* PC端：宽度大于651px的设备 */
-@media(min-width:651px){
-    .articles_item_line {
-        margin: 0px 40px;
-    }
-    .articles_category_title {
-        padding-left: 18px;
-        border-left: 18px solid #dddddd;
-    }
-    .articles_sort_option {
-        padding-left: 40px;
-        padding-right: 40px;
-    }
-    .articles_item_flag {
-        font-weight: lighter;
-    }
-}
-/*手机*/
-@media(max-width:650px){
-    .article_link {
-        font-weight: normal;
-    }
-}
-
+.ListCategoryBlock { text-align: left; margin: 23px 0 30px 0; color: #222222; font-size: 15px; line-height: 17px; width: 100%; }
+.ListCategoryBlockTitle { color: #2b81ac; margin: 10px 0 15px 0; padding-left: 12px; height: 20px; line-height: 20px; font-size: 19px; border-left: 8px solid #dddddd; letter-spacing: 1px; font-weight: normal; }
+@media(min-width:651px){ /*Desktop*/.ListCategoryBlockTitle { padding-left: 18px; border-left: 18px solid #dddddd; }}
+.ListCategoryBlockTitle .ListCategoryBlockTitle_en { color: #bccccc; font-size: 12px; }
+.ListItem { transition: background-color 0.2s ease-out 0s; vertical-align: text-top; padding: 9px 0; margin: 0px 20px; line-height: 19px; background-color: #ffffff; text-align: left; border-bottom: 1px dotted #eee; }
+@media(min-width:651px){ /* Desktop */.ListItem { margin: 0px 40px; }}
+.ListItemNumber { position: relative; top: 2px; text-align: center; font-size: 11px; line-height: 16px; margin-right: 8px; padding: 0px 5px 0px 5px; border-radius: 10px; vertical-align: top; background-color: #fff; border: 1px solid; }
+.ListItemTag { line-height: inherit; background-color: #ffeaf0; color: #ff88a9; border: none; border-radius: 10px; font-size: 9px; padding: 1px 4px 1px 4px; margin-left: 5px; vertical-align: text-bottom; word-break: break-all; word-wrap: break-word; }
+.ListItemDate { font-size: 12px; line-height: inherit; text-align: right; margin: 0 0 0 auto; float: right; color: #888888; }
+.ListItemLink { color: #333333; text-decoration: none; cursor: pointer; }
+.ListItemLink:hover { color: #333333; text-decoration: underline; }
+.ListSortingOptionContainer { margin-top: 25px; padding-left: 20px; padding-right: 20px; line-height: 25px; font-size: 14px; color: #888888; text-align: center; }
+@media(min-width:651px){ /* Desktop */.ListSortingOption { padding-left: 40px; padding-right: 40px; }}
+.ListSortingOption { border: 1px solid #9dd9ff; color: #9dd9ff; cursor: pointer; }
+.ListSortingOptionLeft  { padding: 4px 7px 4px 10px; border-radius: 8px 0 0 8px; }
+.ListSortingOptionRight { padding: 4px 10px 4px 7px; border-radius: 0 8px 8px 0; border-left: none; }
+.ListSortingOptionSelected { background-color: #9dd9ff; color: #fff; }
+.ListEnding { text-align: center; font-size: 12px; color: #cccccc; margin: 20px auto 20px auto; }
 </style>
-    <div class="articles_sort_option">
-        <span id="date-dec" class="articles_sort_option_button_left">日期降序</span><span id="category" class="articles_sort_option_button_right">分类归类</span>
+    <div class="ListSortingOptionContainer">
+        <span class="ListSortingOption ListSortingOptionLeft" data-sorting-option="date-dec">日期降序</span><span class="ListSortingOption ListSortingOptionRight" data-sorting-option="category">分类归类</span>
     </div>
-    <div id="list_container"></div>
-    <div class="articles_content_ending">题图作者：silverwing (PixivID:24281303)</div>
+    <div id="ListContainer"></div>
+    <div class="ListEnding">题图作者：silverwing (PixivID:24281303)</div>
     <script src="./ts/framework/article-list.js"></script>
 </template>
 
@@ -804,62 +239,29 @@ a:hover {
 
 
 
-<!--links模板-->
+<!--Wiki列表模板-->
+
 <template id="wiki">
 <style>
-.links_subtitle {
-    text-align: center;
-    font-size: 16px;
-    color: #66bbdd;
-    margin: 20px 0 20px 0;
-    padding: 10px 0 10px 0;
-    background: linear-gradient(90deg, #ffffff, #f0faff, #ffffff);
-}
-
-.links_table_container {
-    margin: 15px 5px 15px 5px;
-}
-.links_table {
-    width: 100%;
-    font-size: 14px;
-    color:#888888;
-    table-layout:fixed;
-}
-.links_table td {
-    text-align: center;
-    line-height: 22px;
-    height: 36px;
-}
-.links_table a {
-    text-decoration: none;
-    color:#111111;
-}
-.links_table a:hover {
-    color:#aaaaaa;
-}
-.links_table td:first-child {
-    padding-right: 15px;
-    text-align: right;
-}
-.links_table td:last-child {
-    padding-left: 15px;
-    text-align: left;
-}
-
-/*手机*/
-@media(max-width:650px){
-    .links_table {
-        font-size: 13px;
-    }
-}
-
+.BookmarkTitle { text-align: center; font-size: 16px; color: #66bbdd; margin: 20px 0 20px 0; padding: 10px 0 10px 0; background: linear-gradient(90deg, #ffffff, #f0faff, #ffffff);}
+.BookmarkTableContainer { margin: 15px 5px 15px 5px;}
+.BookmarkTable { width: 100%; font-size: 14px; color:#888888; table-layout:fixed;}
+@media(max-width:650px){ /* Mobile */.BookmarkTable { font-size: 13px;}}
+.BookmarkTable td { text-align: center; line-height: 22px; height: 36px;}
+.BookmarkTable a { text-decoration: none; color:#111111; cursor: pointer;}
+.BookmarkTable a:hover { color:#aaaaaa;}
+.BookmarkTable td:first-child { padding-right: 15px; text-align: right;}
+.BookmarkTable td:last-child { padding-left: 15px; text-align: left;}
 </style>
-    <div class="links_category">
-        <div class="links_subtitle">博 客<div style="font-size: 10px; color: #bbbbbb; padding-top: 5px;">以下链接没有顺序</div></div>
-        <div class="links_table_container">
-            <table class="links_table">
+    <div style="text-align:center; margin: 15px 25px; padding: 10px; border: 1px solid gold; background-color: rgb(255, 249, 218); border-radius: 5px; font-size: 14px;">
+        🚧 此页正在开发
+    </div>
+    <div>
+        <div class="BookmarkTitle">博 客<div style="font-size: 10px; color: #bbbbbb; padding-top: 5px;">以下链接没有顺序</div></div>
+        <div class="BookmarkTableContainer">
+            <table class="BookmarkTable">
                 <tr>
-                    <td>王垠<a target="_blank" href="http://www.yinwang.org/">博客</a> | <a target="_blank" href="https://docs.huihoo.com/homepage/shredderyin/">主页</a></td>
+                    <td>王垠<a target="_blank" href="http://www.yinwang.org/">博客</a>/<a target="_blank" href="https://docs.huihoo.com/homepage/shredderyin/">主页</a></td>
                     <td><a target="_blank" href="http://mindhacks.cn/">刘未鹏</a></td>
                     <td><a target="_blank" href="https://fwjmath.wordpress.com/">fwjmath</a></td>
                 </tr>
@@ -874,7 +276,7 @@ a:hover {
                     <td><a target="_blank" href="http://blog.openkg.cn/">OpenKG</a></td>
                 </tr>
                 <tr>
-                    <td><a target="_blank" href="http://blog.memect.cn/">文因互联</a></td>
+                    <td><a target="_blank" href="https://www.hyperiats.com/">风舞幻城</a></td>
                     <td><a target="_blank" href="http://norvig.com/">Peter Norvig</a></td>
                     <td><a target="_blank" href="http://matt.might.net/">Matt Might</a></td>
                 </tr>
@@ -886,20 +288,15 @@ a:hover {
                 <tr>
                     <td><a target="_blank" href="https://www.codingnow.com/">云风</a></td>
                     <td><a target="_blank" href="https://techsingular.net/">技术奇异点</a></td>
-                    <td><a target="_blank" href="http://www.staroceans.org/">staroceans.org</a></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><a target="_blank" href="https://www.hyperiats.com/">风舞幻城</a></td>
-                    <td></td>
+                    <td><a target="_blank" href="http://www.staroceans.org/">staroceans</a></td>
                 </tr>
             </table>
         </div>
     </div>
-    <div class="links_category">
-        <div class="links_subtitle">工具和备忘</div>
-        <div class="links_table_container">
-            <table class="links_table">
+    <div>
+        <div class="BookmarkTitle">工具和备忘</div>
+        <div class="BookmarkTableContainer">
+            <table class="BookmarkTable">
                 <tr>
                     <td><a target="_blank" href="http://www.iqdb.org/">图片检索</a></td>
                     <td><a target="_blank" href="http://waifu2x.udp.jp/">动画图片SRR</a></td>
@@ -923,10 +320,10 @@ a:hover {
             </table>
         </div>
     </div>
-    <div class="links_category">
-        <div class="links_subtitle">硬件 · 电子</div>
-        <div class="links_table_container">
-            <table class="links_table">
+    <div>
+        <div class="BookmarkTitle">硬件 · 电子</div>
+        <div class="BookmarkTableContainer">
+            <table class="BookmarkTable">
                 <tr>
                     <td><a target="_blank" href="http://www.cncalc.org/">cnCalc计算器论坛</a></td>
                     <td><a target="_blank" href="https://www.cnvintage.org/">cnVintage</a></td>
@@ -958,10 +355,10 @@ a:hover {
             </table>
         </div>
     </div>
-    <div class="links_category">
-        <div class="links_subtitle">巴 别 塔</div>
-        <div class="links_table_container">
-            <table class="links_table">
+    <div>
+        <div class="BookmarkTitle">巴 别 塔</div>
+        <div class="BookmarkTableContainer">
+            <table class="BookmarkTable">
                 <tr>
                     <td><a target="_blank" href="http://e-dictionary.apc.gov.tw/">台湾原住民族语言词典</a></td>
                     <td><a target="_blank" href="https://web.klokah.tw/">族語E樂園</a></td>
@@ -977,10 +374,10 @@ a:hover {
             </table>
         </div>
     </div>
-    <div class="links_category">
-        <div class="links_subtitle">大 千 世 界</div>
-        <div class="links_table_container">
-            <table class="links_table">
+    <div>
+        <div class="BookmarkTitle">大 千 世 界</div>
+        <div class="BookmarkTableContainer">
+            <table class="BookmarkTable">
                 <tr>
                     <td><a target="_blank" href="https://sicp.readthedocs.io/en/latest/">SICP解题集</a></td>
                     <td><a target="_blank" href="http://okmij.org/ftp/">okmij.org</a></td>
@@ -1032,294 +429,183 @@ a:hover {
             </table>
         </div>
     </div>
-    <script> SlideInOneByOne("links_category", 10, 800, 50); // 进场动画 </script>
 </template>
 
 
 
 
-<!--about模板-->
+<!--"关于"模板-->
+
 <template id="about">
 <style>
-.about_tdl {
-    text-align: right;
-    font-weight: bold;
-    padding-right:5px;
-    width: 160px;
-}
-.about_tdr {
-    text-align: left;
-    padding-left:5px;
-    width: 160px;
-}
-.about_edition {
-    font-size: 14px;
-    line-height: 25px;
-    text-align: left;
-    margin: 20px 50px 20px 50px;
-    font-weight: normal;
-}
-.about_edition .about_vernum {
-    text-align: center;
-    font-weight: bold;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    line-height: 18px;
-}
-.about_vernum {
-    margin-left: auto;
-    margin-right: auto;
-    width: fit-content;
-    width: -webkit-fit-content;
-    width: -moz-fit-content;
-    border-bottom: 2px solid #cceeff;
-}
-.about_changelog {
-    color: #666666;
-    text-align: center;
-    line-height: 25px;
-    margin-top: 10px;
-    margin-bottom: 30px;
-}
-.about_a {
-    text-decoration: none;
-    color: #222222;
-    border-bottom: 1px dotted #222;
-}
-.about_a:hover {
-    color: #0066dd;
-    text-decoration: none;
-    border-bottom: 1px solid #0066dd;
-}
-.about_subtitle{
-    text-align: center;
-    font-size: 15px;
-    color: #66bbdd;
-    margin: 20px 0 20px 0;
-    padding: 10px 0 10px 0;
-    background: linear-gradient(90deg, #ffffff, #f0faff, #ffffff);
-}
-.about_content {
-    font-size: 14px;
-    line-height: 25px;
-    text-align: center;
-    margin: 5px 0 5px 0;
-    padding: 10px 10px 10px 10px;
-    font-weight: normal;
-}
-
-.links_table_container {
-    margin: 15px 5px 15px 5px;
-}
-.links_table {
-    width: 100%;
-    font-size: 14px;
-    color:#888888;
-    table-layout:fixed;
-}
-.links_table td {
-    text-align: center;
-    line-height: 22px;
-    height: 36px;
-}
-.links_table a {
-    font-size: 13px;
-    text-decoration: none;
-    color:#111111;
-}
-.links_table a:hover {
-    color:#ff6893;
-    border-bottom: 1px solid #ff6893;
-}
-.links_table td:first-child {
-    padding-right: 15px;
-    text-align: right;
-}
-.links_table td:last-child {
-    padding-left: 15px;
-    text-align: left;
-}
-
-.bar {
-    color: #bababa;
-    margin: 0 10px 0 10px;
-}
-
+.AboutTdLeft { text-align: right; font-weight: bold; padding-right:5px;}
+.AboutTdRight { text-align: left; padding-left:5px;}
+.AboutEdition { font-size: 14px; line-height: 25px; text-align: left; margin: 20px 50px 20px 50px; font-weight: normal;}
+.AboutEdition .AboutVernum { text-align: center; font-weight: bold; margin-top: 10px; margin-bottom: 10px; line-height: 18px;}
+.AboutVernum { margin-left: auto; margin-right: auto; width: fit-content; width: -webkit-fit-content; width: -moz-fit-content; border-bottom: 2px solid #cceeff;}
+.AboutChangelog { color: #666666; text-align: center; line-height: 25px; margin-top: 10px; margin-bottom: 30px;}
+.AboutLink { text-decoration: none; color: #222222; border-bottom: 1px dotted #222; cursor: pointer;}
+.AboutLink:hover { color: #0066dd; text-decoration: none; border-bottom: 1px solid #0066dd;}
+.AboutTitle{ text-align: center; font-size: 15px; color: #66bbdd; margin: 20px 0 20px 0; padding: 10px 0 10px 0; background: linear-gradient(90deg, #ffffff, #f0faff, #ffffff);}
+.AboutSubtitle { font-size: 10px; font-weight: normal; color: #ccc; padding-top: 5px;}
+.AboutContent { font-size: 14px; line-height: 25px; text-align: center; margin: 5px 0 5px 0; padding: 10px 10px 10px 10px; font-weight: normal;}
+.AboutBlogrollTable { width: 100%; font-size: 14px; color:#888888; table-layout:fixed;}
+.AboutBlogrollTable td { text-align: center; line-height: 22px; height: 36px;}
+.AboutBlogrollTable a { font-size: 13px; text-decoration: none; color:#111111;}
+.AboutBlogrollTable a:hover { color:#ff6893; border-bottom: 1px solid #ff6893;}
+.AboutBlogrollTable td:first-child { padding-right: 15px; text-align: right;}
+.AboutBlogrollTable td:last-child { padding-left: 15px; text-align: left;}
+.AboutSeparator { color: #bababa; margin: 0 10px 0 10px;}
 </style>
     <table style="width:100%; font-size:14px; text-align: left; margin: 30px auto 30px auto; color: #233333;" align="center">
         <tr>
-            <td class="about_tdl">性别</td>
-            <td class="about_tdr">男♂</td>
+            <td class="AboutTdLeft">性别</td><td class="AboutTdRight">男♂</td>
         </tr>
         <tr>
-            <td class="about_tdl">现居</td>
-            <td class="about_tdr">南京</td>
+            <td class="AboutTdLeft">现居</td><td class="AboutTdRight">南京</td>
         </tr>
     </table>
 
-    <div class="about_subtitle" id="motto">格 言</div>
-    <div class="about_content">怕什么真理无穷，进一步有进一步的欢喜</div>
+    <div class="AboutTitle" id="motto">格 言</div>
+    <div class="AboutContent">怕什么真理无穷，进一步有进一步的欢喜</div>
 
-    <div class="about_subtitle" id="blogroll" style="color:#ff6893; background: linear-gradient(90deg, #ffffff, #fff3f3, #ffffff);">友 情 链 接<div style="font-size: 10px; font-weight: normal; color: #ccc; padding-top: 5px;">以添加时间为序 / 欢迎交换友情链接</div></div>
-            <table class="links_table">
-                <tr>
-                    <td><a target="_blank" href="http://zephray.cnvintage.org/">ZephRay</a></td>
-                    <td><a target="_blank" href="https://mp.weixin.qq.com/s/QOw9mRvGVtocy3Nb315fYA">白痴一只喵</a></td>
-                    <td><a target="_blank" href="https://aoaoao.me/">Aaron</a></td>
-                </tr>
-                <tr>
-                    <td><a target="_blank" href="https://imjad.cn/">猫与向日葵</a></td>
-                    <td><a target="_blank" href="https://256kb.cn/">野生喵喵</a></td>
-                    <td><a target="_blank" href="https://blog.ddlee.cn/">萧爽楼</a></td>
-                </tr>
-                <tr>
-                    <td><a target="_blank" href="https://ice1000.org/">中间表示(IR)</a></td>
-                    <td><a target="_blank" href="https://tcxx.info/">甜欣屋</a></td>
-                    <td><a target="_blank" href="https://meow3.family.blog/">惡魔菌</a></td>
-                </tr>
-                <tr>
-                    <td><a target="_blank" href="https://tql.ink/">Akkariin</a></td>
-                    <td><a target="_blank" href="http://www.qiutianaimeili.com/">秋天爱美丽</a></td>
-                    <td><a target="_blank" href="https://chanshiyu.com/">蝉時雨</a></td>
-                </tr>
-                <tr>
-                    <td><a target="_blank" href="https://razertory.me/">Razertory</a></td>
-                    <td><a target="_blank" href="https://ssshooter.com/">UsubeniFantasy</a></td>
-                    <td><a target="_blank" href="http://yuki.systems/">Brethland</a></td>
-                </tr>
-                <tr>
-                    <td><a target="_blank" href="http://pixelart.cn/">像素艺术</a></td>
-                    <td><a target="_blank" href="https://www.imalan.cn/">三无计划</a></td>
-                    <td><a target="_blank" href="https://ntzyz.io">ntzyz</a></td>
-                </tr>
-            </table>
+    <div class="AboutTitle" id="blogroll" style="color:#ff6893; background: linear-gradient(90deg, #ffffff, #fff3f3, #ffffff);">友 情 链 接<div class="AboutSubtitle">以添加时间为序 / 欢迎交换友情链接</div></div>
+    <table class="AboutBlogrollTable">
+        <tr>
+            <td><a target="_blank" href="http://zephray.cnvintage.org/">ZephRay</a></td>
+            <td><a target="_blank" href="https://mp.weixin.qq.com/s/QOw9mRvGVtocy3Nb315fYA">白痴一只喵</a></td>
+            <td><a target="_blank" href="https://aoaoao.me/">Aaron</a></td>
+        </tr>
+        <tr>
+            <td><a target="_blank" href="https://imjad.cn/">猫与向日葵</a></td>
+            <td><a target="_blank" href="https://256kb.cn/">野生喵喵</a></td>
+            <td><a target="_blank" href="https://blog.ddlee.cn/">萧爽楼</a></td>
+        </tr>
+        <tr>
+            <td><a target="_blank" href="https://ice1000.org/">中间表示(IR)</a></td>
+            <td><a target="_blank" href="https://tcxx.info/">甜欣屋</a></td>
+            <td><a target="_blank" href="https://meow3.family.blog/">惡魔菌</a></td>
+        </tr>
+        <tr>
+            <td><a target="_blank" href="https://tql.ink/">Akkariin</a></td>
+            <td><a target="_blank" href="http://www.qiutianaimeili.com/">秋天爱美丽</a></td>
+            <td><a target="_blank" href="https://chanshiyu.com/">蝉時雨</a></td>
+        </tr>
+        <tr>
+            <td><a target="_blank" href="https://razertory.me/">Razertory</a></td>
+            <td><a target="_blank" href="https://ssshooter.com/">UsubeniFantasy</a></td>
+            <td><a target="_blank" href="http://yuki.systems/">Brethland</a></td>
+        </tr>
+        <tr>
+            <td><a target="_blank" href="http://pixelart.cn/">像素艺术</a></td>
+            <td><a target="_blank" href="https://www.imalan.cn/">三无计划</a></td>
+            <td><a target="_blank" href="https://ntzyz.io">ntzyz</a></td>
+        </tr>
+    </table>
 
-
-    <div class="about_subtitle" id="contacts">联 系 方 式</div>
-    <div class="about_content">
-        <a class="about_a" target="_blank" href="https://github.com/mikukonai/">GitHub</a><span class="bar">/</span><a class="about_a" target="_blank" href="https://www.instagram.com/mikukonai/">Instagram</a><span class="bar">/</span><a class="about_a" target="_blank" href="https://www.zhihu.com/people/mikukonai/">知乎</a>
+    <div class="AboutTitle" id="contacts">联 系 方 式</div>
+    <div class="AboutContent">
+        <a class="AboutLink" target="_blank" href="https://github.com/mikukonai/">GitHub</a><span class="AboutSeparator">/</span><a class="AboutLink" target="_blank" href="https://www.instagram.com/mikukonai/">Instagram</a><span class="AboutSeparator">/</span><a class="AboutLink" target="_blank" href="https://www.zhihu.com/people/mikukonai/">知乎</a>
     </div>
-    <div class="about_content">
+    <div class="AboutContent">
         <div style="margin:0 auto 0px auto">
             <div style="font-size: 13px;color:#888888;line-height: 25px;">- 个人微信 -</div>
             <img src="./image/qrcode.png" style="display:block;margin:0px auto 0 auto;width:35%;">
         </div>
     </div>
 
-    <div class="about_subtitle" id="anime">动 画</div>
-    <div class="about_content" style="line-height: 30px;" lang="ja">
-        <a class="about_a" href="https://movie.douban.com/subject/21348026/">涼宮ハルヒの憂鬱</a><span class="bar">/</span><a class="about_a" href="https://movie.douban.com/subject/3060542/">夏目友人帳</a><br>
-        <a class="about_a" href="https://movie.douban.com/subject/4935090/">花咲くいろは</a><span class="bar">/</span><a class="about_a" href="https://movie.douban.com/subject/10001418/">氷菓</a><span class="bar">/</span><a class="about_a" href="https://movie.douban.com/subject/27081136/">少女終末旅行</a><br>
+    <div class="AboutTitle" id="anime">动 画</div>
+    <div class="AboutContent" style="line-height: 30px;" lang="ja">
+        <a class="AboutLink" href="https://movie.douban.com/subject/21348026/">涼宮ハルヒの憂鬱</a><span class="AboutSeparator">/</span><a class="AboutLink" href="https://movie.douban.com/subject/3060542/">夏目友人帳</a><br>
+        <a class="AboutLink" href="https://movie.douban.com/subject/4935090/">花咲くいろは</a><span class="AboutSeparator">/</span><a class="AboutLink" href="https://movie.douban.com/subject/10001418/">氷菓</a><span class="AboutSeparator">/</span><a class="AboutLink" href="https://movie.douban.com/subject/27081136/">少女終末旅行</a><br>
     </div>
 
-    <div class="about_subtitle" id="copyright">权 利 声 明</div>
-    <div class="about_content">版权所有 &copy; 2016-<span class="CopyrightYear"></span> Mikukonai<br>保留所有权利</div>
-    <div class="about_content">除另有声明外，所有原创内容均可在①署原作者名和②非盈利用途的前提下使用和传播。</div>
-    <!-- <div class="about_content">文章默认题图「<a class="about_a" href="https://www.pixiv.net/member_illust.php?mode=medium&illust_id=70145976">紫音</a>」：画师 <a class="about_a" href="https://www.pixiv.net/member.php?id=9412">月神るな</a></div> -->
-    <div class="about_content">文章默认题图「<a class="about_a" href="https://www.pixiv.net/member_illust.php?mode=medium&illust_id=71410837">天体観測</a>」：画师 <a class="about_a" href="https://www.pixiv.net/member.php?id=648285">mocha</a></div>
+    <div class="AboutTitle" id="copyright">权 利 声 明</div>
+    <div class="AboutContent">版权所有 &copy; 2016-<span class="CopyrightYear"></span> Mikukonai<br>保留所有权利</div>
+    <div class="AboutContent">除另有声明外，所有原创内容均可在①署原作者名和②非盈利用途的前提下使用和传播。</div>
+    <div class="AboutContent">文章默认题图「<a class="AboutLink" href="https://www.pixiv.net/member_illust.php?mode=medium&illust_id=71410837">天体観測</a>」：画师 <a class="AboutLink" href="https://www.pixiv.net/member.php?id=648285">mocha</a></div>
 
+    <div class="AboutTitle" id="changelog">版 本 记 录</div>
 
-    <div class="about_subtitle" id="changelog">版 本 记 录</div>
+    <div class="AboutContent"><img src="./image/pa-icon.jpg" style="width:45px; height: 45px;"><br><span style="color:#888888">Project Aurora V4.0</span></div>
 
-    <div class="about_content"><img src="./image/pa-icon.jpg" style="width:45px; height: 45px;"><br><span style="color:#888888">Project Aurora V4.0</span></div>
-
-    <div class="about_content">
-        【<a class="about_a" href="https://github.com/mikukonai/mikukonai.github.io" target="_blank">Git仓库</a>】
+    <div class="AboutContent">
+        【<a class="AboutLink" href="https://github.com/mikukonai/mikukonai.github.io" target="_blank">Git仓库</a>】
     </div>
-    <div class="about_edition">
-        <p class="about_vernum">V0.1<span style="color:#888888;padding-left: 15px;">2016.11.24</span></p>
-        <!-- <ul><li>试验性的简单页面。</li></ul> -->
-        <p class="about_changelog">试验性的简单个人主页</p>
+    <div class="AboutEdition">
+        <p class="AboutVernum">V0.1<span style="color:#888888;padding-left: 15px;">2016.11.24</span></p>
+        <p class="AboutChangelog">试验性的简单个人主页</p>
     </div>
-    <div class="about_edition">
-        <p class="about_vernum">V1.0<span style="color:#888888;padding-left: 15px;">2017.09.19</span></p>
-        <p class="about_changelog">两栏式布局，较完善的样式<br>使用第三方Markdown解析器</p>
+    <div class="AboutEdition">
+        <p class="AboutVernum">V1.0<span style="color:#888888;padding-left: 15px;">2017.09.19</span></p>
+        <p class="AboutChangelog">两栏式布局，较完善的样式<br>使用第三方Markdown解析器</p>
     </div>
-    <div class="about_edition">
-        <p class="about_vernum">V2.0<span style="color:#888888;padding-left: 15px;">2018.02.04</span></p>
-        <p class="about_changelog">响应式布局<br>使用自主实现的MD解析器</p>
+    <div class="AboutEdition">
+        <p class="AboutVernum">V2.0<span style="color:#888888;padding-left: 15px;">2018.02.04</span></p>
+        <p class="AboutChangelog">响应式布局<br>使用自主实现的MD解析器</p>
     </div>
-    <div class="about_edition">
-        <p class="about_vernum">V3.0<span style="color:#888888;padding-left: 15px;">2018.07.26</span></p>
-        <p class="about_changelog">博客更名“Project Aurora”<br>精简内容和结构，重新设计样式</p>
+    <div class="AboutEdition">
+        <p class="AboutVernum">V3.0<span style="color:#888888;padding-left: 15px;">2018.07.26</span></p>
+        <p class="AboutChangelog">博客更名“Project Aurora”<br>精简内容和结构，重新设计样式</p>
     </div>
     <!--
-    <div class="about_edition">
-        <p class="about_vernum">V3.1<span style="color:#888888;padding-left: 15px;">2019.01.11</span></p>
-        <p class="about_changelog">MD解析器与文章模板重构<br>Markdown与模板分离</p>
+    <div class="AboutEdition">
+        <p class="AboutVernum">V3.1<span style="color:#888888;padding-left: 15px;">2019.01.11</span></p>
+        <p class="AboutChangelog">MD解析器与文章模板重构<br>Markdown与模板分离</p>
     </div>
-    <div class="about_edition">
-        <p class="about_vernum">V3.2<span style="color:#888888;padding-left: 15px;">2019.02.20</span></p>
-        <p class="about_changelog">目录和灵感页重构<br>使用TravisCI自动生成RSS</p>
+    <div class="AboutEdition">
+        <p class="AboutVernum">V3.2<span style="color:#888888;padding-left: 15px;">2019.02.20</span></p>
+        <p class="AboutChangelog">目录和灵感页重构<br>使用TravisCI自动生成RSS</p>
     </div>
-    <div class="about_edition">
-        <p class="about_vernum">V3.3<span style="color:#888888;padding-left: 15px;">2019.03.15</span></p>
-        <p class="about_changelog">重构为SPA单页应用<br>样式设计参考 Material Design</p>
+    <div class="AboutEdition">
+        <p class="AboutVernum">V3.3<span style="color:#888888;padding-left: 15px;">2019.03.15</span></p>
+        <p class="AboutChangelog">重构为SPA单页应用<br>样式设计参考 Material Design</p>
     </div>
     -->
-    <div class="about_edition">
-        <p class="about_vernum">V4.0<span style="color:#888888;padding-left: 15px;">2019.10</span></p>
-        <p class="about_changelog">【正在开发】<br>彻底重构博客框架<br>灵感页增加目录和标签索引<br>增加个人Wiki功能</p>
+    <div class="AboutEdition">
+        <p class="AboutVernum">V4.0<span style="color:#888888;padding-left: 15px;">2019.10</span></p>
+        <p class="AboutChangelog">【正在开发】<br>彻底重构博客框架<br>灵感页增加目录和标签索引<br>增加个人Wiki功能</p>
     </div>
 
-    <div class="about_subtitle" id="hoshinoarika">星 之 所 在</div>
-    <div class="about_content">
-        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="https://music.163.com/outchain/player?type=2&id=559262&auto=0&height=66"></iframe>
+    <div class="AboutTitle" id="hoshinoarika">星 之 所 在<div class="AboutSubtitle">星の在り処 ❤ RPG《英雄传说VI·空之轨迹》主题歌</div></div>
+    <div class="AboutContent">
+        <a class="AboutLink" id="ShowHoshinoarikaPlayer" onclick="$('#HoshinoarikaPlayer').attr('src', 'https://music.163.com/outchain/player?type=2&id=559262&auto=0&height=66'); $('#HoshinoarikaPlayer').show(); $('#ShowHoshinoarikaPlayer').hide();">听一听</a>
+        <iframe id="HoshinoarikaPlayer" style="display:none;" frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86></iframe>
     </div>
-    <div class="about_content" style="font-size: 12px;">星の在り処，RPG《英雄传说VI·空之轨迹》主题歌</div>
 
-    <div class="about_content" style="color:#ff88aa; font-size: 18px; letter-spacing: 2px; margin-bottom:20px;">感谢来访</div>
+    <div class="AboutContent" style="color:#ff88aa; font-size: 18px; letter-spacing: 2px; margin-bottom:20px; margin-top: 20px;">感谢来访</div>
 </template>
 
 <!--博客文章页正文框架模板-->
+
 <template id="blog-article">
     <!--元数据-->
     <div class="MikumarkMetadata">
-        <span id="MikumarkMetadataDate" style="padding-right:8px;"></span>·<span id="MikumarkMetadataAuthors" style="padding-left:8px;"></span>
+        <span id="MikumarkMetadataDate" style="padding-right:8px;"><span class="SkeletonPlaceholder" style="width:70px;">0</span></span>·<span id="MikumarkMetadataAuthors" style="padding-left:8px;"><span class="SkeletonPlaceholder" style="width:70px;">0</span></span>
     </div>
     <!--正文-->
     <div class="MikumarkContainer" id="MikumarkContainer">
         <!--占位符-->
-        <span class="SkeletonPlaceholder" style="width: 100%;">正在获取正文</span><br>
-        <span class="SkeletonPlaceholder" style="width: 100%;">0</span><br>
-        <span class="SkeletonPlaceholder" style="width: 70%;">0</span><br>
+        <span class="SkeletonPlaceholder" style="width:100%;">正在获取正文</span><br>
+        <span class="SkeletonPlaceholder" style="width:100%;">0</span><br>
+        <span class="SkeletonPlaceholder" style="width:70%;">0</span><br>
     </div>
 </template>
 
 <!--Wiki词条页正文框架模板-->
+
 <template id="wiki-article">
-    <!--元数据-->
-    <div class="MikumarkMetadata">
-        <span id="MikumarkMetadataDate" style="padding-right:8px;"></span>·<span id="MikumarkMetadataAuthors" style="padding-left:8px;"></span>
-    </div>
-    <!--正文-->
-    <div class="MikumarkContainer" id="MikumarkContainer">
-        <!--占位符-->
-        <span class="SkeletonPlaceholder" style="width: 100%;">正在获取正文</span><br>
-        <span class="SkeletonPlaceholder" style="width: 100%;">0</span><br>
-        <span class="SkeletonPlaceholder" style="width: 70%;">0</span><br>
-    </div>
+    <!--TODO-->
 </template>
 
 
 
 <!--封面参数-->
 
-<!--首页-->
 <template id="index-titlebg">url('http://wx4.sinaimg.cn/large/450be1f5gy1g5zjkjcen2j20p00e3wff.jpg')</template>
-<!-- <template id="index-titlebg">url('./image/66037995_p0.jpg')</template> -->
-<!-- <template id="index-titlebg">url('./image/chitanda.jpg')</template> -->
-<!--灵感-->
-<!-- <template id="inspiration-titlebg">url(./image/haruhi_hoshizora.jpg)</template> -->
 <template id="inspirations-titlebg">url('http://wx1.sinaimg.cn/large/450be1f5gy1g5zjkk1w7hj20p00dyt9q.jpg')</template>
-<!--文章列表-->
-<!-- <template id="articles-titlebg">url('./image/miku-dove.jpg')</template> -->
 <template id="blog-titlebg">url('http://wx4.sinaimg.cn/large/450be1f5gy1g5zjkkxbjej20p00dz40b.jpg')</template>
-<!--书签-->
-<!-- <template id="links-titlebg">url('./image/yuki-reading.jpg')</template> -->
 <template id="wiki-titlebg">url('http://wx2.sinaimg.cn/large/450be1f5gy1g5zjklyqq1j20p00e23zc.jpg')</template>
-<!--关于-->
-<!-- <template id="about-titlebg">url('./image/seu-tree.jpg')</template> -->
 <template id="about-titlebg">url('http://wx4.sinaimg.cn/large/450be1f5gy1g5zjklikpij20rs0fi762.jpg')</template>
 
 <!--Header模板-->
@@ -1388,10 +674,10 @@ let SCROLL_POSITION_STACK = new Array();
 // 排序选项
 let SORTING_OPTION = "category";
 
-// 框架Article节点监听器
-let ARTICLE_OBSERVER;
-// 博客列表监听器
-let BLOG_LIST_OBSERVER;
+// 监听器
+let ARTICLE_OBSERVER;       // Article节点监听器
+let BLOG_LIST_OBSERVER;     // 博客列表监听器
+let WIKI_LIST_OBSERVER;     // 百科列表监听器
 
 ////////////////////////////////////////////////////////
 //
@@ -1438,7 +724,7 @@ function SPA_Render(pathString, callback) {
             console.log(`[PA-SPA] 监听器：框架Article节点已更新`);
             AfterRendering();
         });
-        ARTICLE_OBSERVER.observe(document.getElementsByTagName('Article')[0], {childList: true});
+        ARTICLE_OBSERVER.observe(document.getElementsByTagName('Article')[0], {characterData: true, childList: true, subtree: true});
 
         // 显示返回和菜单按钮
         $("#BackButton").show();
@@ -1492,7 +778,7 @@ function SPA_Render(pathString, callback) {
     $(`.SPA_TRIGGER[data-target="${PageID}"]`).attr("active", "true");
 
     // 进场动画
-    $('body').css({'opacity': '0.1'});
+    $('body').css({'opacity': '0.5'});
     $('body').animate({'opacity': '1'});
 
     // 处理SPA行为：这里使用简单的延时，暂时不使用监听器

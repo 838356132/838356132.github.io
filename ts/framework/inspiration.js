@@ -61,11 +61,11 @@ function RenderPosters(posters) {
         var poster = posters[index];
         var HtmlBuffer = new Array();
         // 头像
-        HtmlBuffer.push("<img src=\"" + DefaultAvatarURL + "\" class=\"poster-avatar\">");
+        HtmlBuffer.push("<img src=\"" + DefaultAvatarURL + "\" class=\"PosterAvater\">");
         // 标题
-        HtmlBuffer.push("<div class=\"poster-title\">" + poster.title + "</div>");
+        HtmlBuffer.push("<div class=\"PosterTitle\">" + poster.title + "</div>");
         // 日期（或者副标题）
-        HtmlBuffer.push("<div class=\"poster-subtitle\">" + poster.date + "</div>");
+        HtmlBuffer.push("<div class=\"PosterSubtitle\">" + poster.date + "</div>");
         // 正文(超过400字符即折叠，避免时间线过长)
         var content = poster.content;
         if (content.length > 400) {
@@ -76,9 +76,9 @@ function RenderPosters(posters) {
         }
         // 图片
         if (poster.imageURL.length > 0) {
-            HtmlBuffer.push("<p class=\"poster-p\"><a href=\"" + poster.imageURL + "\"><img id=\"IMG_" + poster.id + "\" src=\"" + poster.imageURL + "\" style=\"max-width:80%;max-height:300px;\" class=\"poster-attachment\"></a></p>");
+            HtmlBuffer.push("<p class=\"PosterParagraph\"><a class=\"PosterLink\" href=\"" + poster.imageURL + "\"><img id=\"IMG_" + poster.id + "\" src=\"" + poster.imageURL + "\" style=\"max-width:80%;max-height:300px;\" class=\"poster-attachment\"></a></p>");
         }
-        AllHtmlBuffer.push("<div id=\"Poster_" + poster.id + "\" class=\"poster\">" + HtmlBuffer.join("") + "</div>");
+        AllHtmlBuffer.push("<div id=\"Poster_" + poster.id + "\" class=\"Poster\">" + HtmlBuffer.join("") + "</div>");
     }
     var HTML = Unescape(AllHtmlBuffer.join(""));
     return HTML;
@@ -88,7 +88,7 @@ function ParseContent(contentScript) {
     var HtmlBuffer = new Array();
     // 分段
     contentScript.trim().split(/\n{2,}/).forEach(function (paragraph, index) {
-        HtmlBuffer.push("<p class=\"poster-p\">");
+        HtmlBuffer.push("<p class=\"PosterParagraph\">");
         // 分行
         paragraph.split(/\n{1}/).forEach(function (line, index, lines) {
             // 处理话题标签
@@ -118,10 +118,10 @@ function ParseContent(contentScript) {
                             }
                             var link = link_remain.substring(0, right_bracket);
                             if (urlstr != '') {
-                                HtmlBuffer.push("<a href=\"" + urlstr + "\">" + link + "</a>");
+                                HtmlBuffer.push("<a class=\"PosterLink\" href=\"" + urlstr + "\">" + link + "</a>");
                             }
                             else {
-                                HtmlBuffer.push("<a href=\"" + link + "\">" + link + "</a>");
+                                HtmlBuffer.push("<a class=\"PosterLink\" href=\"" + link + "\">" + link + "</a>");
                             }
                             var remnent = link_remain.substring(right_bracket + 1);
                             if (hasurl == true) {
@@ -134,7 +134,7 @@ function ParseContent(contentScript) {
                 }
                 // 标签内文本套上a输出
                 else {
-                    HtmlBuffer.push(" <a class=\"poster-tag\" href=\"javascript:topic('" + slice + "');\" data-tag=\"" + slice + "\">#" + slice + "#</a> ");
+                    HtmlBuffer.push(" <a class=\"PosterLink PosterTag\" href=\"javascript:topic('" + slice + "');\" data-tag=\"" + slice + "\">#" + slice + "#</a> ");
                     tags.push(slice);
                 }
             });

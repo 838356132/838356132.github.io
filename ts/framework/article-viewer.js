@@ -139,6 +139,7 @@ function BeforeRendering() {
 }
 
 // 在文章渲染完成之后执行的操作
+// 由Article节点的监听器调用
 function AfterRendering() {
     // 为每张图片注册单击事件
     $('.MikumarkImage').each(function(i,e) {
@@ -166,10 +167,8 @@ function AfterRendering() {
     MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
 
     // 各触发一次以刷新布局
-    setTimeout(() => {
-        $(window).scroll();
-        $(window).resize();
-    }, 10);
+    $(window).scroll();
+    $(window).resize();
 }
 
 ///////////////////////////////////////////////////////
@@ -183,9 +182,7 @@ function Render(mikumark) {
     // 标题
     document.getElementsByTagName("title")[0].innerHTML = `${mikumark.title} / Project Aurora`;
     $('#StickyTitle').html(mikumark.title);
-    $('#Title').css('opacity', '0');
     $('#Title').html(mikumark.title);
-    $('#Title').animate({'opacity':1.0}, DURATION);
 
     // 封面
     if(mikumark.cover.length > 0) {
@@ -196,14 +193,10 @@ function Render(mikumark) {
     }
 
     // 日期
-    $('#MikumarkMetadataDate').css('opacity', '0');
     $('#MikumarkMetadataDate').html(mikumark.date.replace(/\-/,"年").replace(/\-/,"月") + '日');
-    $('#MikumarkMetadataDate').animate({'opacity':1.0}, DURATION);
 
     // 作者
-    $('#MikumarkMetadataAuthors').css('opacity', '0');
     $('#MikumarkMetadataAuthors').html(`作者：${mikumark.authors}`);
-    $('#MikumarkMetadataAuthors').animate({'opacity':1.0}, DURATION);
 
     // 文章正文
     $("#MikumarkContainer").html(mikumark.HTML);

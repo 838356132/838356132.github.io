@@ -41,21 +41,21 @@
 
     // 导航栏状态切换
     function NavboxToggle() {
-        if($("#left_navbox").css("margin-left") !== "0px") {
-            $("#left_navbox").animate({"margin-left": "0px", opacity: "1"}, 500, "easeOutExpo");
+        if($("#InspirationMenu").css("margin-left") !== "0px") {
+            $("#InspirationMenu").animate({"margin-left": "0px", opacity: "1"}, 500, "easeOutExpo");
         }
         else {
-            $("#left_navbox").animate({"margin-left": "-360px", opacity: "0"}, 500, "easeOutExpo");
+            $("#InspirationMenu").animate({"margin-left": "-360px", opacity: "0"}, 500, "easeOutExpo");
         }
     }
 
     // 绘制所有Posters
     function PaintPosters() {
-        $('#poster_anchor').after(html);
+        $('#InspirationContainer').html(html);
 
-        SlideInOneByOne("poster", 10, 800, 20, () => {
-            $('.content-ending').html('不可说者，皆应沉默');
-            console.table(posters);
+        SlideInOneByOne("Poster", 10, 800, 20, () => {
+            $('.InspirationEnding').html('不可说者，皆应沉默');
+            // console.table(posters);
         });
     }
 
@@ -71,32 +71,32 @@
             let thisYear = inspiration.date.split("-")[0];
             if(i === 0 || (prevPosterIndex >= 0 && thisYear !== posters[prevPosterIndex].date.split("-")[0])) {
                 if(isNaN(parseInt(thisYear))) {
-                    navHtml.push(`<div class="left_navbox_horiline"><span style="position: absolute; top: -8px; margin-left: 30px; padding: 0 4px; background-color: #fff;">${thisYear}</span></div>`);
+                    navHtml.push(`<div class="InspirationMenuItemHrline"><span style="position: absolute; top: -8px; margin-left: 30px; padding: 0 4px; background-color: #fff;">${thisYear}</span></div>`);
                 }
                 else {
-                    navHtml.push(`<div class="left_navbox_horiline"><span style="position: absolute; top: -8px; margin-left: 30px; padding: 0 4px; background-color: #fff;">${thisYear}年</span></div>`);
+                    navHtml.push(`<div class="InspirationMenuItemHrline"><span style="position: absolute; top: -8px; margin-left: 30px; padding: 0 4px; background-color: #fff;">${thisYear}年</span></div>`);
                 }
             }
-            navHtml.push(`<div class="left_navbox_item" data-poster-id="Poster_${inspiration.id}" id="TurnTo_Poster_${inspiration.id}">${inspiration.title}</div>`);
+            navHtml.push(`<div class="InspirationMenuItem" data-poster-id="Poster_${inspiration.id}" id="TurnTo_Poster_${inspiration.id}">${inspiration.title}</div>`);
         }
-        $("#left_navbox_item_list").html(navHtml.join(""));
+        $("#InspirationMenuList").html(navHtml.join(""));
 
         // 绘制标签
         let tagHtml = new Array();
         // 首先添加一个清除选择按钮
-        tagHtml.push(`<span class="left_navbox_tags_item left_navbox_tags_item_clear" data-tag="">全部</span>`);
+        tagHtml.push(`<span class="InspirationMenuTagItem InspirationMenuTagItem_clear" data-tag="">全部</span>`);
         let invIndex = Indexer(posters);
         for(let tag in invIndex) {
             let activeCSS = "";
             if(currentTag === tag) {
-                activeCSS = " left_navbox_tags_item_active";
+                activeCSS = " InspirationMenuTagItem_active";
             }
-            tagHtml.push(`<span class="left_navbox_tags_item${activeCSS}" data-tag="${tag}">${tag} (${invIndex[tag].length})</span>`);
+            tagHtml.push(`<span class="InspirationMenuTagItem${activeCSS}" data-tag="${tag}">${tag} (${invIndex[tag].length})</span>`);
         }
-        $("#left_navbox_tags").html(tagHtml.join(""));
+        $("#InspirationMenuTags").html(tagHtml.join(""));
 
         // 注册目录标题的点击跳转事件
-        $(".left_navbox_item").each((i, e) => {
+        $(".InspirationMenuItem").each((i, e) => {
             $(e).click(() => {
                 let posterId = $(e).attr("data-poster-id");
                 TurnTo(posterId);
@@ -107,7 +107,7 @@
         });
 
         // 注册标签的点击事件
-        $(".left_navbox_tags_item").each((i, e) => {
+        $(".InspirationMenuTagItem").each((i, e) => {
             $(e).click(() => {
                 let tag = $(e).attr("data-tag");
                 let indexes = Indexer(posters);
@@ -129,7 +129,7 @@
     }
 
 
-    $('.content-ending').html('正在读取，请稍等…');
+    $('.InspirationEnding').html('正在读取，请稍等…');
 
     let xhr = new XMLHttpRequest();
     xhr.open("GET", `./markdown/-inspirations.md`);
@@ -147,7 +147,7 @@
         else if(xhr.readyState === XMLHttpRequest.DONE && xhr.status !== 200){
             $("#Progressbar").animate({width: `100%`});
             $("#Progressbar").fadeOut();
-            $('.content-ending').html('灵感不见了 >_<');
+            $('.InspirationEnding').html('灵感不见了 >_<');
             return;
         }
     };
@@ -162,24 +162,24 @@
     window.onresize = () => {
         // Desktop
         if(GetMediaType() === "Desktop") {
-            $(".left_nav_button").show();
-            $(".left_navbox").show();
+            $(".InspirationMenuToggle").show();
+            $(".InspirationMenu").show();
         }
         else if(GetMediaType() === "Mobile"){
-            $("#left_navbox").css("margin-left", "-360px");
+            $("#InspirationMenu").css("margin-left", "-360px");
         }
     };
 
     // 指示滚动位置
     window.onscroll = () => {
         let visiblePosterId = GetVisiblePoster();
-        $(`.left_navbox_item`).removeClass("left_navbox_item_active");
-        $(`#TurnTo_${visiblePosterId}`).addClass("left_navbox_item_active");
+        $(`.InspirationMenuItem`).removeClass("InspirationMenuItem_active");
+        $(`#TurnTo_${visiblePosterId}`).addClass("InspirationMenuItem_active");
     };
 
     $(window).resize();
 
     // 导航栏折叠按钮
-    $("#left_nav_button").click(()=>{ NavboxToggle(); });
+    $("#InspirationMenuToggle").click(()=>{ NavboxToggle(); });
 
 })();
