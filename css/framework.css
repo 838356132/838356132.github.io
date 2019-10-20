@@ -79,76 +79,17 @@ body { font-family: Microsoft YaHei, "宋体", "Helvetica Neue", Helvetica, Aria
 
 /* 首页各标题 */
 
-.HeaderTitleCenter {
-    position: relative;
-    padding-top: calc(var(--HeaderHeight) - 100px);
-    line-height:34px;
-    height: 34px;
-    font-size: 25px;
-    color: #ffffff;
-    letter-spacing: 2px;
-    text-shadow: 2px 2px 10px #000000;
-    text-align: center;
-    vertical-align: middle;
-    font-weight: normal;
-}
-.HeaderSubtitleCenter {
-    line-height:40px;
-    height: 40px;
-    padding-bottom: 20px;
-    font-size: 13px;
-    color:rgba(255,255,255,1);
-    letter-spacing: 2px;
-    text-shadow: 3px 3px 5px #000000;
-}
-.HeaderTitleLeft {
-    position: relative;
-    line-height:34px;
-    height: 34px;
-    color: #ffffff;
-    letter-spacing: 2px;
-    text-shadow: 2px 2px 5px #000000;
-    vertical-align: middle;
-    font-weight: bold;
-    text-align: left;
-}
-.HeaderTitleLeft:after {
-    content:" / Project Aurora";
-    font-size: 19px;
-    letter-spacing: 1px;
-    color: rgba(255,255,255,0.9);
-    text-shadow: 2px 2px 5px #000000;
-    font-weight: 100;
-}
-@media(min-width:651px){
-    .HeaderTitleLeft {
-        padding-top: calc(var(--HeaderHeight) - 70px);
-        font-size: 28px;
-        padding-left: 45px;
-    }
-}
-@media(max-width:650px){
-    .HeaderTitleLeft {
-        padding-top: calc(var(--HeaderHeight) - 60px);
-        font-size: 25px;
-        padding-left: 30px;
-    }
-}
-
-
+.HeaderTitleCenter { position: relative; padding-top: calc(var(--HeaderHeight) - 100px); line-height:34px; height: 34px; font-size: 25px; color: #ffffff; letter-spacing: 2px; text-shadow: 2px 2px 10px #000000; text-align: center; vertical-align: middle; font-weight: normal;}
+.HeaderSubtitleCenter { line-height:40px; height: 40px; padding-bottom: 20px; font-size: 13px; color:rgba(255,255,255,1); letter-spacing: 2px; text-shadow: 3px 3px 5px #000000;}
+.HeaderTitleLeft { position: relative; line-height:34px; height: 34px; color: #ffffff; letter-spacing: 2px; text-shadow: 2px 2px 5px #000000; vertical-align: middle; font-weight: bold; text-align: left;}
+.HeaderTitleLeft:after { content:" / Project Aurora"; font-size: 19px; letter-spacing: 1px; color: rgba(255,255,255,0.9); text-shadow: 2px 2px 5px #000000; font-weight: 100;}
+@media(min-width:651px){.HeaderTitleLeft { padding-top: calc(var(--HeaderHeight) - 70px); font-size: 28px; padding-left: 45px;}}
+@media(max-width:650px){.HeaderTitleLeft { padding-top: calc(var(--HeaderHeight) - 60px); font-size: 25px; padding-left: 30px;}}
 
 
 /* 左右边栏 */
-.LeftAside {
-    position: fixed;
-    height: 100%;
-    z-index: 99999;
-}
-.RightAside {
-    position: fixed;
-    height: 100%;
-    z-index: 99999;
-}
+.LeftAside { position: fixed; height: 100%; z-index: 99999;}
+.RightAside { position: fixed; height: 100%; z-index: 99999;}
 
 /* 按钮组件 */
 .Button { border: none; cursor: pointer; }
@@ -162,33 +103,11 @@ body { font-family: Microsoft YaHei, "宋体", "Helvetica Neue", Helvetica, Aria
 
 
 /* 导航按钮组件 */
-.NavbarItem {
-    position: relative;
-    height: var(--NavbarHeight);
-    min-width: 60px;
-    font-size: 14px;
-    line-height: var(--NavbarHeight);
-    padding: auto 15px;
-    border: none;
-    background-color: #ffffff;
-    align-items: center;
-}
+.NavbarItem { position: relative; height: var(--NavbarHeight); min-width: 60px; font-size: 14px; line-height: var(--NavbarHeight); padding: auto 15px; border: none; background-color: #ffffff; align-items: center;}
 .NavbarItem:hover { color: #00aaff; }
 .NavbarItem[active="true"] { color: #00aaff; }
-.NavbarItem[active="true"]:after {
-    content: ".";
-    display: block;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    color: rgba(0,0,0,0);
-    box-shadow: inset 0 -3px #00aaff;
-    animation: NavbarItemActiveAnimation 0.3s cubic-bezier(0.4, 0, 0.4, 1) 0s;
-}
-@keyframes NavbarItemActiveAnimation {
-    0% { opacity: 0; width: 0; } to { opacity: 1; width: 100%; }
-}
+.NavbarItem[active="true"]:after { content: "."; display: block; position: absolute; left: 0; top: 0; width: 100%; color: rgba(0,0,0,0); box-shadow: inset 0 -3px #00aaff; animation: NavbarItemActiveAnimation 0.3s cubic-bezier(0.4, 0, 0.4, 1) 0s;}
+@keyframes NavbarItemActiveAnimation { 0% { opacity: 0; width: 0; } to { opacity: 1; width: 100%; }}
 .InMenu { display: none; top: var(--NavbarHeight); }
 
 
@@ -217,3 +136,107 @@ body { font-family: Microsoft YaHei, "宋体", "Helvetica Neue", Helvetica, Aria
 /* 进度条 */
 .Progressbar { position: fixed; top: 0; left: 0; display: block; height: 3px; width: 5%; background: linear-gradient(to right, #88f1ff, #66ccff); z-index: 99999; }
 
+/****************************************/
+/*  首 页 样 式 */
+/****************************************/
+
+.IndexItemContainer { margin: 5px 0 5px 0; text-align: center; border: none; line-height: 35px; font-size: 15px; color: #555555; }
+.IndexItemContainer:after { content:''; display: block; padding-top: 5px; border-bottom: 1px solid #eaeaea; }
+@media(min-width:651px) { /* Desktop */.IndexItemContainer:after { margin-left: 50px; }}
+@media(max-width:650px) { /* Mobile */.IndexItemContainer:after { margin-left: 25px; }}
+@media(min-width:651px) { /* Desktop */.IndexItemPaddingBox { margin: 0; padding: 8px 50px 8px 50px; background: transparent; }}
+@media(max-width:650px) { /* Mobile */.IndexItemPaddingBox { margin: 0; padding:8px 25px 8px 25px; background: transparent; }}
+.IndexItemTitle { font-size: 17px; line-height: 30px; text-align: left; font-weight: bold; color: #566666; vertical-align: middle; text-shadow: none; }
+@media(min-width:651px) { /* Desktop */ .IndexItemTitle::before { content:attr(data-prefix); line-height: inherit; margin-right: 10px; padding-right: 10px; border-right: 5px solid rgba(0,0,0,0.1); color: #55c3dc; font-weight: normal; }}
+@media(max-width:650px) { /* Mobile */ .IndexItemTitle::before { display: none; }}
+.IndexItemTitleLink { letter-spacing: 1px; color:#555555; text-decoration:none; cursor: pointer; }
+.IndexItemTitleLink:hover { color:#aaaaaa; text-decoration:none; }
+.IndexItemTitleTag { display: inline-block; font-weight: normal; background-color: none; color: #93e76c; border: 1px solid #93e76c; border-radius: 5px; font-size: 9px; line-height: 15px; padding: 1px 3px; margin-left: 5px; vertical-align: middle; }
+.IndexItemSummary { color: #bbb; text-align: left; padding: 7px 0 3px 0; font-size: 13px; font-weight: lighter; display: block; line-height: 23px; overflow-x: auto; }
+.IndexItemTable { display: table; border-collapse: separate; border: none; border-spacing: 0; width: 100%; }
+.IndexItemTableLeft { padding-right: 10px; }
+@media(min-width:651px) { /* Desktop */ .IndexItemTableRight { width: 60px; }}
+.IndexBottomLink { line-height: 40px; padding: 5px 0 10px 0; display: block; color: #8f8f8f; font-weight: bold; font-size: 16px; text-decoration: none; text-align: center; letter-spacing: 1px; cursor: pointer; }
+.IndexBottomLink:hover { text-decoration: none; background-color: #fefefe; color:#68cce2; }
+
+/****************************************/
+/*  灵 感 样 式 */
+/****************************************/
+
+/* 灵感目录 */
+.InspirationMenu { position: fixed; left: 0; top: 0; width: 360px; height: 100%; background-color: #fff; text-align: left; font-size: 14px; color: #80868b; overflow: auto; z-index: 9999;}
+.InspirationMenu::-webkit-scrollbar { width: 5px; }
+.InspirationMenu::-webkit-scrollbar-thumb { border-radius: 10px; background: #e0e0e0; }
+.InspirationMenu::-webkit-scrollbar-track { border-radius: 0; background: #f5f5f5; }
+.InspirationMenuToggle { font-family: "Material Icons"; width: 40px; height: 40px; position: fixed; top: 20px; left: 20px; text-align: center; font-size: 20px; z-index: 10000; cursor: pointer;}
+.InspirationMenuTitleContainer { position: sticky; top: 0px; color: #696a6b; background-color: #fff; box-shadow: 0 0 5px #ccc; z-index: 9999;}
+.InspirationMenuTitle { font-size: 22px; line-height: 80px; height: 80px; padding-left: 78px;}
+#InspirationMenuTags { margin: 15px 0 25px 0; padding-left: 30px;}
+.InspirationMenuTagItem { display: inline-block; background-color: #e1f5ff; color: #009be9; border: none; border-radius: 5px; font-size: 12px; padding: 2px 6px 2px 6px; margin: 3px; word-break: break-all; word-wrap: break-word; cursor: pointer;}
+.InspirationMenuTagItem:hover, .InspirationMenuTagItem_active { color: #ff6893; background-color: #ffdfe8;}
+.InspirationMenuTagItem_clear { background-color: #eeeeee; color: #a0a0a0;}
+#InspirationMenuList { margin-top: 0; margin-bottom: 30px;}
+.InspirationMenuItem { display: block; height: 40px; line-height: 40px; padding-left: 30px; cursor: pointer;}
+.InspirationMenuItem:before { content: "❖"; padding-right: 10px;}
+.InspirationMenuItem:hover, .InspirationMenuItem_active { color: #1a73e8; background: #e8f0fe; border-radius: 0 24px 24px 0;}
+.InspirationMenuItemHrline { position: relative; margin: 18px 0 18px 0; border-bottom: 1px solid #dadce0; font-size: 13px; color: #1a73e8;}
+/* 灵感页框架 */
+.InspirationContainer { background: none; width: 100%; height: 100%;}
+.InspirationEnding { text-align: center; font-size: 12px; letter-spacing: 2px; color: #bbbbbb; padding: 20px 0;}
+/* Poster 样式 */
+.Poster { margin: 0; padding: 10px 10px 10px 10px; border-bottom: 1px solid #e0e0e0; border-radius: 0; color: #666666; background-color: #ffffff; text-align: left; opacity:0.0;}
+@media(min-width:651px){ /* Desktop */.Poster { padding: 20px 40px 20px 40px;}}
+.PosterTitle { display: block; width: fit-content; width: -webkit-fit-content; width: -moz-fit-content; margin:3px 20px 0px 60px; padding:0; border-bottom: 1px dotted #dddddd; color:#498bb8; line-height: 26px; font-size:16px; letter-spacing: 1px; font-weight: bold;}
+.PosterSubtitle { display: block; text-align: left; margin:0px 20px 8px 60px; padding:0; line-height: 21px; color:#aaaaaa; font-size:12px;}
+.PosterAvater { float:left; position:relative; top:6px; left:6px; margin:0; padding:0; border-radius:50%; border: 0.5px solid #eeeeee; width:40px; height:40px;}
+.Poster blockquote { font-size: 13px; line-height: 21px; color:#888888; margin:10px 10px 10px 10px; padding: 8px 10px; border: 1px solid #9ee0f8; border-radius: 5px; box-shadow: #c0ebfb 0 0 5px 0;}
+.PosterParagraph { margin: 10px 5px 10px 6px; padding: 0; color: #666666; font-size: 14px; line-height: 23px; display: block; text-indent: 0;}
+.PosterLink { color: #558bc4; text-decoration: none; cursor: pointer;}
+.PosterLink:hover { color: #0066dd; text-decoration: none;}
+.PosterTag { color: #00aaff; font-weight: bold;}
+
+/****************************************/
+/*  列 表 样 式 */
+/****************************************/
+
+.ListCategoryBlock { text-align: left; margin: 23px 0 30px 0; color: #222222; font-size: 15px; line-height: 17px; width: 100%; }
+.ListCategoryBlockTitle { color: #2b81ac; margin: 10px 0 15px 0; padding-left: 12px; height: 20px; line-height: 20px; font-size: 19px; border-left: 8px solid #dddddd; letter-spacing: 1px; font-weight: normal; }
+@media(min-width:651px){ /*Desktop*/.ListCategoryBlockTitle { padding-left: 18px; border-left: 18px solid #f0f0f0; }}
+.ListCategoryBlockTitle .ListCategoryBlockTitle_en { color: #bccccc; font-size: 12px; }
+.ListItem { transition: background-color 0.2s ease-out 0s; vertical-align: text-top; padding: 9px 0; margin: 0px 20px; line-height: 19px; background-color: #ffffff; text-align: left; border-bottom: 1px dotted #eee; }
+@media(min-width:651px){ /* Desktop */.ListItem { margin: 0px 40px; }}
+.ListItemNumber { position: relative; top: 2px; text-align: center; font-size: 11px; line-height: 16px; margin-right: 8px; padding: 0px 5px 0px 5px; border-radius: 10px; vertical-align: top; background-color: #fff; border: 1px solid; }
+.ListItemTag { line-height: inherit; background-color: #ffeaf0; color: #ff88a9; border: none; border-radius: 10px; font-size: 9px; padding: 1px 4px 1px 4px; margin-left: 5px; vertical-align: text-bottom; word-break: break-all; word-wrap: break-word; }
+.ListItemDate { font-size: 12px; line-height: inherit; text-align: right; margin: 0 0 0 auto; float: right; color: #888888; }
+.ListItemLink { color: #333333; text-decoration: none; cursor: pointer; }
+.ListItemLink:hover { color: #333333; text-decoration: underline; }
+.ListSortingOptionContainer { margin-top: 25px; padding-left: 20px; padding-right: 20px; line-height: 25px; font-size: 14px; color: #888888; text-align: center; }
+@media(min-width:651px){ /* Desktop */.ListSortingOption { padding-left: 40px; padding-right: 40px; }}
+.ListSortingOption { border: 1px solid #9dd9ff; color: #9dd9ff; cursor: pointer; }
+.ListSortingOptionLeft  { padding: 4px 7px 4px 10px; border-radius: 8px 0 0 8px; }
+.ListSortingOptionRight { padding: 4px 10px 4px 7px; border-radius: 0 8px 8px 0; border-left: none; }
+.ListSortingOptionSelected { background-color: #9dd9ff; color: #fff; }
+.ListEnding { text-align: center; font-size: 12px; color: #cccccc; margin: 20px auto 20px auto; }
+
+/****************************************/
+/*  关 于 页 样 式 */
+/****************************************/
+
+.AboutTdLeft { text-align: right; font-weight: bold; padding-right:5px;}
+.AboutTdRight { text-align: left; padding-left:5px;}
+.AboutEdition { font-size: 14px; line-height: 25px; text-align: left; margin: 20px 50px 20px 50px; font-weight: normal;}
+.AboutEdition .AboutVernum { text-align: center; font-weight: bold; margin-top: 10px; margin-bottom: 10px; line-height: 18px;}
+.AboutVernum { margin-left: auto; margin-right: auto; width: fit-content; width: -webkit-fit-content; width: -moz-fit-content; border-bottom: 2px solid #cceeff;}
+.AboutChangelog { color: #666666; text-align: center; line-height: 25px; margin-top: 10px; margin-bottom: 30px;}
+.AboutLink { text-decoration: none; color: #222222; border-bottom: 1px dotted #222; cursor: pointer;}
+.AboutLink:hover { color: #0066dd; text-decoration: none; border-bottom: 1px solid #0066dd;}
+.AboutTitle{ text-align: center; font-size: 15px; color: #66bbdd; margin: 20px 0 20px 0; padding: 10px 0 10px 0; background: linear-gradient(90deg, #ffffff, #f0faff, #ffffff);}
+.AboutSubtitle { font-size: 10px; font-weight: normal; color: #ccc; padding-top: 5px;}
+.AboutContent { font-size: 14px; line-height: 25px; text-align: center; margin: 5px 0 5px 0; padding: 10px 10px 10px 10px; font-weight: normal;}
+.AboutBlogrollTable { width: 100%; font-size: 14px; color:#888888; table-layout:fixed;}
+.AboutBlogrollTable td { text-align: center; line-height: 22px; height: 36px;}
+.AboutBlogrollTable a { font-size: 13px; text-decoration: none; color:#111111;}
+.AboutBlogrollTable a:hover { color:#ff6893; border-bottom: 1px solid #ff6893;}
+.AboutBlogrollTable td:first-child { padding-right: 15px; text-align: right;}
+.AboutBlogrollTable td:last-child { padding-left: 15px; text-align: left;}
+.AboutSeparator { color: #bababa; margin: 0 10px 0 10px;}

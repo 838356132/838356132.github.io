@@ -320,10 +320,10 @@ function RenderTOC(mikumark) {
 ///////////////////////////////////////////////////////
 
 // 根据文章ID载入文章并完成渲染工作
-function LoadArticle(id) {
+function LoadArticle(PageID, ArticleID) {
     BeforeRendering();
     let xhr = new XMLHttpRequest();
-    xhr.open("GET", `./markdown/blog/${id}.md`);
+    xhr.open("GET", `./markdown/${PageID}/${ArticleID}.md`);
     xhr.onreadystatechange = () => {
         if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
             let text = xhr.responseText;

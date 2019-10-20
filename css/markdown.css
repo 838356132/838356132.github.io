@@ -409,6 +409,13 @@ i, cite, em, var, address, dfn { font-style: italic;}
     }
 }
 
+/********** 标签样式 **********/
+
+.MikumarkTag {
+    color: #ff2088;
+    font-weight: bold;
+}
+
 /********** 水平线样式 **********/
 
 @media(min-width:651px) { /* Desktop */
