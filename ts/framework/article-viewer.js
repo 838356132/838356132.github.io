@@ -13,6 +13,68 @@ const DEFAULT_COVER = `http://wx4.sinaimg.cn/large/450be1f5gy1g5zjkmhigoj20vy0ht
 // 滚动状态 NOTE 设置此状态位的目的是为了防止图片懒加载在滚动时被触发，导致滚动目标的位置计算错误。
 let IS_SCROLLING = false;
 
+// 外部脚本Worker
+let WORKER;
+
+////////////////////////////////////////////////////////
+//
+//  外 部 脚 本 Worker 管 理 器
+//
+////////////////////////////////////////////////////////
+
+// 启动新Worker，接受回调。
+function CreateWorker(externalSourceFiles, callback) {
+    let CodeBuffer = new Array();
+    let FetchScript = new Promise((resolve, reject) => {
+        resolve();
+    });
+    // 首先逐个请求外部脚本
+    for(let i = 0; i < externalSourceFiles.length; i++) {
+        FetchScript = FetchScript.then(() => {
+            // console.log(`请求外部脚本：${externalSourceFiles[i]}`);
+            return new Promise((resolve, reject) => {
+                let xhr = new XMLHttpRequest();
+                xhr.open("GET", externalSourceFiles[i]);
+                xhr.onreadystatechange = () => {
+                    if(xhr.readyState === XMLHttpRequest.DONE) {
+                        if(xhr.status === 200) {
+                            // console.log(`请求脚本成功：${externalSourceFiles[i]}`);
+                            CodeBuffer.push(xhr.responseText);
+                            resolve();
+                        }
+                        else {
+                            // console.error(`请求脚本失败：${externalSourceFiles[i]}`);
+                        }
+                    }
+                };
+                xhr.send();
+            });
+        });
+    }
+    // 拼接代码，并启动Worker
+    FetchScript.then(() => {
+        let Code = CodeBuffer.join("\n");
+        WORKER = new Worker(`data:text/javascript,${encodeURIComponent(Code)}`);
+        console.log(`[PA-SPA] 脚本Worker已启动`);
+        callback();
+    });
+}
+
+function StopWorker() {
+    if(WORKER) {
+        WORKER.terminate();
+        console.log(`[PA-SPA] 脚本Worker中止`);
+    }
+}
+
+function PostMessage(msg) {
+    WORKER.postMessage(msg);
+}
+
+function OnMessage(handler) {
+    WORKER.onmessage = handler;
+}
+
 ///////////////////////////////////////////////////////
 //
 //  Scroll 触 发 事 件
@@ -211,11 +273,13 @@ function Render(mikumark) {
         $('head').append(scriptNode);
     }
 
-    let scriptNode = document.createElement("script");
-    scriptNode.innerHTML = mikumark.script;
-    scriptNode.setAttribute("class", "MikumarkScript");
-    scriptNode.defer = "defer";
-    $('body').append(scriptNode);
+    // CreateWorker(mikumark.linkedScripts, () => {
+        let scriptNode = document.createElement("script");
+        scriptNode.innerHTML = mikumark.script;
+        scriptNode.setAttribute("class", "MikumarkScript");
+        scriptNode.defer = "defer";
+        $('body').append(scriptNode);
+    // });
 
 
     // 样式节点

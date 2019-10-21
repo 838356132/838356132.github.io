@@ -25,7 +25,7 @@
 <!--左边栏-->
 <aside class="LeftAside">
     <!--左上：后退按钮-->
-    <button id="BackButton" class="Button Raised Round" onclick="history.go(-1);">
+    <button id="BackButton" class="Button Raised Round" onclick="history.go(-1);" style="display: none;">
         <img src="./image/icons/back-gray.png" style="height:16px;width:16px;margin-bottom: 2px; vertical-align: middle;">
     </button>
 </aside>
@@ -33,7 +33,7 @@
 <!--右边栏-->
 <aside class="RightAside">
     <!--右侧：菜单（目录）-->
-    <div id="MenuContainer" class="MenuContainer">
+    <div id="MenuContainer" class="MenuContainer" style="display: none;">
         <div class="StickyNavbar">
             <button id="MenuButton" class="MenuButton" data-state="off">menu</button>
         </div>
@@ -412,6 +412,9 @@ function SPA_RegisterTriggers() {
 
 function SPA_Render(pathString, callback) {
     callback = callback || (() => {});
+
+    // 首先停止Worker
+    StopWorker();
 
     // SPA路径
 
