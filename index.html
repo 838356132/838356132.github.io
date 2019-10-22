@@ -1,4 +1,4 @@
-<!-- Project Aurora - Blog Framework V3.3 (SPA-style)-->
+<!-- Project Aurora - Blog Framework V4.0 -->
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -359,145 +359,15 @@ MathJax.Hub.Config({
 
 <script src="./ts/framework/framework.js"></script>
 
-<script src="./ts/framework/article-list.js"></script>
+<script src="./ts/framework/list.js"></script>
 
 <script src="./ts/framework/inspiration.js"></script>
-<script src="./ts/framework/inspiration-viewer.js"></script>
 
 <script src="./ts/framework/highlight/highlight.js"></script>
 <script src="./ts/framework/mikumark.js"></script>
-<script src="./ts/framework/article-viewer.js"></script>
+<script src="./ts/framework/article.js"></script>
 
 <script>
-
-////////////////////////////////////////////////////////
-//
-//  SPA 全 局 状 态
-//
-////////////////////////////////////////////////////////
-
-// 滚动位置记录
-let SCROLL_POSITION_STACK = new Array();
-// 排序选项
-let SORTING_OPTION = "category";
-
-// 监听器
-let ARTICLE_OBSERVER;       // Article节点监听器
-let BLOG_LIST_OBSERVER;     // 博客列表监听器
-let WIKI_LIST_OBSERVER;     // 百科列表监听器
-
-////////////////////////////////////////////////////////
-//
-//  注 册 SPA 触 发 器
-//
-////////////////////////////////////////////////////////
-
-function SPA_RegisterTriggers() {
-    $('.SPA_TRIGGER').off('click'); // 避免重复绑定
-    $('.SPA_TRIGGER').each(function(i,e) {
-        $(e).click(()=>{
-            let targetid = $(e).attr('data-target');
-            history.pushState({PageID: targetid}, '', `#/${targetid}`);
-            SCROLL_POSITION_STACK.push(window.pageYOffset);
-            SPA_Render(targetid);
-        });
-    });
-}
-
-////////////////////////////////////////////////////////
-//
-//  SPA 页 面 渲 染 / 格 局 切 换 管 理
-//
-////////////////////////////////////////////////////////
-
-function SPA_Render(pathString, callback) {
-    callback = callback || (() => {});
-
-    // 首先停止Worker
-    StopWorker();
-
-    // SPA路径
-
-    let path = pathString.replace(/^\#\//gi, "").split("/");
-    let PageID = path[0];
-    let ArticleID = path[1];
-
-    // 按钮光标
-    $(`.SPA_TRIGGER[data-target!="${PageID}"]`).attr("active", "false");
-    $(`.SPA_TRIGGER[data-target="${PageID}"]`).attr("active", "true");
-
-    console.log(`[PA-SPA] 渲染器：当前SPA路径为 ${path.map((v)=>{return decodeURI(v);}).join("/")}`);
-
-    // 每个格局各自的渲染流程，目前包括：注册监听器以处理渲染后动作、渲染格局对应的视图布局
-
-    // 博客/Wiki文章
-    if((PageID === "blog" || PageID === "wiki") && ArticleID !== undefined) {
-
-        // 监听Article变动，处理渲染后动作
-        let ARTICLE_OBSERVER = new MutationObserver((mutations, observer) => {
-            console.log(`[PA-SPA] 监听器：框架Article节点已更新`);
-            AfterRendering();
-        });
-        ARTICLE_OBSERVER.observe(document.getElementsByTagName('Article')[0], {characterData: true, childList: true, subtree: true});
-
-        // 显示返回和菜单按钮
-        $("#BackButton").show();
-        $(".MenuContainer").show();
-        // 控制导航栏的显示
-        if(GetMediaType() === "Desktop") {
-            $(".Navbar").show();
-        }
-        else if(GetMediaType() === "Mobile") {
-            $(".Navbar").hide();
-        }
-        
-        // 标题和页面内容（框架）
-        $('.SPA_MAIN_CONTAINER').html($(`template#${PageID}-article`).html());
-        $('.SPA_TITLE_CONTAINER').html($(`template#${PageID}-article-title`).html());
-        LoadArticle(PageID, ArticleID);
-    }
-
-    // 其他 TODO 待开发，注意有些格局的初始化代码位于其他模块中，是动态加载动态执行的。这些模块之间的关系，后续需要妥善规划。
-    else {
-        // 页面标题
-        $("title").html("Project Aurora");
-        // 不显示返回和菜单按钮
-        $("#BackButton").hide();
-        $(".MenuContainer").hide();
-        // 控制导航栏和顶栏的显示
-        $(".StickyTitleContainer").hide();
-        $(".Navbar").show();
-        // 标题和页面内容（框架）
-        $('.SPA_MAIN_CONTAINER').html($(`template#${PageID}`).html());
-        $('.SPA_TITLE_CONTAINER').html($(`template#${PageID}-title`).html());
-        // 封面
-        $('.Header').css({'opacity': '0.5'});
-        $('.Header').css('background-image', $(`template#${PageID}-titlebg`).html());
-        $('.Header').animate({'opacity': '1'});
-
-        if(PageID === "inspirations") {
-            LoadInspirations();
-        }
-        else if(PageID === "blog") {
-            LoadList("blog");
-        }
-        else if(PageID === "wiki") {
-            SORTING_OPTION = "category";
-            LoadList("wiki");
-        }
-    }
-
-    // 所有格局共享的：渲染框架布局、格局切入时的初始化工作、SPA触发器注册，等等
-
-    // 通用初始化
-    ActionsOnReady();
-
-    // 处理SPA行为：这里使用简单的延时，暂时不使用监听器
-    setTimeout(() => {
-        SPA_RegisterTriggers();
-        callback();
-    }, 100);
-}
 
 ////////////////////////////////////////////////////////
 //

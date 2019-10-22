@@ -1,4 +1,145 @@
 
+// Project Aurora V4.0
+// mikukonai.com
+// Copyright © 2016-2019 Mikukonai
+
+////////////////////////////////////////////////////////
+//
+//  常 量 / 配 置 项
+//
+////////////////////////////////////////////////////////
+
+// 默认封面图片
+const DEFAULT_COVER = `http://wx4.sinaimg.cn/large/450be1f5gy1g5zjkmhigoj20vy0ht76f.jpg`;
+// 默认灵感头像
+const DEFAULT_POSTER_AVATAR = `./image/haruhi-avatar.jpg`;
+// 监听器节流延时（无需纳入配置项）
+const OBSERVER_THROTTLE_DELAY = 100;
+
+////////////////////////////////////////////////////////
+//
+//  SPA 全 局 状 态
+//
+////////////////////////////////////////////////////////
+
+// 滚动状态 NOTE 设置此状态位的目的是为了防止图片懒加载在滚动时被触发，导致滚动目标的位置计算错误。
+let IS_SCROLLING = false;
+
+// 滚动位置记录
+let SCROLL_POSITION_STACK = new Array();
+// 排序选项
+let SORTING_OPTION = "category";
+
+// 监听器
+let ARTICLE_OBSERVER;  // Article节点监听器
+let LIST_OBSERVER;     // 列表监听器
+
+// 监听器节流
+let OBSERVER_THROTTLE_TIMER;
+
+////////////////////////////////////////////////////////
+//
+//  注 册 SPA 触 发 器
+//
+////////////////////////////////////////////////////////
+
+function SPA_RegisterTriggers() {
+    $('.SPA_TRIGGER').off('click'); // 避免重复绑定
+    $('.SPA_TRIGGER').each(function(i,e) {
+        $(e).click(()=>{
+            let targetid = $(e).attr('data-target');
+            history.pushState({PageID: targetid}, '', `#/${targetid}`);
+            SCROLL_POSITION_STACK.push(window.pageYOffset);
+            SPA_Render(targetid);
+        });
+    });
+}
+
+////////////////////////////////////////////////////////
+//
+//  SPA 页 面 渲 染 / 格 局 切 换 管 理
+//
+////////////////////////////////////////////////////////
+
+function SPA_Render(pathString, callback) {
+    callback = callback || (() => {});
+
+    // SPA路径
+    let path = pathString.replace(/^\#\//gi, "").split("/");
+    let PageID = path[0];
+    let ArticleID = path[1];
+
+    // 按钮光标
+    $(`.SPA_TRIGGER[data-target!="${PageID}"]`).attr("active", "false");
+    $(`.SPA_TRIGGER[data-target="${PageID}"]`).attr("active", "true");
+
+    console.log(`[PA-SPA] 渲染器：当前SPA路径为 ${path.map((v)=>{return decodeURI(v);}).join("/")}`);
+
+    // 每个格局各自的渲染流程，目前包括：注册监听器以处理渲染后动作、渲染格局对应的视图布局
+
+    // 博客/Wiki文章
+    if((PageID === "blog" || PageID === "wiki") && ArticleID !== undefined) {
+
+        // 显示返回和菜单按钮
+        $("#BackButton").show();
+        $(".MenuContainer").show();
+        // 控制导航栏的显示
+        if(GetMediaType() === "Desktop") {
+            $(".Navbar").show();
+        }
+        else if(GetMediaType() === "Mobile") {
+            $(".Navbar").hide();
+        }
+        
+        // 标题和页面内容（框架）
+        $('.SPA_MAIN_CONTAINER').html($(`template#${PageID}-article`).html());
+        $('.SPA_TITLE_CONTAINER').html($(`template#${PageID}-article-title`).html());
+        LoadArticle(PageID, ArticleID);
+    }
+
+    // 其他 TODO 待开发，注意有些格局的初始化代码位于其他模块中，是动态加载动态执行的。这些模块之间的关系，后续需要妥善规划。
+    else {
+        // 页面标题
+        $("title").html("Project Aurora");
+        // 不显示返回和菜单按钮
+        $("#BackButton").hide();
+        $(".MenuContainer").hide();
+        // 控制导航栏和顶栏的显示
+        $(".StickyTitleContainer").hide();
+        $(".Navbar").show();
+        // 标题和页面内容（框架）
+        $('.SPA_MAIN_CONTAINER').html($(`template#${PageID}`).html());
+        $('.SPA_TITLE_CONTAINER').html($(`template#${PageID}-title`).html());
+        // 封面
+        $('.Header').css({'opacity': '0.5'});
+        $('.Header').css('background-image', $(`template#${PageID}-titlebg`).html());
+        $('.Header').animate({'opacity': '1'});
+
+        if(PageID === "inspirations") {
+            LoadInspirations();
+        }
+        else if(PageID === "blog") {
+            LoadList("blog");
+        }
+        else if(PageID === "wiki") {
+            SORTING_OPTION = "category";
+            LoadList("wiki");
+        }
+    }
+
+    // 所有格局共享的：渲染框架布局、格局切入时的初始化工作、SPA触发器注册，等等
+
+    // 通用初始化
+    ActionsOnReady();
+
+    // 处理SPA行为：这里使用简单的延时，暂时不使用监听器
+    setTimeout(() => {
+        SPA_RegisterTriggers();
+        callback();
+    }, 100);
+}
+
+
 //////////////////////////////////////////////////////
 //
 //  事件：Onready
@@ -128,4 +269,66 @@ function GetRequestArgs() {
         }
     }
     return reqArg;
+}
+
+////////////////////////////////////////////////////////
+//
+//  外 部 脚 本 Worker 管 理 器（暂不启用，仅作为技术储备）
+//
+////////////////////////////////////////////////////////
+
+// 外部脚本Worker
+let WORKER;
+
+// 启动新Worker，接受回调。
+function CreateWorker(externalSourceFiles, callback) {
+    let CodeBuffer = new Array();
+    let FetchScript = new Promise((resolve, reject) => {
+        resolve();
+    });
+    // 首先逐个请求外部脚本
+    for(let i = 0; i < externalSourceFiles.length; i++) {
+        FetchScript = FetchScript.then(() => {
+            // console.log(`请求外部脚本：${externalSourceFiles[i]}`);
+            return new Promise((resolve, reject) => {
+                let xhr = new XMLHttpRequest();
+                xhr.open("GET", externalSourceFiles[i]);
+                xhr.onreadystatechange = () => {
+                    if(xhr.readyState === XMLHttpRequest.DONE) {
+                        if(xhr.status === 200) {
+                            // console.log(`请求脚本成功：${externalSourceFiles[i]}`);
+                            CodeBuffer.push(xhr.responseText);
+                            resolve();
+                        }
+                        else {
+                            // console.error(`请求脚本失败：${externalSourceFiles[i]}`);
+                        }
+                    }
+                };
+                xhr.send();
+            });
+        });
+    }
+    // 拼接代码，并启动Worker
+    FetchScript.then(() => {
+        let Code = CodeBuffer.join("\n");
+        WORKER = new Worker(`data:text/javascript,${encodeURIComponent(Code)}`);
+        console.log(`[PA-SPA] 脚本Worker已启动`);
+        callback();
+    });
+}
+
+function StopWorker() {
+    if(WORKER) {
+        WORKER.terminate();
+        console.log(`[PA-SPA] 脚本Worker中止`);
+    }
+}
+
+function PostMessage(msg) {
+    WORKER.postMessage(msg);
+}
+
+function OnMessage(handler) {
+    WORKER.onmessage = handler;
 }
