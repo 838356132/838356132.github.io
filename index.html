@@ -16,6 +16,9 @@
 <!--进度条-->
 <div class="Progressbar" id="Progressbar"></div>
 
+<!--首屏加载遮罩-->
+<div class="FirstLoadingMask"></div>
+
 <!--顶部标题（仅移动端显示）-->
 <div class="StickyTitleContainer" style="display: none;">
     <div id="StickyTitle" class="StickyTitle" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"></div>
@@ -140,8 +143,6 @@
     <div class="InspirationContainer" id="InspirationContainer"></div>
     <!--底部内容-->
     <div class="InspirationEnding" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"></div>
-    <script src="./ts/framework/inspiration.js"></script>
-    <script src="./ts/framework/inspiration-viewer.js"></script>
 </template>
 
 
@@ -155,10 +156,6 @@
     </div>
     <div id="ListContainer"></div>
     <div class="ListEnding">封面作者：mocha (PixivID:67948637)</div>
-    <script src="./ts/framework/article-list.js"></script>
-    <script>
-        LoadList("blog");
-    </script>
 </template>
 
 
@@ -172,11 +169,6 @@
     </div> -->
     <div id="ListContainer"></div>
     <div class="ListEnding">封面出处：《凉宫春日的忧郁》</div>
-    <script src="./ts/framework/article-list.js"></script>
-    <script>
-        SORTING_OPTION = "category";
-        LoadList("wiki");
-    </script>
 </template>
 
 
@@ -364,10 +356,18 @@ MathJax.Hub.Config({
 
 <script src="./ts/framework/jquery/jquery.min.js"></script>
 <script src="./ts/framework/jquery/jquery.easing.js"></script>
-<script src="./ts/framework/highlight/highlight.js"></script>
+
 <script src="./ts/framework/framework.js"></script>
+
+<script src="./ts/framework/article-list.js"></script>
+
+<script src="./ts/framework/inspiration.js"></script>
+<script src="./ts/framework/inspiration-viewer.js"></script>
+
+<script src="./ts/framework/highlight/highlight.js"></script>
 <script src="./ts/framework/mikumark.js"></script>
 <script src="./ts/framework/article-viewer.js"></script>
+
 <script>
 
 ////////////////////////////////////////////////////////
@@ -422,6 +422,10 @@ function SPA_Render(pathString, callback) {
     let PageID = path[0];
     let ArticleID = path[1];
 
+    // 按钮光标
+    $(`.SPA_TRIGGER[data-target!="${PageID}"]`).attr("active", "false");
+    $(`.SPA_TRIGGER[data-target="${PageID}"]`).attr("active", "true");
+
     console.log(`[PA-SPA] 渲染器：当前SPA路径为 ${path.map((v)=>{return decodeURI(v);}).join("/")}`);
 
     // 每个格局各自的渲染流程，目前包括：注册监听器以处理渲染后动作、渲染格局对应的视图布局
@@ -470,28 +474,23 @@ function SPA_Render(pathString, callback) {
         $('.Header').css({'opacity': '0.5'});
         $('.Header').css('background-image', $(`template#${PageID}-titlebg`).html());
         $('.Header').animate({'opacity': '1'});
+
+        if(PageID === "inspirations") {
+            LoadInspirations();
+        }
+        else if(PageID === "blog") {
+            LoadList("blog");
+        }
+        else if(PageID === "wiki") {
+            SORTING_OPTION = "category";
+            LoadList("wiki");
+        }
     }
 
     // 所有格局共享的：渲染框架布局、格局切入时的初始化工作、SPA触发器注册，等等
 
     // 通用初始化
     ActionsOnReady();
-
-    // 删除所有已有的MikumarkScript和MikumarkStyle节点
-    $(".MikumarkScript").remove();
-    $(".MikumarkStyle").remove();
-
-    // 重置进度条（进度条动作由template里面的内容控制）
-    $("#Progressbar").show();
-    $("#Progressbar").css('width', '0%');
-
-    // 按钮光标
-    $(`.SPA_TRIGGER[data-target!="${PageID}"]`).attr("active", "false");
-    $(`.SPA_TRIGGER[data-target="${PageID}"]`).attr("active", "true");
-
-    // 进场动画
-    $('body').css({'opacity': '0.5'});
-    $('body').animate({'opacity': '1'});
 
     // 处理SPA行为：这里使用简单的延时，暂时不使用监听器
     setTimeout(() => {
@@ -511,6 +510,11 @@ function SPA_Render(pathString, callback) {
     ActionsOnReady();
 
     window.onload = () => {
+        console.log("%c ★ Project Aurora ★ ", "font-size: 16px; height: 26px; line-height: 26px; border-radius: 5px; text-align: center; color:#fff; background: linear-gradient(to right, rgb(255, 94, 134), rgb(210, 162, 255), rgb(36, 200, 255));");
+        console.log(`版本 4.0 (2019.10.23)`);
+        console.log(`版权所有 © 2016-2019 Mikukonai (https://github.com/mikukonai)`);
+        console.log(`本站Git仓库：https://github.com/mikukonai/mikukonai.github.io`);
+        console.log(``);
         let HashString = (window.location.hash === "") ? "#/index" : window.location.hash;
         SPA_Render(HashString);
         if(!history.state) {

@@ -188,7 +188,8 @@ function LoadList(articleType) {
     });
     BLOG_LIST_OBSERVER.observe(document.getElementById('ListContainer'), {characterData: true, childList: true, subtree: true});
 
-    $('.articles_content_ending').html('正在读取，请稍等…');
+    let listEndingSlogan = $('.ListEnding').html();
+    $('.ListEnding').html('正在读取，请稍等…');
 
     let xhr = new XMLHttpRequest();
     xhr.open("GET", `markdown/${articleType}/-articles.md`);
@@ -211,6 +212,8 @@ function LoadList(articleType) {
                     SORTING_OPTION = sortingOption;
                 });
             });
+
+            $('.ListEnding').html(listEndingSlogan);
         }
         else if(xhr.readyState === XMLHttpRequest.DONE && xhr.status !== 200){
             $("#Progressbar").animate({width: `100%`});

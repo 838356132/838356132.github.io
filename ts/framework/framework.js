@@ -8,7 +8,23 @@
 //////////////////////////////////////////////////////
 
 function ActionsOnReady() {
+    // 清除首屏加载遮罩
+    $(".FirstLoadingMask").fadeOut(800);
+
+    // 设置版权年份
     SetCopyrightYear();
+
+    // 删除所有已有的MikumarkScript和MikumarkStyle节点
+    $(".MikumarkScript").remove();
+    $(".MikumarkStyle").remove();
+
+    // 重置进度条（进度条动作由template里面的内容控制）
+    $("#Progressbar").show();
+    $("#Progressbar").css('width', '0%');
+
+    // 进场动画
+    $('body').css({'opacity': '0.5'});
+    $('body').animate({'opacity': '1'});
 }
 
 //////////////////////////////////////////////////////

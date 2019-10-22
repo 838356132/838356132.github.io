@@ -1,4 +1,5 @@
-(() => {
+
+function LoadInspirations() {
 
     let posters, html;
 
@@ -182,4 +183,4 @@
     // 导航栏折叠按钮
     $("#InspirationMenuToggle").click(()=>{ NavboxToggle(); });
 
-})();
+}

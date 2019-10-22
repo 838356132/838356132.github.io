@@ -273,14 +273,11 @@ function Render(mikumark) {
         $('head').append(scriptNode);
     }
 
-    // CreateWorker(mikumark.linkedScripts, () => {
-        let scriptNode = document.createElement("script");
-        scriptNode.innerHTML = mikumark.script;
-        scriptNode.setAttribute("class", "MikumarkScript");
-        scriptNode.defer = "defer";
-        $('body').append(scriptNode);
-    // });
-
+    let scriptNode = document.createElement("script");
+    scriptNode.innerHTML = mikumark.script;
+    scriptNode.setAttribute("class", "MikumarkScript");
+    scriptNode.defer = "defer";
+    $('body').append(scriptNode);
 
     // 样式节点
     let styleNode = document.createElement("style");
