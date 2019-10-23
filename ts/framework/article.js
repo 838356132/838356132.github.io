@@ -112,7 +112,6 @@ function LoadArticle(PageID, ArticleID) {
     function BeforeRendering() {
         $('#MenuButton').off('click'); // 避免重复绑定
         $("#MenuButton").click(() => { MenuToggle(); }); // 菜单按钮的点击事件
-        ArrangeSideButtonLayout(); // 设置按钮布局
         ShowTopTitleOnThreshold(); // 设置顶部标题栏状态
 
         // 删除所有已有的MikumarkScript和MikumarkStyle节点
@@ -134,7 +133,6 @@ function LoadArticle(PageID, ArticleID) {
         });
 
         window.onresize = () => {
-            ArrangeSideButtonLayout();
             ActionsOnResize();
         };
 

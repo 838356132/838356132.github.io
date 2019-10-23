@@ -210,14 +210,14 @@ Scheme创新性地引入了**卫生宏**的概念。所谓的卫生宏，指的�
 
 #!script
 
-#!script:./js/codemirror/codemirror.js
-#!script:./js/codemirror/scheme.js
-#!script:./js/codemirror/active-line.js
-#!script:./js/codemirror/matchbrackets.js
-#!script:./js/codemirror/match-highlighter.js
-#!script:./js/codemirror/matchesonscrollbar.js
+#!script:./ts/codemirror/codemirror.js
+#!script:./ts/codemirror/scheme.js
+#!script:./ts/codemirror/active-line.js
+#!script:./ts/codemirror/matchbrackets.js
+#!script:./ts/codemirror/match-highlighter.js
+#!script:./ts/codemirror/matchesonscrollbar.js
 #!script:./ts/signal.js
-#!script:./js/mikurec3.js
+#!script:./ts/mikurec3.js
 
 // 2018.10.10 大数乘法
 function bigIntMultiply(astr, bstr) {
