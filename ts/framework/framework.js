@@ -135,6 +135,7 @@ function SPA_Render(pathString, callback) {
     // 处理SPA行为：这里使用简单的延时，暂时不使用监听器
     setTimeout(() => {
         SPA_RegisterTriggers();
+        $(".FirstLoadingMask").fadeOut(800); // 清除首屏加载遮罩
         callback();
     }, 100);
 }
@@ -149,9 +150,6 @@ function SPA_Render(pathString, callback) {
 //////////////////////////////////////////////////////
 
 function ActionsOnReady() {
-    // 清除首屏加载遮罩
-    $(".FirstLoadingMask").fadeOut(800);
-
     // 设置版权年份
     SetCopyrightYear();
 

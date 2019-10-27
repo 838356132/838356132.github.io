@@ -22,6 +22,9 @@ let CONFIG = {
         "woff2": "font/woff2",
         "ttf":   "application/x-font-truetype",
         "otf":   "application/x-font-opentype",
+        "mp4":   "video/mp4",
+        "webm":  "video/webm",
+        "svg":   "image/svg+xml"
     },
 };
 
