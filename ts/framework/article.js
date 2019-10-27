@@ -151,7 +151,7 @@ function LoadArticle(PageID, ArticleID) {
 
         // 各触发一次以刷新布局
         $(window).scroll();
-        $(window).resize();
+        // $(window).resize(); // TODO 存在 ArrangeSideButtonLayout 在直接访问文章页的情况下无效的情况
     }
 
     ///////////////////////////////////////////////////////
