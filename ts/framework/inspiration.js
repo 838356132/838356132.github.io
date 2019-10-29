@@ -311,7 +311,7 @@ function LoadInspirations() {
     $('.InspirationEnding').html('正在读取，请稍等…');
 
     let xhr = new XMLHttpRequest();
-    xhr.open("GET", `./markdown/-inspirations.md`);
+    xhr.open("GET", `./markdown/inspirations.md`);
     xhr.onreadystatechange = () => {
         if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
             $("#Progressbar").animate({width: `100%`});
