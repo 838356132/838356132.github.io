@@ -105,8 +105,8 @@ C[1] 0  PO[7]  院深深深几许
 
 #!script
 
-#!script:./ts/nagao.js
-#!script:./ts/dict.js
+#!script:./script/nagao.js
+#!script:./script/dict.js
 
 $('#nagao').click(function() {
     let nw = newword(text);

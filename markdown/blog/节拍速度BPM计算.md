@@ -739,7 +739,7 @@ canvas {
 }
 #!script
 
-#!script:./ts/signal.js
+#!script:./script/signal.js
 
 // 将实数序列转换为复数序列
 Array.prototype.toComplexList = function() {

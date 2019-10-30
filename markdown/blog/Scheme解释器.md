@@ -198,8 +198,8 @@ Scheme创新性地引入了**卫生宏**的概念。所谓的卫生宏，指的�
 
 #!style
 
-#!style:./css/codemirror/codemirror.css
-#!style:./css/codemirror/matchesonscrollbar.css
+#!style:./style/codemirror/codemirror.css
+#!style:./style/codemirror/matchesonscrollbar.css
 
 .CodeMirror-focused .cm-matchhighlight {
     background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAFklEQVQI12NgYGBgkKzc8x9CMDAwAAAmhwSbidEoSQAAAABJRU5ErkJggg==);
@@ -210,14 +210,14 @@ Scheme创新性地引入了**卫生宏**的概念。所谓的卫生宏，指的�
 
 #!script
 
-#!script:./ts/codemirror/codemirror.js
-#!script:./ts/codemirror/scheme.js
-#!script:./ts/codemirror/active-line.js
-#!script:./ts/codemirror/matchbrackets.js
-#!script:./ts/codemirror/match-highlighter.js
-#!script:./ts/codemirror/matchesonscrollbar.js
-#!script:./ts/signal.js
-#!script:./ts/mikurec3.js
+#!script:./script/codemirror/codemirror.js
+#!script:./script/codemirror/scheme.js
+#!script:./script/codemirror/active-line.js
+#!script:./script/codemirror/matchbrackets.js
+#!script:./script/codemirror/match-highlighter.js
+#!script:./script/codemirror/matchesonscrollbar.js
+#!script:./script/signal.js
+#!script:./script/mikurec3.js
 
 // 2018.10.10 大数乘法
 function bigIntMultiply(astr, bstr) {

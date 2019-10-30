@@ -75,7 +75,7 @@ function LoadList(articleType) {
             for(let i = 0; i < items.length; i++) {
                 let item = items[i];
                 // 条目颜色
-                let itemColor = ListObject.typeColorMapping[item.type] || "#9dd9ff";
+                let itemColor = ListObject.typeColorMapping[item.type] || "#cdcdcd";
                 // 组装链接
                 let itemLink = `${articleType}/${TitleToFilename(item.title)}`;
                 // 组装标签
@@ -84,11 +84,7 @@ function LoadList(articleType) {
                     tagsHtml += `<span class="ListItemTag">${item.tags[j]}</span>`;
                 }
                 // 组装HTML
-                HtmlBuffer.push(`<div class="ListItem enter">
-    <span class="ListItemNumber" style="color:${itemColor};">❖</span>
-    <span style="display:inline-block;max-width:50%;"><a class="ListItemLink SPA_TRIGGER" data-target="${itemLink}">${item.title}</a>${tagsHtml}</span>
-    <span class="ListItemDate"><span style="padding-right:6px;color:${itemColor};">${item.type}</span>${item.date}</span>
-    </div>`);
+                HtmlBuffer.push(`<div class="ListItem enter"><span class="ListItemNumber" style="color:${itemColor};">❖</span><span style="display:inline-block;max-width:50%;"><a class="ListItemLink SPA_TRIGGER" data-target="${itemLink}">${item.title}</a>${tagsHtml}</span><span class="ListItemDate"><span style="padding-right:6px;color:${itemColor};">${item.type}</span>${item.date}</span></div>`);
             }
             return HtmlBuffer.join("");
         }
@@ -111,7 +107,7 @@ function LoadList(articleType) {
                 let catTitle = cat.split('|')[0];
                 let catSubtitle = cat.split('|')[1];
                 let catSubtitleHtml = "";
-                if(catSubtitle !== "") {
+                if(catSubtitle && catSubtitle !== "") {
                     catSubtitleHtml = ` · ${catSubtitle}`;
                 }
                 HtmlBuffer.push(`<div class="ListCategoryBlock" id="cat_${catCount}">

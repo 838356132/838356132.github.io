@@ -28,9 +28,9 @@ canvas {
 
 #!script
 
-#!script:./ts/signal.js
-#!script:./ts/image.js
-#!script:./ts/canvas.js
+#!script:./script/signal.js
+#!script:./script/image.js
+#!script:./script/canvas.js
 
 let cv = new Canvas('cv', [-160, -160], [160, 160]);
 cv.SetBackgroundColor("#000");

@@ -186,7 +186,7 @@ function LoadInspirations() {
 
     // 遍历所有Poster，根据当前滚动位置，计算当前显示的Poster是哪个
     function GetVisiblePoster() {
-        let posterDOMs = $(".poster");
+        let posterDOMs = $(".Poster");
         let currentTop = window.pageYOffset + 42;
         for(let i = 0; i < posterDOMs.length - 1; i++) {
             let currentPosterTop = window.pageYOffset + posterDOMs[i].getBoundingClientRect().top;

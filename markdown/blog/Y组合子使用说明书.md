@@ -259,7 +259,7 @@ Y组合子的存在构造性地证明，λ演算完全可以实现匿名函数�
 
 #!script
 
-#!script:./ts/mikurec2.js
+#!script:./script/mikurec2.js
 
 function getCode(divId) {
     return $('#' + divId).html();

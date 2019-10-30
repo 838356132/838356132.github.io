@@ -26,9 +26,9 @@ canvas {
 
 #!script
 
-#!script:./ts/signal.js
-#!script:./ts/image.js
-#!script:./ts/canvas.js
+#!script:./script/signal.js
+#!script:./script/image.js
+#!script:./script/canvas.js
 
 let cv = new Canvas('cv', [0,360], [640,0]);
 

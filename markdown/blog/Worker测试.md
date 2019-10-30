@@ -19,7 +19,7 @@
 
 #!script
 
-#!script:./ts/worker.js
+#!script:./script/worker.js
 
 $("#start").click(() => {
     PostMessage("start");
