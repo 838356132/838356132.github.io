@@ -3,7 +3,7 @@
 // 2019.01
 // mikukonai@GitHub
 
-const DEFAULT_COVER = `http://wx4.sinaimg.cn/large/450be1f5gy1g5zjkmhigoj20vy0ht76f.jpg`;
+const DEFAULT_COVER = `./image/cover/default.jpg`;
 
 function Mikumark(mikumarkDocString) {
     // 全局输入输出

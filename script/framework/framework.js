@@ -10,7 +10,7 @@
 ////////////////////////////////////////////////////////
 
 // 默认封面图片
-const DEFAULT_COVER = `http://wx4.sinaimg.cn/large/450be1f5gy1g5zjkmhigoj20vy0ht76f.jpg`;
+const DEFAULT_COVER = `./image/cover/default.jpg`;
 // 默认灵感头像
 const DEFAULT_POSTER_AVATAR = `./image/haruhi-avatar.jpg`;
 // 监听器节流延时（无需纳入配置项）

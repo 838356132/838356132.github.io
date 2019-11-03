@@ -218,7 +218,7 @@
 
 @title: 仲春令月，时和气清
 @date: 2019-04-02
-@imageURL: http://wx4.sinaimg.cn/large/450be1f5gy1g5zkhgi7ofj20m80bx3zm.jpg
+@imageURL: ./image/inspiration/dfexpress.jpg
 
 又想到《论语·先进》那场流传千年的师徒对话了：
 
@@ -280,7 +280,7 @@
 
 @title: 日新阁
 @date: 2019-03-24
-@imageURL: http://wx2.sinaimg.cn/large/450be1f5gy1g5zkhiz7e5j20go0cit9y.jpg
+@imageURL: ./image/inspiration/rixinge.jpg
 
 图书馆正式定名为“<strong>日新阁</strong>”。
 
@@ -296,7 +296,7 @@
 
 @title: 科图法
 @date: 2019-03-23
-@imageURL: http://wx4.sinaimg.cn/large/450be1f5gy1g5zkhjrdr4j20go0b4wf4.jpg
+@imageURL: ./image/inspiration/seulib.png
 
 我一直都更喜欢科图法时代的书，小小的一册，铅印的文字，手刻的插图，泛黄的纸张散发着书蠹最喜欢的味道，但是里面的思想丝毫不失锐利，穿透书香，扑面而来。
 
