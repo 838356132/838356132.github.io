@@ -40,6 +40,9 @@
     <div id="MenuContainer" class="MenuContainer" style="display: none;">
         <div class="StickyNavbar">
             <button id="MenuButton" class="MenuButton" data-state="off">menu</button>
+            <nav class="Navbar" id="MenuNavbar" style="top: 40px; z-index: 100000; border: none;">
+                <button class="NavbarItem SPA_TRIGGER" active="false" data-target="index">首 页</button><button class="NavbarItem SPA_TRIGGER" active="false" data-target="inspirations">灵 感</button><button class="NavbarItem SPA_TRIGGER"  active="true" data-target="blog">博 客</button><button class="NavbarItem SPA_TRIGGER" active="false" data-target="wiki">百 科</button><button class="NavbarItem SPA_TRIGGER" active="false" data-target="about">关 于</button>
+            </nav>
         </div>
         <div id="ContentsContainer"></div>
     </div>
@@ -54,7 +57,7 @@
     <!--标题和封面-->
     <header class="Header SPA_TITLE_CONTAINER"></header>
     <!--导航栏-->
-    <nav class="Navbar">
+    <nav class="Navbar" id="MainNavbar">
         <button class="NavbarItem SPA_TRIGGER" active="false" data-target="index">首 页</button><button class="NavbarItem SPA_TRIGGER" active="false" data-target="inspirations">灵 感</button><button class="NavbarItem SPA_TRIGGER"  active="true" data-target="blog">博 客</button><button class="NavbarItem SPA_TRIGGER" active="false" data-target="wiki">百 科</button><button class="NavbarItem SPA_TRIGGER" active="false" data-target="about">关 于</button>
     </nav>
     <!--正文内容-->

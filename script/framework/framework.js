@@ -85,10 +85,10 @@ function SPA_Render(pathString, callback) {
         $(".MenuContainer").show();
         // 控制导航栏的显示
         if(GetMediaType() === "Desktop") {
-            $(".Navbar").show();
+            $("#MainNavbar").show();
         }
         else if(GetMediaType() === "Mobile") {
-            $(".Navbar").hide();
+            $("#MainNavbar").hide();
         }
         
         // 标题和页面内容（框架）
@@ -106,7 +106,7 @@ function SPA_Render(pathString, callback) {
         $(".MenuContainer").hide();
         // 控制导航栏和顶栏的显示
         $(".StickyTitleContainer").hide();
-        $(".Navbar").show();
+        $("#MainNavbar").show();
         // 标题和页面内容（框架）
         $('.SPA_MAIN_CONTAINER').html($(`template#${PageID}`).html());
         $('.SPA_TITLE_CONTAINER').html($(`template#${PageID}-title`).html());
