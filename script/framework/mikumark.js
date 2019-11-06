@@ -76,6 +76,13 @@ var Mikumark = /** @class */ (function () {
     Mikumark.RecoverHTMLchar = function (str) {
         return str.replace(/&gt;/gi, ">").replace(/&lt;/gi, "<").replace(/&amp;/gi, "&");
     };
+    // 处理宏展开（注意：不会递归展开，每个宏只被展开一次）
+    Mikumark.prototype.ExpandMacros = function (str) {
+        for (var macro in this.macros) {
+            str = str.replace(new RegExp(macro, "g"), this.macros[macro]);
+        }
+        return str;
+    };
     // 段内样式解析
     Mikumark.prototype.ParseInnerPara = function (md) {
         var RegexInlineCode = /\`(.+?)\`/g;
@@ -88,10 +95,8 @@ var Mikumark = /** @class */ (function () {
         var RegexLink = /\[(.+?)\]\((.+?)\)/g;
         // 首先处理换行
         var HTML = md.replace(/[\n\r]/g, "<br/>");
-        // 处理宏展开（注意：不会递归展开，每个宏只被展开一次）
-        for (var macro in this.macros) {
-            HTML = HTML.replace(new RegExp(macro, "g"), this.macros[macro]);
-        }
+        // 宏展开
+        HTML = this.ExpandMacros(HTML);
         // 行内代码：需要特殊处理，其内的所有元字符都应被转义，防止解析成HTML标签。（不会处理已屏蔽的元字符）
         var inlineCodeSegments = RegexInlineCode.exec(HTML);
         while (inlineCodeSegments !== null) {
@@ -120,6 +125,7 @@ var Mikumark = /** @class */ (function () {
         if (/^#+?(?![\!\(]).+/g.test(md) === true) {
             var level = (md.match(/^#+(?=[^#])/i)[0]).length;
             var title = md.replace(/^#+/g, "").trim();
+            title = this.ExpandMacros(title);
             HtmlBuffer.push("<h" + level + " id=\"Title_" + this.titleCount + "\" class=\"MikumarkTitle\">" + title + "</h" + level + ">");
             // 目录
             this.outline[this.titleCount] = {
@@ -278,6 +284,7 @@ var Mikumark = /** @class */ (function () {
             imgTitle = imgTitle.substring(2, imgTitle.length - 2);
             var imgURL = md.match(/\]\([^(\]\()]+\)$/g)[0];
             imgURL = imgURL.substring(2, imgURL.length - 1);
+            imgURL = this.ExpandMacros(imgURL);
             HtmlBuffer.push("<div class=\"MikumarkImageContainer\">\n            <div class=\"loading\">\n                <div class=\"dot\"></div><div class=\"dot\"></div><div class=\"dot\"></div><div class=\"dot\"></div><div class=\"dot\"></div>\n            </div>\n            <img class=\"MikumarkImage\" data-src=\"" + imgURL + "\"><div class=\"MikumarkImageTitle\">" + this.ParseInnerPara(imgTitle) + "</div></div>");
         }
         // 居中的段落

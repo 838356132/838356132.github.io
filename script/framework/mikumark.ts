@@ -106,6 +106,14 @@ class Mikumark {
         return str.replace(/&gt;/gi, ">").replace(/&lt;/gi, "<").replace(/&amp;/gi, "&");
     }
 
+    // 处理宏展开（注意：不会递归展开，每个宏只被展开一次）
+    public ExpandMacros(str: string) {
+        for(let macro in this.macros) {
+            str = str.replace(new RegExp(macro, "g"), this.macros[macro]);
+        }
+        return str;
+    }
+
     // 段内样式解析
     public ParseInnerPara(md: string): string {
         let RegexInlineCode = /\`(.+?)\`/g;
@@ -120,10 +128,8 @@ class Mikumark {
         // 首先处理换行
         let HTML = md.replace(/[\n\r]/g, "<br/>");
 
-        // 处理宏展开（注意：不会递归展开，每个宏只被展开一次）
-        for(let macro in this.macros) {
-            HTML = HTML.replace(new RegExp(macro, "g"), this.macros[macro]);
-        }
+        // 宏展开
+        HTML = this.ExpandMacros(HTML);
 
         // 行内代码：需要特殊处理，其内的所有元字符都应被转义，防止解析成HTML标签。（不会处理已屏蔽的元字符）
         let inlineCodeSegments = RegexInlineCode.exec(HTML);
@@ -162,6 +168,7 @@ class Mikumark {
         if(/^#+?(?![\!\(]).+/g.test(md) === true) {
             let level = (md.match(/^#+(?=[^#])/i)[0]).length;
             let title = md.replace(/^#+/g, "").trim();
+            title = this.ExpandMacros(title);
             HtmlBuffer.push(`<h${level} id="Title_${this.titleCount}" class="MikumarkTitle">${title}</h${level}>`);
             // 目录
             this.outline[this.titleCount] = {
@@ -320,6 +327,7 @@ class Mikumark {
             imgTitle = imgTitle.substring(2, imgTitle.length - 2);
             let imgURL = md.match(/\]\([^(\]\()]+\)$/g)[0];
             imgURL = imgURL.substring(2, imgURL.length - 1);
+            imgURL = this.ExpandMacros(imgURL);
             HtmlBuffer.push(`<div class="MikumarkImageContainer">
             <div class="loading">
                 <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
