@@ -5,37 +5,71 @@
 #!type:     C
 #!tags:     
 
+#!{ImagePath}:./image/wiki/C/mp3
+
 #!content
 
 > 正在调查研究。本文是学习成果的记录。
 
 # 待整理的笔记
 
-## Analysis Subband Filterbank 分析子带滤波器组
-
-20191104
+## 分析子带滤波器组（20191104）
 
 分析子带滤波器组，用于编码器。
 
-首先明确输入和输出形式。对于每帧1152采样，划分成36组长度为32点的采样段，将每段**分别**输入滤波器，执行36次32点子带滤波，得到长度为32的频域结果。则36个采样段可以得到36组长度为32的频域结果。
+首先明确输入和输出形式。对于每帧1152采样，划分成36组长度为32点的采样段，将每段**分别**输入滤波器，执行36次32点子带滤波，得到长度为32的滤波后结果。则36个采样段可以得到36组长度为32的滤波后结果。
 
-频域结果的每一点对应32个子带之一，所以换一个视角，子带滤波器组的输出结果是：32个长度为36的子带滤波结果，每个结果对应一个频带。
+滤波后结果的每一点对应32个子带之一，所以换一个视角，子带滤波器组的输出结果是：32个长度为36的子带滤波结果，每个结果对应一个频带。
 
 至于子带滤波器，它的信号流图以及算法参数都在11172标准中有定义，直接照抄就可以。
 
 ![信号流图](http://wx3.sinaimg.cn/large/450be1f5gy1g8m3hdg4tgj23342bcjzo.jpg)
 
+## 心理声学模型如何控制码率分配（20191105）
+
++ 量化会引入量化噪声，包括同时噪声，也包括前回声（尤其是长窗口MDCT情况下）。
++ 人耳存在掩蔽效应，凡是低于掩蔽门限的声音，都是无法察觉的。掩蔽信号（Masker）与其某个掩蔽门限之比，称为信掩比（SMR）。
++ 量化位数越多，精度越高，量化噪声越低，即信噪比（SNR）越高，代价是码率开销越大。
++ 因此，对于某个信号，在某个量化精度下，如果其量化噪声恰好低于掩蔽门限，则量化噪声无法察觉，那么此时的量化精度就刚刚好，再提高量化精度也没有感知上的意义了。
++ 定义掩噪比MNR=SNR-SMR（标准如此），显然，如果某个量化位数使得MNR等于0，则此量化位数就是能够不引起可察觉量化失真的最低位数。
++ 编码器通过内部的循环，确定每帧的最佳量化位数，以实现VBR。
+
+# 研究动机和目标
+
+MP3音频编码标准，自从上个世纪80年代末提出至今，已经有三十余年的历史了。MP3是第一个针对“宽带”音频的压缩编码标准，在此之前的技术大多是针对语音压缩而提出的。MP3发展至今，已经一统江湖，成为最流行的数字音频压缩标准，没有之一；“MP3”这个词，俨然成为数字音乐的代名词。由于我本人对于音响技术一直很感兴趣，再加上近期知识管理工作中对于MP3文件管理的客观需要，都需要对MP3编解码原理做一些深入的研究，直至实现最基本的编解码器原型。
+
+MP3编码标准所使用的技术，包括子带滤波、心理声学模型、变换编码和熵编码，都是非常具有代表性的技术，横跨众多领域，奠定了众多后续技术的基础。包括AAC、AC-3、MP3Pro等更为先进的音频编解码技术，都与MP3有着类似的思路。因此，掌握MP3标准之后再学习其他更为先进的标准，就轻松多了。
+
+经过这段时间的研究，我的观念有所变化。那就是在个人数据管理工作中，一味追求无损是没有意义的。无损PCM相比于320K的MP3，并不会带来多高的音质提升，却浪费了几倍的空间，实在是不值当。这与高清视频不同：大尺寸、高帧率、高位深，是肉眼能实实在在感受到的。所以，以后不必一味追求PCM无损，省下来的空间多保存一些4K乃至8K的超高清视频，这是更划算的。
+
 # MP3标准概述
 
 全称 MPEG-1 Layer Ⅲ，对应国际标准为 ISO/IEC 11172-3。
+
+![MP3编码器框图[2.0]]({ImagePath}/mp3-encoder-diagram.png)
 
 # 心理声学模型
 
 舍弃人耳无法感知的冗余信息：声压级（SPF），听阈（静音门限）和痛阈，时域掩蔽和频域掩蔽，关键频带（critical bands），第二心理声学模型，信掩比（SMR）
 
+![安静环境下的绝对听阈[4.0]]({ImagePath}/mp3-absolute-threshold-of-hearing.png)
+
+![理想化的关键频带划分示意图[4.0]]({ImagePath}/mp3-critical-bands.png)
+
+![频域（同时）掩蔽，以及NMR、SNR、SMR之间的关系示意[1.2(由[2.0重制])]]({ImagePath}/mp3-simultaneous-masking.png)
+
+![时域掩蔽[1.2(由[2.0重制])]]({ImagePath}/mp3-temporal-masking.png)
+
+
 # 滤波与变换编码
 
 子带滤波器组，改进的离散余弦变换（MDCT），长窗口和短窗口，前回声抑制
+
+![分析子带滤波器组的频率特性[2.0]]({ImagePath}/mp3-filterbank.png)
+
+![MDCT使用的四种窗口[2.0]]({ImagePath}/mp3-MDCT-windows.png)
+
+![混叠消除的蝴蝶结运算[1.0]]({ImagePath}/mp3-aliasing-butterfly.png)
 
 # 量化与熵编码
 
@@ -55,30 +89,30 @@ LAME
 
 # 参考资料
 
-MP3资料收集网站，有许多论文和技术资料可供下载：[http://www.mp3-tech.org/]()
+**说明**：首先推荐一个MP3资料收集网站，有许多论文和技术资料可供下载：[http://www.mp3-tech.org/]()。以下参考资料中，凡是此网站有收录，或者很容易找到的，不再给出链接；不太容易找到的，将给出链接，方便读者溯源。部分文献资料可联系本文作者索取。
 
-标准文档当然是最高依据：
+标准文档及其相关解读，标准文档当然是最高依据：
 
-- [1] ISO/IEC 11172 - Coding Of Moving Picture And Associated Audio For Digital Storage Media At Up To About 1,5 Mbit/s - Part 3: Audio
+- [1.0] **ISO/IEC 11172** - Coding Of Moving Picture And Associated Audio For Digital Storage Media At Up To About 1,5 Mbit/s - Part 3: Audio
+- [1.1] Pan D . **Tutorial on MPEG/audio compression**[J]. IEEE Multimedia, 1995, 2(2):60-74.
+- \[1.2] Noll, P. [**MPEG digital audio coding**](https://www.csd.uoc.gr/~hy438/lectures/MPEGAudioCoding.pdf)[J]. IEEE Signal Process Mag, 1997, 14(5):59-81.
 
-这篇文章有助于理解ISO11172标准文档：
+较好的中文论文，原理与实现并重，可供快速入门：
 
-- [2] Pan D . Tutorial on MPEG/audio compression[J]. IEEE Multimedia, 1995, 2(2):60-74.
+- [2.0] 張芷燕. **MP3編碼法之研究與實現**[D]. 国立交通大学（台湾省）, 2002.
+- \[2.1] 丰帆. [**MP3数字音频编解码算法的研究及实现**](http://www.doc88.com/p-1854633481570.html)[D]. 西安电子科技大学, 2008.
+- [2.2] 王建昕, 董在望. **MPEG音频编码算法的研究与实时实现**[J]. 清华大学学报(自然科学版), 1997(10):45-48.
 
-为数不多的质量较高的中文论文，原理与实现并重，可供快速入门：
+适合入门的科普向文章：
 
-- [3] 張芷燕. MP3編碼法之研究與實現
+- [3.0] Rassol Raissi. **The Theory Behind Mp3**
 
-一篇适合入门的科普向文章：
+有关感知音频编码基本原理的文章，可供参考：
 
-- [4] Rassol Raissi. The Theory Behind Mp3
+- [4.0] Painter T , Spanias A . **Perceptual coding of digital audio**[J]. Proceedings of the IEEE, 2000, 88(4):451-515.
 
-这篇文章论述了感知音频编码的基本原理，可供参考：
+有关人类听觉系统的文章，或许有用：
 
-- [5] Painter T , Spanias A . Perceptual coding of digital audio[J]. Proceedings of the IEEE, 2000, 88(4):451-515.
-
-这篇文章介绍了人类听觉系统的一些规律，或许有用：
-
-- [6] D Robinson. The Human Auditory System
+- [5.0] D Robinson. **The Human Auditory System**
 
 随着研究的继续，本列表会不断更新。

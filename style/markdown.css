@@ -8,7 +8,7 @@
         --p_font_size: 15px;       /* 正文段落 字体大小，此值是全部正文字体的基准大小 */
         --p_line_height: 25px;     /* 正文段落 行高 */
         --p_margin_bottom: 20px;   /* 正文段落 底部段间距 */
-        --p_color: #505050;      /* 正文段落 字体颜色 */
+        --p_color: #222;      /* 正文段落 字体颜色 */
 
         --quote_p_margin: 10px;    /* 引用段落 上下段间距 */
 
@@ -22,7 +22,7 @@
         --code_line_height: 20px;          /* 代码 行高 */
         --code_background_color:#f7f7f7; /* 代码 背景色 */
 
-        --img_max_width: 500px;      /* 图片 最大宽度 */
+        --img_max_width: 90%;        /* 图片 最大宽度 */
         --img_max_height: 800px;     /* 图片 最大高度 */
     }
 }
@@ -31,7 +31,7 @@
         --p_font_size: 14px;       /* 正文段落 字体大小，此值是全部正文字体的基准大小 */
         --p_line_height: 24px;     /* 正文段落 行高 */
         --p_margin_bottom: 11px;   /* 正文段落 底部段间距 */
-        --p_color: #505050;      /* 正文段落 字体颜色 */
+        --p_color: #222;      /* 正文段落 字体颜色 */
 
         --quote_p_margin: 10px;    /* 引用段落 上下段间距 */
 
