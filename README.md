@@ -1,5 +1,9 @@
 # mikukonai.com
 
+emmmm，GitHub我还不怎么会玩，最近发现了fork的用法，然后很好奇的尝试了一下
+然后发现GitHub提供网站服务，感觉好好玩的样子，没想到搭建出来了。
+还请作者不要介意，嘿嘿。
+
 Project Aurora - mikukonai的个人博客。
 
 [https://mikukonai.com](https://mikukonai.com/)
